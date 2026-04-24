@@ -4,192 +4,992 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>kOS Insights</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:#f4f4f5;color:#09090b;font-size:14px;line-height:1.5;overflow:hidden}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#d4d4d8;border-radius:4px}
+html,body{height:100%;font-family:'Roboto',system-ui,sans-serif;background:#F5F6F7;color:#3C4458;font-size:13px;line-height:1.5;overflow:hidden}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:#E2E4E8;border-radius:4px}
 .app{display:flex;height:100vh;overflow:hidden}
-.sb{width:232px;flex-shrink:0;background:#fff;border-right:1px solid #e4e4e7;display:flex;flex-direction:column;height:100vh;z-index:20}
-.sb-logo{padding:16px;border-bottom:1px solid #e4e4e7;display:flex;align-items:center;gap:10px}
-.logo-icon{width:28px;height:28px;background:#18181b;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sb-role-block{padding:12px 16px;border-bottom:1px solid #e4e4e7}
-.sb-role-lbl{font-size:10px;color:#a1a1aa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.sb-role-name{font-size:13px;font-weight:500;color:#09090b}
-.sb-role-inst{font-size:11px;color:#71717a}
-.sb-nav{flex:1;overflow-y:auto;padding:8px}
-.nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:#71717a;background:none;border:none;width:100%;text-align:left;font-family:inherit;transition:all .12s;position:relative;margin-bottom:1px}
-.nav-item:hover{background:#f4f4f5;color:#09090b}
-.nav-item.active{background:#f4f4f5;color:#09090b}
-.nav-item.active::before{content:'';position:absolute;left:-8px;top:6px;bottom:6px;width:2.5px;background:#09090b;border-radius:9999px}
-.nav-item svg{flex-shrink:0;opacity:.7}
-.nav-item.active svg,.nav-item:hover svg{opacity:1}
-.sb-footer{padding:10px;border-top:1px solid #e4e4e7;position:relative}
-.user-btn{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;cursor:pointer;width:100%;background:none;border:none;font-family:inherit;transition:background .12s}
-.user-btn:hover{background:#f4f4f5}
-.avatar{width:28px;height:28px;border-radius:50%;background:#18181b;color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.03em}
-.user-info{flex:1;text-align:left;min-width:0}
-.user-name{font-size:12px;font-weight:500;color:#09090b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-email{font-size:11px;color:#a1a1aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.role-dd{position:absolute;bottom:62px;left:10px;right:10px;background:#fff;border-radius:10px;box-shadow:0 4px 24px rgba(9,9,11,.12),0 0 0 1px rgba(9,9,11,.08);padding:4px;z-index:100;display:none}
+
+/* ── SIDEBAR ── */
+.sb{width:228px;flex-shrink:0;background:#182039;display:flex;flex-direction:column;height:100vh;border-right:1px solid rgba(255,255,255,.06)}
+.sb-logo{padding:15px 18px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px}
+.logo-sq{width:26px;height:26px;background:#6832BA;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-role{padding:11px 18px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-rl{font-size:9px;color:#8B96AA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1px;font-weight:500}
+.sb-rn{font-size:12px;font-weight:500;color:#fff;line-height:1.3}
+.sb-ri{font-size:10px;color:#667085}
+.sb-nav{flex:1;overflow-y:auto;padding:6px}
+.sb-sec{font-size:9px;font-weight:500;color:#667085;text-transform:uppercase;letter-spacing:.07em;padding:10px 10px 3px;margin-top:2px}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:500;color:#667085;background:none;border:none;width:100%;text-align:left;font-family:inherit;transition:all .12s;margin-bottom:1px;position:relative}
+.ni:hover{background:rgba(255,255,255,.06);color:#d4d4d8}
+.ni.active{background:rgba(104,50,186,.28);color:#fff}
+.ni.active::before{content:'';position:absolute;left:-6px;top:5px;bottom:5px;width:2.5px;background:#6832BA;border-radius:9999px}
+.ni svg{flex-shrink:0;opacity:.7}
+.ni.active svg,.ni:hover svg{opacity:1}
+.sb-footer{padding:8px;border-top:1px solid rgba(255,255,255,.07);position:relative}
+.user-btn{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;cursor:pointer;width:100%;background:none;border:none;font-family:inherit;transition:background .12s}
+.user-btn:hover{background:rgba(255,255,255,.06)}
+.av{width:28px;height:28px;border-radius:50%;background:#6832BA;color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
+.un{font-size:11px;font-weight:500;color:#fff;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ue{font-size:10px;color:#8B96AA;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role-dd{position:absolute;bottom:60px;left:8px;right:8px;background:#1e2d48;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:4px;z-index:200;display:none;box-shadow:0 8px 32px rgba(0,0,0,.4)}
 .role-dd.open{display:block}
-.role-opt{padding:8px 12px;border-radius:7px;cursor:pointer;font-size:13px;color:#09090b;display:flex;align-items:center;gap:8px;transition:background .1s}
-.role-opt:hover{background:#eff6ff;color:#1d4ed8}
-.main{flex:1;display:flex;overflow:hidden;min-width:0}
-.page-area{flex:1;overflow-y:auto;padding:36px 40px;background:#fff;min-width:0}
-.side-panel{width:0;flex-shrink:0;background:#fff;border-left:1px solid #e4e4e7;overflow:hidden;transition:width .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
-.side-panel.open{width:380px}
-.sp-inner{width:380px;display:flex;flex-direction:column;height:100%;overflow:hidden}
-.sp-hdr{padding:18px 20px;border-bottom:1px solid #e4e4e7;flex-shrink:0}
-.sp-actions{padding:12px 20px;border-bottom:1px solid #e4e4e7;display:flex;gap:8px;flex-shrink:0}
-.sp-body{flex:1;overflow-y:auto;padding:20px}
-.page-title{font-size:22px;font-weight:600;color:#09090b;margin-bottom:4px;letter-spacing:-.3px}
-.page-sub{font-size:13px;color:#71717a;margin-bottom:24px}
-.stat-grid{display:grid;gap:12px;margin-bottom:12px}
+.ro{padding:7px 11px;border-radius:6px;cursor:pointer;font-size:12px;color:#d4d4d8;display:flex;align-items:center;gap:8px;transition:background .1s}
+.ro:hover{background:rgba(104,50,186,.35)}
+.ver{font-size:9px;color:#3C4458;padding:3px 10px;font-weight:500}
+
+/* ── MAIN ── */
+.main-wrap{flex:1;display:flex;overflow:hidden;min-width:0}
+.page-area{flex:1;overflow-y:auto;background:#fff;min-width:0}
+.page-inner{padding:28px 32px}
+
+/* ── SIDE PANEL ── */
+.sp{width:0;flex-shrink:0;background:#fff;border-left:1px solid #E2E4E8;overflow:hidden;transition:width .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.sp.open{width:396px}
+.sp-inner{width:396px;display:flex;flex-direction:column;height:100%;overflow:hidden}
+.sp-hdr{padding:16px 20px;border-bottom:1px solid #E2E4E8;flex-shrink:0}
+.sp-act{padding:10px 20px;border-bottom:1px solid #E2E4E8;display:flex;gap:7px;flex-shrink:0}
+.sp-body{flex:1;overflow-y:auto;padding:18px 20px}
+
+/* ── AI AGENT PANEL ── */
+.ai-btn{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#6832BA;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(104,50,186,.4);z-index:150;border:none;transition:all .15s}
+.ai-btn:hover{background:#532399;transform:scale(1.05)}
+.ai-panel{position:fixed;bottom:80px;right:24px;width:340px;background:#fff;border-radius:14px;box-shadow:0 8px 40px rgba(9,9,11,.15),0 0 0 1px rgba(9,9,11,.06);z-index:150;display:none;flex-direction:column;overflow:hidden;max-height:520px}
+.ai-panel.open{display:flex}
+.ai-panel-hdr{padding:14px 16px;border-bottom:1px solid #EDEFF2;display:flex;align-items:center;justify-content:space-between;background:#6832BA;border-radius:14px 14px 0 0}
+.ai-panel-title{font-size:13px;font-weight:500;color:#fff;display:flex;align-items:center;gap:8px}
+.ai-msgs{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.ai-msg{padding:10px 12px;border-radius:9px;font-size:12px;line-height:1.55;max-width:90%}
+.ai-msg-ai{background:#F5F6F7;color:#3C4458;align-self:flex-start}
+.ai-msg-user{background:#ECE3FA;color:#390881;align-self:flex-end}
+.ai-suggestions{padding:10px 16px;border-top:1px solid #EDEFF2;display:flex;flex-direction:column;gap:6px}
+.ai-suggestion{display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid #E2E4E8;border-radius:8px;cursor:pointer;font-size:11px;color:#3C4458;background:#fff;text-align:left;font-family:inherit;transition:all .1s}
+.ai-suggestion:hover{background:#FAF9FC;border-color:#DDCEF2;color:#532399}
+.ai-inp-row{padding:10px 16px;border-top:1px solid #EDEFF2;display:flex;align-items:center;gap:8px}
+.ai-inp{flex:1;border:1px solid #E2E4E8;border-radius:8px;padding:7px 11px;font-size:12px;font-family:inherit;outline:none;color:#3C4458}
+.ai-inp:focus{border-color:#6832BA}
+.ai-send{width:30px;height:30px;background:#6832BA;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ai-send:hover{background:#532399}
+
+/* ── TYPOGRAPHY ── */
+.page-title{font-size:22px;font-weight:500;color:#2E3751;margin-bottom:3px;line-height:1.2;letter-spacing:-.2px}
+.page-sub{font-size:12px;color:#667085;margin-bottom:20px}
+.body{font-size:13px;line-height:20px;color:#3C4458}
+.meta{font-size:11px;color:#8B96AA}
+.sec-lbl{font-size:10px;font-weight:500;color:#8B96AA;text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
+.card-title{font-size:13px;font-weight:500;color:#2E3751;margin-bottom:12px}
+
+/* ── STAT CARDS (polished) ── */
+.sg{display:grid;gap:10px;margin-bottom:12px}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
-.stat{background:#f9fafb;border-radius:10px;padding:16px 18px;border:1px solid #f0f0f0}
-.stat-lbl{font-size:10px;color:#a1a1aa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;font-weight:500}
-.stat-val{font-size:26px;font-weight:600;color:#09090b;line-height:1;font-variant-numeric:tabular-nums}
-.stat-sub{font-size:11px;color:#a1a1aa;margin-top:4px}
-.stat-breakdown{margin-top:10px;border-top:1px solid #ebebeb;padding-top:10px}
-.bd-row{display:flex;justify-content:space-between;padding:2px 0;font-size:12px}
-.card{background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px;margin-bottom:16px}
-.card-title{font-size:14px;font-weight:600;color:#09090b;margin-bottom:16px}
-.tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px}
-thead tr{border-bottom:1px solid #e4e4e7}
-th{text-align:left;padding:0 12px 10px 0;font-size:11px;font-weight:500;color:#a1a1aa;white-space:nowrap}
-td{padding:11px 12px 11px 0;border-bottom:1px solid #f4f4f5;color:#52525b;vertical-align:middle}
+.g6{grid-template-columns:repeat(6,1fr)}
+.stat{background:#fff;border:1px solid #E2E4E8;border-radius:10px;padding:14px 16px;box-shadow:0 1px 3px rgba(9,9,11,.04)}
+.stat:hover{box-shadow:0 2px 8px rgba(9,9,11,.07);border-color:#D4D4D8}
+.stat-lbl{font-size:9px;color:#8B96AA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-weight:500}
+.stat-val{font-size:22px;font-weight:500;color:#2E3751;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.stat-sub{font-size:10px;color:#8B96AA;margin-top:3px}
+.stat-bd{margin-top:8px;border-top:1px solid #EDEFF2;padding-top:8px}
+.bd-row{display:flex;justify-content:space-between;padding:2px 0;font-size:11px}
+.stat-spark{margin-top:8px;opacity:.7}
+
+/* ── CARD ── */
+.card{background:#fff;border:1px solid #E2E4E8;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(9,9,11,.04)}
+
+/* ── TABLE ── */
+.tbl-wrap{border:1px solid #E2E4E8;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(9,9,11,.04)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead tr{background:#F9FAFB;border-bottom:1px solid #E2E4E8}
+th{text-align:left;padding:9px 12px;font-size:10px;font-weight:600;color:#8B96AA;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase}
+td{padding:10px 12px;border-bottom:1px solid #F5F6F7;color:#3C4458;vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
 tbody tr.clickable{cursor:pointer}
-tbody tr.clickable:hover td{background:rgba(9,9,11,.025)}
-.td-name{font-weight:500;color:#09090b}
-.mono{font-family:'SF Mono','Fira Code',monospace;font-size:12px}
-.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:500;white-space:nowrap;line-height:1.6}
-.b-green{background:#dcfce7;color:#166534}
-.b-amber{background:#fef9c3;color:#854d0e}
-.b-red{background:#fee2e2;color:#991b1b}
-.b-blue{background:#dbeafe;color:#1e40af}
-.b-orange{background:#ffedd5;color:#9a3412}
-.b-purple{background:#f3e8ff;color:#6b21a8}
-.b-teal{background:#ccfbf1;color:#0f766e}
-.b-gray{background:#f4f4f5;color:#71717a}
-.status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:500}
-.s-active{background:#dcfce7;color:#166534;border:1px solid #86efac}
-.s-inactive{background:#f4f4f5;color:#71717a;border:1px solid #e4e4e7}
-.dot-i{width:6px;height:6px;border-radius:50%}
-.tabs{display:flex;border-bottom:1px solid #e4e4e7;margin-bottom:20px}
-.tab{padding:9px 0;margin-right:24px;font-size:13px;font-weight:500;cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;color:#71717a;font-family:inherit;transition:all .12s}
-.tab:hover{color:#09090b}
-.tab.active{color:#09090b;border-bottom-color:#09090b}
-.filters{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:flex-end}
-.filter-group{display:flex;flex-direction:column;gap:5px}
-.filter-lbl{font-size:11px;color:#71717a;font-weight:500}
-.inp{border:1px solid #e4e4e7;border-radius:8px;padding:8px 12px;font-size:13px;color:#09090b;background:#fff;font-family:inherit;transition:border .15s;outline:none}
-.inp:focus{border-color:#a5b4fc}
-.inp::placeholder{color:#a1a1aa}
-select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2371717a'%3E%3Cpath fill-rule='evenodd' d='M5.22 10.22a.75.75 0 0 1 1.06 0L8 12.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 3.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:14px;padding-right:32px;cursor:pointer}
-textarea.inp{resize:vertical;min-height:80px}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:13px;font-weight:500;color:#09090b;margin-bottom:6px}
-.req{color:#ef4444}
-.inp-group{position:relative}
-.inp-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#a1a1aa;pointer-events:none;display:flex}
-.inp-group .inp{padding-left:34px}
-.btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;border-radius:8px;padding:8px 16px;cursor:pointer;border:1px solid #e4e4e7;background:#fff;color:#09090b;font-family:inherit;transition:all .12s;white-space:nowrap}
-.btn:hover{background:#f4f4f5}
-.btn-primary{background:#18181b;color:#fff;border-color:#18181b}
-.btn-primary:hover{background:#27272a}
-.btn-sm{padding:5px 11px;font-size:12px;border-radius:7px}
-.btn-ghost{background:transparent;border-color:transparent;color:#71717a}
-.btn-ghost:hover{background:#f4f4f5;color:#09090b}
-.score-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.score-bar-track{flex:1;height:5px;background:#e4e4e7;border-radius:9999px;overflow:hidden}
-.score-bar-fill{height:100%;border-radius:9999px}
-.score-bar-num{font-size:12px;font-weight:600;min-width:16px;text-align:right;font-variant-numeric:tabular-nums}
-.prog-track{height:5px;background:#e4e4e7;border-radius:9999px;overflow:hidden;margin-top:8px}
+tbody tr.clickable:hover td{background:#FAFAFA}
+tbody tr.sel td{background:#FAF9FC;border-left:2px solid #6832BA}
+.td-name{font-weight:500;color:#2E3751;font-size:13px}
+.mono{font-family:'Roboto Mono',monospace;font-size:11px;color:#667085}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;white-space:nowrap;line-height:1.7}
+.sp2{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500}
+.sa{background:#D1FADF;color:#039855}
+.si{background:#EDEFF2;color:#667085}
+.dot-i{width:5px;height:5px;border-radius:50%}
+
+/* ── TABS ── */
+.tabs{display:flex;border-bottom:1px solid #E2E4E8;margin-bottom:16px}
+.tab{padding:8px 0;margin-right:20px;font-size:12px;font-weight:500;cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;color:#667085;font-family:inherit;transition:all .12s}
+.tab:hover{color:#2E3751}
+.tab.active{color:#6832BA;border-bottom-color:#6832BA}
+
+/* ── FILTERS ── */
+.filters{display:flex;gap:9px;margin-bottom:18px;flex-wrap:wrap;align-items:flex-end}
+.fl{display:flex;flex-direction:column;gap:4px}
+.fl-lbl{font-size:10px;color:#667085;font-weight:500}
+
+/* ── INPUTS ── */
+.inp{border:1px solid #E2E4E8;border-radius:7px;padding:7px 10px;font-size:12px;color:#3C4458;background:#fff;font-family:inherit;outline:none;transition:border .15s}
+.inp:focus{border-color:#6832BA;box-shadow:0 0 0 3px rgba(104,50,186,.08)}
+.inp::placeholder{color:#B1B8C4}
+select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%238B96AA'%3E%3Cpath fill-rule='evenodd' d='M5.22 10.22a.75.75 0 0 1 1.06 0L8 12.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 3.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-size:12px;padding-right:26px;cursor:pointer}
+textarea.inp{resize:vertical;min-height:72px}
+.inp-wrap{position:relative;display:flex;align-items:center}
+.inp-ico{position:absolute;left:9px;color:#B1B8C4;pointer-events:none;display:flex}
+.inp-wrap .inp{padding-left:30px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:500;color:#3C4458;margin-bottom:4px}
+.req{color:#F04438}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;border-radius:7px;padding:7px 14px;cursor:pointer;border:1px solid #E2E4E8;background:#fff;color:#3C4458;font-family:inherit;transition:all .12s;white-space:nowrap;outline:none}
+.btn:hover{background:#F5F6F7;border-color:#D4D4D8}
+.btn:focus-visible{outline:2px solid #6832BA;outline-offset:2px}
+.btn-primary{background:#6832BA;color:#fff;border-color:#6832BA}
+.btn-primary:hover{background:#532399;border-color:#532399}
+.btn-ghost{background:transparent;border-color:transparent;color:#8B96AA}
+.btn-ghost:hover{background:#F5F6F7;color:#3C4458;border-color:transparent}
+.btn-sm{padding:4px 10px;font-size:11px;border-radius:6px}
+.btn-purple{background:#FAF9FC;color:#6832BA;border-color:#DDCEF2}
+.btn-purple:hover{background:#ECE3FA}
+
+/* ── SCORE BAR ── */
+.sbar{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.sbar-track{flex:1;height:4px;background:#EDEFF2;border-radius:9999px;overflow:hidden}
+.sbar-fill{height:100%;border-radius:9999px}
+.sbar-num{font-size:10px;font-weight:500;min-width:12px;text-align:right}
+
+/* ── MISC ── */
+.prog{height:4px;background:#EDEFF2;border-radius:9999px;overflow:hidden;margin-top:5px}
 .prog-fill{height:100%;border-radius:9999px}
-.sp-section-lbl{font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
-.call-card{border:1px solid #e4e4e7;border-radius:9px;padding:14px;margin-bottom:10px;cursor:pointer;background:#fafafa;transition:background .1s}
-.call-card:hover{background:#f4f4f5}
-.ksp-row{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#f9fafb;border-radius:8px;border:1px solid #f0f0f0;margin-bottom:8px}
-.bullet{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px}
-.bullet-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.divider{border:none;border-top:1px solid #f0f0f0;margin:16px 0}
-.summary-box{background:#f9fafb;border:1px solid #f0f0f0;border-radius:9px;padding:14px;margin-bottom:16px}
-.perf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.perf-card{background:#fff;border:1px solid #e4e4e7;border-radius:11px;padding:18px}
+.divider{border:none;border-top:1px solid #EDEFF2;margin:14px 0}
+.call-card{border:1px solid #E2E4E8;border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer;background:#FAFAFA;transition:all .1s}
+.call-card:hover{background:#F5F6F7;border-color:#D4D4D8}
+.ksp-row{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#F5F6F7;border-radius:7px;margin-bottom:6px;border:1px solid #EDEFF2}
+.blt{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
+.blt-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.info-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #F5F6F7;font-size:12px}
+.info-row:last-child{border-bottom:none}
+.perf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.perf-card{background:#fff;border:1px solid #E2E4E8;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(9,9,11,.04)}
+.breadcrumb{display:flex;align-items:center;gap:5px;margin-bottom:16px;font-size:11px;color:#8B96AA}
+.breadcrumb a{color:#6832BA;cursor:pointer}
+.breadcrumb a:hover{text-decoration:underline}
+.comm-item{padding:11px;border:1px solid #E2E4E8;border-radius:8px;margin-bottom:8px;background:#fff}
+.comm-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.ch-chip{padding:3px 9px;border-radius:4px;border:1px solid #E2E4E8;background:#fff;font-size:10px;font-weight:500;color:#667085;cursor:pointer;font-family:inherit;transition:all .1s;margin-right:5px}
+.ch-chip.active{background:#ECE3FA;color:#532399;border-color:#DDCEF2}
+.lead-score-circle{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0}
+.upcoming-fu{background:#FAF9FC;border:1px solid #DDCEF2;border-radius:7px;padding:7px 12px;display:flex;align-items:center;gap:7px;font-size:11px;color:#532399}
 </style>
 </head>
 <body>
 <div class="app">
+
+<!-- SIDEBAR -->
 <aside class="sb">
   <div class="sb-logo">
-    <div class="logo-icon"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-    <span style="font-size:14px;font-weight:600;color:#09090b">kOS Insights</span>
+    <div class="logo-sq"><svg width="13" height="13" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+    <span style="font-size:13px;font-weight:600;color:#fff;letter-spacing:-.1px">kOS Insights</span>
   </div>
-  <div class="sb-role-block">
-    <div class="sb-role-lbl">Role</div>
-    <div class="sb-role-name" id="sbRoleName">Counsellor Admin</div>
-    <div class="sb-role-inst" id="sbRoleInst">JAGSoM</div>
+  <div class="sb-role">
+    <div class="sb-rl">Role</div>
+    <div class="sb-rn" id="sbRN">Counsellor Admin</div>
+    <div class="sb-ri" id="sbRI">JAGSoM</div>
   </div>
   <nav class="sb-nav" id="sbNav"></nav>
   <div class="sb-footer">
     <div class="role-dd" id="roleDD">
-      <div class="role-opt" onclick="switchRole('admin')">
-        <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/></svg>
-        Counsellor Admin
-      </div>
-      <div class="role-opt" onclick="switchRole('counsellor')">
-        <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/></svg>
-        Counsellor
-      </div>
+      <div class="ro" onclick="switchRole('cadmin')"><svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/></svg>Counsellor Admin</div>
+      <div class="ro" onclick="switchRole('counsellor')"><svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/></svg>Counsellor</div>
     </div>
     <button class="user-btn" onclick="toggleDD()">
-      <div class="avatar" id="userAvatar">AU</div>
-      <div class="user-info">
-        <div class="user-name" id="userName">Admin User</div>
-        <div class="user-email" id="userEmail">admin@jagsom.edu.in</div>
-      </div>
-      <svg width="11" height="11" fill="currentColor" viewBox="0 0 16 16" style="color:#a1a1aa;flex-shrink:0"><path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z"/></svg>
+      <div class="av" id="userAv">CA</div>
+      <div style="flex:1;min-width:0"><div class="un" id="userName">Admin User</div><div class="ue" id="userEmail">admin@jagsom.edu.in</div></div>
+      <svg width="9" height="9" fill="currentColor" viewBox="0 0 16 16" style="color:#8B96AA;flex-shrink:0"><path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z"/></svg>
     </button>
-    <div style="font-size:10px;color:#d4d4d8;padding:3px 10px 0">v0.1.21</div>
+    <div class="ver">v0.2.0 · kDS</div>
   </div>
 </aside>
-<div class="main">
+
+<!-- MAIN -->
+<div class="main-wrap" id="mainWrap">
   <div class="page-area" id="pageArea"></div>
-  <div class="side-panel" id="sidePanel"><div class="sp-inner" id="spInner"></div></div>
+  <div class="sp" id="sp"><div class="sp-inner" id="spI"></div></div>
 </div>
 </div>
+
+<!-- AI AGENT -->
+<button class="ai-btn" onclick="toggleAI()" title="AI Agent">
+  <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2z"/><path d="M3 14v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><circle cx="8" cy="14" r=".5" fill="#fff"/><circle cx="16" cy="14" r=".5" fill="#fff"/></svg>
+</button>
+
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-panel-hdr">
+    <div class="ai-panel-title">
+      <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2z"/><path d="M3 14v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/></svg>
+      kOS AI Agent
+    </div>
+    <button class="btn-ghost" onclick="toggleAI()" style="background:transparent;border:none;cursor:pointer;color:#fff;opacity:.7;padding:2px">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg>
+    </button>
+  </div>
+  <div class="ai-msgs" id="aiMsgs">
+    <div class="ai-msg ai-msg-ai">
+      <strong style="display:block;margin-bottom:3px;color:#2E3751">Hello, Manohar.</strong>
+      I'm your kOS AI Agent. I can help you with lead insights, call analysis, follow-up suggestions, and more. How can I help today?
+    </div>
+  </div>
+  <div class="ai-suggestions" id="aiSuggestions">
+    <div style="font-size:10px;color:#8B96AA;font-weight:500;margin-bottom:4px">SUGGESTED</div>
+    <button class="ai-suggestion" onclick="aiSuggest('Summarise my follow-up queue for today')">
+      <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" style="color:#6832BA;flex-shrink:0"><path fill-rule="evenodd" d="M6 2a1 1 0 0 0-1 1v1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1V3a1 1 0 1 0-2 0v1H7V3a1 1 0 0 0-1-1Zm0 5a1 1 0 0 0 0 2h8a1 1 0 1 0 0-2H6Z" clip-rule="evenodd"/></svg>
+      Summarise my follow-up queue for today
+    </button>
+    <button class="ai-suggestion" onclick="aiSuggest('Which lead needs the most urgent attention?')">
+      <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" style="color:#F04438;flex-shrink:0"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/></svg>
+      Which lead needs the most urgent attention?
+    </button>
+    <button class="ai-suggestion" onclick="aiSuggest('Give me tips to improve my call score')">
+      <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" style="color:#039855;flex-shrink:0"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/></svg>
+      Give me tips to improve my call score
+    </button>
+    <button class="ai-suggestion" onclick="aiSuggest('Show KSP coverage gaps for this week')">
+      <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" style="color:#B54708;flex-shrink:0"><path d="M15.98 1.804a1 1 0 0 0-1.96 0l-.24 1.192-1.192.24a1 1 0 0 0 0 1.96l1.192.24.24 1.192a1 1 0 0 0 1.96 0l.24-1.192 1.192-.24a1 1 0 0 0 0-1.96l-1.192-.24-.24-1.192Z"/></svg>
+      Show KSP coverage gaps for this week
+    </button>
+  </div>
+  <div class="ai-inp-row">
+    <input class="ai-inp" id="aiInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendAI()">
+    <button class="ai-send" onclick="sendAI()"><svg width="13" height="13" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg></button>
+  </div>
+</div>
+
 <script>
-const D={counsellors:[{id:1,name:'Manohar Reddy',email:'manoharreddy@jagsom.edu.in',mcube:'8976958620',onboarding:'2024-12-01',status:'ACTIVE',score:62,calls:340,fuDone:28,fuMissed:12},{id:2,name:'Chhavi Nigam',email:'chhavi.nigam@jagsom.edu.in',mcube:'6366568119',onboarding:'2024-12-01',status:'ACTIVE',score:78,calls:412,fuDone:45,fuMissed:5},{id:3,name:'Aditya Vishwakarma',email:'aditya888@gmail.com',mcube:'9136682426',onboarding:'2024-12-01',status:'ACTIVE',score:45,calls:289,fuDone:19,fuMissed:22},{id:4,name:'Priya Mehta',email:'priya.mehta@jagsom.edu.in',mcube:'9845123670',onboarding:'2025-01-15',status:'ACTIVE',score:83,calls:198,fuDone:31,fuMissed:3},{id:5,name:'Rahul Sharma',email:'rahul.sharma@jagsom.edu.in',mcube:'7204284304',onboarding:'2025-01-15',status:'ACTIVE',score:38,calls:156,fuDone:11,fuMissed:28}],ksps:[{id:1,name:'Early Admission Discount',desc:'30% fee waiver before March 31st. Scholarship linked to CAT/GMAT scores above 80 percentile.',status:'ACTIVE'},{id:2,name:'Placement Guarantee',desc:'Avg CTC 14.2 LPA. Top recruiters: Deloitte, KPMG, Amazon, Flipkart. 100% placement since 2018.',status:'ACTIVE'},{id:3,name:'Industry Mentorship',desc:'1:1 mentorship with C-suite executives from 50+ partner companies. Quarterly sessions.',status:'INACTIVE'}],leads:[{id:1,name:'Sai Sanket',mobile:'8287479005',program:'MBA Finance',score:17,action:'CALL',contacted:'17 Apr, 11:07 AM',interest:'LOW_INTEREST'},{id:2,name:'Ananya Krishnan',mobile:'9816768011',program:'MBA Marketing',score:72,action:'CALL',contacted:'16 Apr, 3:30 PM',interest:'MODERATELY_INTERESTED'},{id:3,name:'Vikram Nair',mobile:'9901234567',program:'PGDM',score:88,action:'WHATSAPP',contacted:'15 Apr, 10:00 AM',interest:'HIGHLY_INTERESTED'},{id:4,name:'Deepika Joshi',mobile:'8765432190',program:'MBA HR',score:45,action:'CALL',contacted:'14 Apr, 2:15 PM',interest:'UNDECIDED'},{id:5,name:'Arjun Pillai',mobile:'9123456780',program:'MBA Operations',score:31,action:'CALL',contacted:'13 Apr, 9:45 AM',interest:'LOW_INTEREST'}],calls:[{id:'c1',leadId:1,date:'17 Apr 2026',time:'11:07 AM',dur:'8m 42s',score:34,summary:'Manohar reached out to Sai Sanket, a B.Com graduate in Hyderabad interested in a shift into financial consulting. He introduced the MBA Finance program but struggled to connect the curriculum to Sai goals. Sai raised concerns about the 14.8L fee and EMI options. Manohar gave vague answers without confirming specifics. The call ended without a clear next step.',cats:{opening:3,solution:2,ksp:1,objection:2,closing:1,talkListen:3,duration:3,followup:1},interest:'LOW_INTEREST',concerns:['High program fee no EMI clarity provided','Uncertain about ROI vs current job trajectory','Wants to compare with other institutes before deciding'],nextSteps:['Send detailed fee breakup and EMI options via WhatsApp','Follow-up call scheduled 20 Apr 2026 at 11 AM'],ksps:[{name:'Early Admission Discount',pitched:false},{name:'Placement Guarantee',pitched:true}]},{id:'c2',leadId:1,date:'10 Apr 2026',time:'2:30 PM',dur:'5m 18s',score:28,summary:'First contact call. Sai was caught at work and could only speak briefly. Manohar gave a generic introduction without probing goals. No KSPs were pitched. Follow-up was loosely promised but never scheduled.',cats:{opening:2,solution:1,ksp:0,objection:0,closing:1,talkListen:2,duration:1,followup:2},interest:'UNDECIDED',concerns:['Poor timing lead was busy at work and distracted'],nextSteps:['Call back at a better time with a clear agenda'],ksps:[{name:'Early Admission Discount',pitched:false},{name:'Placement Guarantee',pitched:false}]}],catMeta:[{key:'opening',label:'Opening and Rapport',w:'10%'},{key:'solution',label:'Solution Alignment',w:'20%'},{key:'ksp',label:'KSP Pitch',w:'15%'},{key:'objection',label:'Objection Handling',w:'20%'},{key:'closing',label:'Closing Technique',w:'10%'},{key:'talkListen',label:'Talk to Listen Ratio',w:'5%'},{key:'duration',label:'Call Duration',w:'5%'},{key:'followup',label:'Follow-up Commitments',w:'15%'}]};
-let S={role:'admin',page:'dashboard',adminTab:'counsellors'};
-const H={sc(s){return s>=71?'b-green':s>=41?'b-amber':'b-red'},scColor(s){return s>=71?'#166534':s>=41?'#92400e':'#991b1b'},barColor(p){return p>=71?'#22c55e':p>=41?'#f59e0b':'#ef4444'},sb(s){return`<span class="badge ${H.sc(s)}">${s}</span>`},iMap:{HIGHLY_INTERESTED:{l:'Highly Interested',c:'b-green'},MODERATELY_INTERESTED:{l:'Moderately Interested',c:'b-blue'},UNDECIDED:{l:'Undecided',c:'b-amber'},LOW_INTEREST:{l:'Low Interest',c:'b-orange'},NOT_INTERESTED:{l:'Not Interested',c:'b-red'},UNQUALIFIED_LEAD:{l:'Unqualified',c:'b-purple'}},ib(i){const m=H.iMap[i]||{l:i,c:'b-gray'};return`<span class="badge ${m.c}">${m.l}</span>`},ab(a){const m={CALL:'b-green',WHATSAPP:'b-teal',EMAIL:'b-blue'};return`<span class="badge ${m[a]||'b-gray'}">${a}</span>`},sp(s){const a=s==='ACTIVE';return`<span class="status-pill ${a?'s-active':'s-inactive'}"><span class="dot-i" style="background:${a?'#22c55e':'#a1a1aa'}"></span>${s}</span>`},ini(n){return n.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase()},field(l,t,p,r=false){return`<div class="field"><label>${l}${r?' <span class="req">*</span>':''}</label><input type="${t}" class="inp" placeholder="${p}" style="width:100%"></div>`}};
-const NAVS={admin:[{id:'dashboard',label:'Dashboard',ic:'<path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"/>'},{id:'counsellorManager',label:'Counsellor Manager',ic:'<path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/>'}],counsellor:[{id:'dashboard',label:'My Dashboard',ic:'<path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"/>'},{id:'myLeads',label:'My Leads',ic:'<path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/>'}]};
-function renderSB(){document.getElementById('sbNav').innerHTML=NAVS[S.role].map(n=>`<button class="nav-item ${S.page===n.id?'active':''}" onclick="navigate('${n.id}')"><svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor">${n.ic}</svg>${n.label}</button>`).join('');}
-function navigate(p){S.page=p;closePanel();renderSB();renderPage();}
-function switchRole(r){S.role=r;S.page='dashboard';document.getElementById('roleDD').classList.remove('open');closePanel();const a=r==='admin';document.getElementById('sbRoleName').textContent=a?'Counsellor Admin':'Manohar Reddy';document.getElementById('sbRoleInst').textContent=a?'JAGSoM':'Counsellor - JAGSoM';document.getElementById('userName').textContent=a?'Admin User':'Manohar Reddy';document.getElementById('userEmail').textContent=a?'admin@jagsom.edu.in':'manoharreddy@jagsom.edu.in';document.getElementById('userAvatar').textContent=a?'AU':'MR';renderSB();renderPage();}
+/* ── DATA ── */
+const D={
+  counsellors:[
+    {id:1,name:'Manohar Reddy',email:'manoharreddy@jagsom.edu.in',mcube:'8976958620',onboarding:'2024-12-01',status:'ACTIVE',score:62,calls:340,callTime:'11:53:56',fuMissed:12},
+    {id:2,name:'Chhavi Nigam',email:'chhavi.nigam@jagsom.edu.in',mcube:'6366568119',onboarding:'2024-12-01',status:'ACTIVE',score:78,calls:412,callTime:'14:22:10',fuMissed:5},
+    {id:3,name:'Aditya Vishwakarma',email:'aditya888@gmail.com',mcube:'9136682426',onboarding:'2024-12-01',status:'ACTIVE',score:45,calls:289,callTime:'09:21:44',fuMissed:22},
+    {id:4,name:'Priya Mehta',email:'priya.mehta@jagsom.edu.in',mcube:'9845123670',onboarding:'2025-01-15',status:'ACTIVE',score:83,calls:198,callTime:'07:45:12',fuMissed:3},
+    {id:5,name:'Rahul Sharma',email:'rahul.sharma@jagsom.edu.in',mcube:'7204284304',onboarding:'2025-01-15',status:'ACTIVE',score:38,calls:156,callTime:'06:30:00',fuMissed:28},
+  ],
+  ksps:[
+    {id:1,name:'Early Admission Discount',desc:'30% fee waiver before March 31st. Linked to CAT/GMAT above 80 percentile.',status:'ACTIVE'},
+    {id:2,name:'Placement Guarantee',desc:'Avg CTC ₹14.2 LPA. Top recruiters: Deloitte, KPMG, Amazon, Flipkart.',status:'ACTIVE'},
+    {id:3,name:'Industry Mentorship',desc:'1:1 mentorship with C-suite executives from 50+ partner companies.',status:'INACTIVE'},
+  ],
+  leads:[
+    {id:1,name:'Sai Sanket',mobile:'8287479005',program:'MBA Finance',score:17,action:'CALL',contacted:'17 Apr, 11:07 AM',interest:'LOW_INTEREST',email:'sai.sanket@gmail.com',source:'Google Ads',created:'10 Apr, 2026',lastActive:'17 Apr, 2026',fuDate:'20 Apr, 2026 11:00 AM'},
+    {id:2,name:'Ananya Krishnan',mobile:'9816768011',program:'MBA Marketing',score:72,action:'CALL',contacted:'16 Apr, 3:30 PM',interest:'MODERATELY_INTERESTED',email:'ananya.k@gmail.com',source:'CollegeDunia',created:'08 Apr, 2026',lastActive:'16 Apr, 2026',fuDate:'19 Apr, 2026 3:00 PM'},
+    {id:3,name:'Vikram Nair',mobile:'9901234567',program:'PGDM',score:88,action:'WHATSAPP',contacted:'15 Apr, 10:00 AM',interest:'HIGHLY_INTERESTED',email:'vikram.nair@gmail.com',source:'Shiksha',created:'05 Apr, 2026',lastActive:'15 Apr, 2026',fuDate:'18 Apr, 2026 10:00 AM'},
+    {id:4,name:'Deepika Joshi',mobile:'8765432190',program:'MBA HR',score:45,action:'CALL',contacted:'14 Apr, 2:15 PM',interest:'UNDECIDED',email:'deepika.j@gmail.com',source:'Direct',created:'01 Apr, 2026',lastActive:'14 Apr, 2026',fuDate:'21 Apr, 2026 2:00 PM'},
+    {id:5,name:'Arjun Pillai',mobile:'9123456780',program:'MBA Operations',score:31,action:'CALL',contacted:'13 Apr, 9:45 AM',interest:'LOW_INTEREST',email:'arjun.p@gmail.com',source:'TEP',created:'28 Mar, 2026',lastActive:'13 Apr, 2026',fuDate:'22 Apr, 2026 9:00 AM'},
+  ],
+  calls:[
+    {id:'c1',leadId:1,date:'17 Apr 2026',time:'11:07 AM',dur:'8m 42s',score:34,
+     summary:'Manohar reached out to Sai Sanket, a B.Com graduate interested in financial consulting. He introduced MBA Finance but struggled to connect it to Sai\'s goals. Sai raised concerns about the ₹14.8L fee. No clear next step was established.',
+     cats:{opening:3,solution:2,ksp:1,objection:2,closing:1,talkListen:3,duration:3,followup:1},
+     interest:'LOW_INTEREST',strengths:'Good talk-to-listen ratio. Program overview was covered adequately during the opening.',
+     improvements:'Fee concerns left unaddressed. No closing commitment or urgency. Follow-up not confirmed before ending.',
+     keyDetails:'Program: MBA Finance. Fee: ₹14.8 LPA. Scholarship: Not discussed. Background: B.Com graduate, 2 years accounting experience.',
+     concerns:['High program fee with no EMI clarity','Uncertain about ROI vs current job trajectory','Wants to compare with other institutes'],
+     nextSteps:['Send fee breakup and EMI options via WhatsApp','Follow-up call: 20 Apr at 11 AM'],
+     ksps:[{name:'Early Admission Discount',pitched:false},{name:'Placement Guarantee',pitched:true}]},
+    {id:'c2',leadId:1,date:'10 Apr 2026',time:'2:30 PM',dur:'5m 18s',score:28,
+     summary:'First contact. Sai was at work and could only speak briefly. Generic introduction, no KSPs pitched, no follow-up scheduled.',
+     cats:{opening:2,solution:1,ksp:0,objection:0,closing:1,talkListen:2,duration:1,followup:2},
+     interest:'UNDECIDED',strengths:'Call was initiated on time.',improvements:'No KSPs pitched. No needs assessment. Follow-up not scheduled.',
+     keyDetails:'First contact only. Lead was busy at work.',
+     concerns:['Poor timing — lead distracted at work'],
+     nextSteps:['Call back with a clear agenda'],
+     ksps:[{name:'Early Admission Discount',pitched:false},{name:'Placement Guarantee',pitched:false}]},
+  ],
+  catMeta:[
+    {key:'opening',label:'Opening & Rapport',w:'10%'},{key:'solution',label:'Solution Alignment',w:'20%'},
+    {key:'ksp',label:'KSP Pitch',w:'15%'},{key:'objection',label:'Objection Handling',w:'20%'},
+    {key:'closing',label:'Closing Technique',w:'10%'},{key:'talkListen',label:'Talk-to-Listen',w:'5%'},
+    {key:'duration',label:'Call Duration',w:'5%'},{key:'followup',label:'Follow-up Commitments',w:'15%'},
+  ],
+  commLogs:[
+    {id:'l1',leadId:1,type:'CALL',date:'17 Apr 2026',time:'11:07 AM',duration:'8m 42s',body:'Inbound call. Discussed MBA Finance program. Fee structure query raised by lead.'},
+    {id:'l2',leadId:1,type:'EMAIL',date:'17 Apr 2026',time:'11:45 AM',subject:'MBA Finance — Fee Breakup',body:'Hi Sai, please find the fee structure and EMI options attached. Let me know if you have any questions. Best, Manohar'},
+    {id:'l3',leadId:1,type:'WHATSAPP',date:'16 Apr 2026',time:'3:00 PM',body:'Hi Sai! Just checking in. Happy to answer any questions about the MBA Finance program.'},
+    {id:'l4',leadId:1,type:'CALL',date:'10 Apr 2026',time:'2:30 PM',duration:'5m 18s',body:'First contact. Lead was busy at work. Brief introduction only.'},
+  ],
+};
+
+/* ── HELPERS ── */
+const IM={HIGHLY_INTERESTED:{l:'Highly Interested',bg:'#D1FADF',c:'#039855'},MODERATELY_INTERESTED:{l:'Moderately Interested',bg:'#D4E4FC',c:'#0263EB'},UNDECIDED:{l:'Undecided',bg:'#FEF2C1',c:'#B54708'},LOW_INTEREST:{l:'Low Interest',bg:'#FFECD6',c:'#B54708'},NOT_INTERESTED:{l:'Not Interested',bg:'#FEE4E2',c:'#D92D20'},UNQUALIFIED_LEAD:{l:'Unqualified',bg:'#ECE3FA',c:'#532399'}};
+const scC=s=>s>=71?'#039855':s>=41?'#B54708':'#D92D20';
+const scBg=s=>s>=71?'#D1FADF':s>=41?'#FEF2C1':'#FEE4E2';
+const barC=p=>p>=71?'#1ACC73':p>=41?'#FCBC28':'#F04438';
+const ib=i=>{const m=IM[i]||{l:i,bg:'#EDEFF2',c:'#667085'};return`<span class="badge" style="background:${m.bg};color:${m.c}">${m.l}</span>`;};
+const sb=s=>`<span class="badge" style="background:${scBg(s)};color:${scC(s)}">${s}</span>`;
+const ab=a=>{const m={CALL:{bg:'#D1FADF',c:'#039855'},WHATSAPP:{bg:'#D1FAF0',c:'#027A48'},EMAIL:{bg:'#D4E4FC',c:'#0263EB'},OTHERS:{bg:'#EDEFF2',c:'#667085'}};const x=m[a]||{bg:'#EDEFF2',c:'#667085'};return`<span class="badge" style="background:${x.bg};color:${x.c}">${a}</span>`;};
+const sp2=s=>{const a=s==='ACTIVE';return`<span class="sp2 ${a?'sa':'si'}"><span class="dot-i" style="background:${a?'#1ACC73':'#B1B8C4'}"></span>${s}</span>`;};
+const ini=n=>n.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+const ctColor=t=>({CALL:'#039855',EMAIL:'#0263EB',WHATSAPP:'#027A48',SMS:'#B54708'})[t]||'#667085';
+
+/* sparkline */
+function spark(vals,color,h=28){
+  const mx=Math.max(...vals),mn=Math.min(...vals);const w=60;
+  const pts=vals.map((v,i)=>`${(i/(vals.length-1))*w},${h-((v-mn)/(mx-mn||1))*(h-4)+2}`).join(' ');
+  return`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+/* gauge */
+function gauge(score){
+  const c=scC(score);const lbl=score>=71?'Excellent':score>=41?'Good':'Needs Work';
+  const ang=(score/100)*180-90;const r=a=>a*Math.PI/180;
+  const x=50+38*Math.cos(r(ang-90));const y=52+38*Math.sin(r(ang-90));
+  return`<svg width="110" height="62" viewBox="0 0 100 60" style="overflow:visible">
+    <path d="M12,56 A38,38 0 0,1 88,56" fill="none" stroke="#EDEFF2" stroke-width="7" stroke-linecap="round"/>
+    <path d="M12,56 A38,38 0 0,1 ${x.toFixed(1)},${y.toFixed(1)}" fill="none" stroke="${c}" stroke-width="7" stroke-linecap="round"/>
+    <text x="50" y="52" fill="${c}" font-family="Roboto,sans-serif" font-size="17" font-weight="500" text-anchor="middle">${score}</text>
+    <text x="50" y="62" fill="#8B96AA" font-family="Roboto,sans-serif" font-size="7" text-anchor="middle">${lbl}</text>
+  </svg>`;
+}
+
+/* ── STATE ── */
+let S={role:'cadmin',page:'dashboard',adminTab:'counsellors',selectedLead:null,callTab:'score',commFilter:'ALL',leadTab:'info'};
+
+/* ── NAV ── */
+const NAVS={
+  cadmin:[
+    {id:'dashboard',label:'Dashboard',ic:'<path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"/>'},
+    {id:'counsellorManager',label:'Counsellor Manager',ic:'<path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/>'},
+  ],
+  counsellor:[
+    {id:'cDashboard',label:'My Dashboard',ic:'<path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"/>'},
+    {id:'myLeads',label:'My Leads',ic:'<path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/>'},
+    {id:'leadsOpps',label:'Leads & Opportunities',ic:'<path d="M7 3.5A1.5 1.5 0 0 1 8.5 2h3A1.5 1.5 0 0 1 13 3.5v13A1.5 1.5 0 0 1 11.5 18h-3A1.5 1.5 0 0 1 7 16.5v-13ZM2.5 8A1.5 1.5 0 0 0 1 9.5v7A1.5 1.5 0 0 0 2.5 18h3A1.5 1.5 0 0 0 7 16.5v-7A1.5 1.5 0 0 0 5.5 8h-3ZM15 13.5A1.5 1.5 0 0 0 13.5 12h-1A1.5 1.5 0 0 0 11 13.5v3a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5-1.5v-3Z"/>'},
+  ]
+};
+
+function renderSB(){
+  document.getElementById('sbNav').innerHTML=(NAVS[S.role]||[]).map(n=>`
+    <button class="ni ${S.page===n.id?'active':''}" onclick="navigate('${n.id}')">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor">${n.ic}</svg>${n.label}
+    </button>`).join('');
+}
+
+function navigate(p){S.page=p;S.selectedLead=null;closePanel();renderSB();renderPage();}
+
+function switchRole(r){
+  S.role=r;S.page={cadmin:'dashboard',counsellor:'cDashboard'}[r]||'dashboard';
+  S.selectedLead=null;document.getElementById('roleDD').classList.remove('open');closePanel();
+  const cfg={cadmin:{rn:'Counsellor Admin',ri:'JAGSoM',av:'CA',un:'Admin User',ue:'admin@jagsom.edu.in'},
+    counsellor:{rn:'Manohar Reddy',ri:'Counsellor · JAGSoM',av:'MR',un:'Manohar Reddy',ue:'manoharreddy@jagsom.edu.in'}}[r];
+  ['sbRN','sbRI','userAv','userName','userEmail'].forEach((id,i)=>document.getElementById(id).textContent=[cfg.rn,cfg.ri,cfg.av,cfg.un,cfg.ue][i]);
+  renderSB();renderPage();
+}
+
 function toggleDD(){document.getElementById('roleDD').classList.toggle('open');}
-document.addEventListener('click',e=>{if(!e.target.closest('.sb-footer'))document.getElementById('roleDD').classList.remove('open');});
-function renderPage(){const el=document.getElementById('pageArea');el.scrollTop=0;const pages={admin:{dashboard:pAD,counsellorManager:pCM},counsellor:{dashboard:pCD,myLeads:pML}};el.innerHTML=(pages[S.role]?.[S.page]||(() =>''))();}
-function pAD(){return`<h1 class="page-title">Your data at a glance.</h1><p class="page-sub">Here is what is happening at your institute.</p><div class="filters"><div class="filter-group"><span class="filter-lbl">Admission Season *</span><select class="inp" style="width:170px"><option>2025 - 2026</option><option>2024 - 2025</option></select></div><div class="filter-group"><span class="filter-lbl">Counsellor</span><select class="inp" style="width:170px"><option>All Counsellors</option>${D.counsellors.map(c=>`<option>${c.name}</option>`).join('')}</select></div><button class="btn btn-primary" style="align-self:flex-end">Filter</button></div><div class="stat-grid g3" style="margin-bottom:12px"><div class="stat"><div class="stat-lbl">Calls Handled</div><div class="stat-val">70,653</div></div><div class="stat"><div class="stat-lbl">Inbound Calls</div><div class="stat-val">23,567</div><div class="stat-breakdown">${[['Answered','21,093','#166534'],['Executive Busy','1,757','#92400e'],['Cancelled','717','#991b1b']].map(([l,v,c])=>`<div class="bd-row"><span style="color:#71717a">${l}</span><span style="font-weight:600;color:${c}">${v}</span></div>`).join('')}</div></div><div class="stat"><div class="stat-lbl">Outbound Calls</div><div class="stat-val">47,086</div><div class="stat-breakdown">${[['Initiated','12,333','#166534'],['No Answer','8,708','#92400e'],['Busy','26,045','#991b1b']].map(([l,v,c])=>`<div class="bd-row"><span style="color:#71717a">${l}</span><span style="font-weight:600;color:${c}">${v}</span></div>`).join('')}</div></div></div><div class="stat-grid g3" style="margin-bottom:24px"><div class="stat"><div class="stat-lbl">Today Follow-Ups</div><div class="stat-val">1,146</div></div><div class="stat"><div class="stat-lbl">Completed Today</div><div class="stat-val" style="color:#166534">4</div></div><div class="stat"><div class="stat-lbl">Follow-Ups Missed</div><div class="stat-val" style="color:#991b1b">95,658</div></div></div><div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div class="card-title" style="margin:0">Follow Up Queue</div><button class="btn btn-sm">Filter</button></div>${leadsTable(D.leads)}</div>`;}
-function pCM(){return`<h1 class="page-title">Counsellor Manager</h1><p class="page-sub">Oversee and manage counsellors and KSPs</p><div class="tabs"><button class="tab ${S.adminTab==='counsellors'?'active':''}" onclick="setAdminTab('counsellors')">Counsellors</button><button class="tab ${S.adminTab==='ksp'?'active':''}" onclick="setAdminTab('ksp')">KSP</button></div><div id="tabContent">${S.adminTab==='counsellors'?tabC():tabK()}</div>`;}
-function setAdminTab(t){S.adminTab=t;document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&t==='counsellors')||(i===1&&t==='ksp')));document.getElementById('tabContent').innerHTML=t==='counsellors'?tabC():tabK();}
-function tabC(){return`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div class="inp-group" style="width:240px"><span class="inp-icon"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search counsellors..."></div><button class="btn btn-primary" onclick="openAddPanel('counsellor')">+ Add New</button></div><div class="tbl-wrap"><table><thead><tr><th>Name</th><th>Avg Call Score</th><th>mCube Number</th><th>Email</th><th>Onboarding Date</th><th>Status</th><th></th></tr></thead><tbody>${D.counsellors.map(c=>`<tr class="clickable" onclick="openCounsellorPanel(${c.id})"><td class="td-name">${c.name}</td><td>${H.sb(c.score)}</td><td class="mono">${c.mcube}</td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.email}</td><td>${c.onboarding}</td><td>${H.sp(c.status)}</td><td><button class="btn btn-sm" onclick="event.stopPropagation();openCounsellorPanel(${c.id})">View</button></td></tr>`).join('')}</tbody></table></div>`;}
-function tabK(){return`<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px"><div class="filter-group"><span class="filter-lbl">Admission Season</span><select class="inp" style="width:170px"><option>2025 - 2026</option></select></div><button class="btn btn-primary" onclick="openAddPanel('ksp')">+ Add New</button></div><table><thead><tr><th>KSP Name</th><th>Description</th><th>Status</th></tr></thead><tbody>${D.ksps.map(k=>`<tr><td class="td-name" style="min-width:180px">${k.name}</td><td style="max-width:340px;color:#52525b">${k.desc}</td><td>${H.sp(k.status)}</td></tr>`).join('')}</tbody></table>`;}
-function pCD(){const c=D.counsellors[0];const pct=Math.round((c.fuDone/(c.fuDone+c.fuMissed))*100);return`<h1 class="page-title">Good morning, ${c.name.split(' ')[0]}.</h1><p class="page-sub">Friday, 17 April 2026</p><div class="stat-grid g4" style="margin-bottom:24px"><div class="stat"><div class="stat-lbl">Avg Call Score</div><div class="stat-val" style="color:${H.scColor(c.score)}">${c.score}</div><div class="stat-sub">out of 100</div></div><div class="stat"><div class="stat-lbl">Calls Handled</div><div class="stat-val">${c.calls.toLocaleString()}</div><div class="stat-sub">this season</div></div><div class="stat"><div class="stat-lbl">Follow-Ups Done</div><div class="stat-val" style="color:#166534">${c.fuDone}</div><div class="stat-sub">of 18 today</div></div><div class="stat"><div class="stat-lbl">Follow-Ups Missed</div><div class="stat-val" style="color:#991b1b">${c.fuMissed}</div><div class="stat-sub">pending</div></div></div><div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div class="card-title" style="margin:0">My Follow-Up Queue</div><button class="btn btn-sm" onclick="navigate('myLeads')">View All Leads</button></div>${leadsTable(D.leads)}</div><div class="perf-grid"><div class="perf-card"><div style="font-size:12px;font-weight:600;color:#09090b;margin-bottom:14px">Call Score Distribution</div>${[['Excellent (71-100)',48,'#22c55e'],['Average (41-70)',172,'#f59e0b'],['Poor (0-40)',120,'#ef4444']].map(([l,n,col])=>`<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:12px;color:#71717a">${l}</span><span style="font-size:12px;font-weight:600;color:#09090b">${n}</span></div><div class="prog-track"><div class="prog-fill" style="width:${(n/c.calls)*100}%;background:${col}"></div></div></div>`).join('')}</div><div class="perf-card"><div style="font-size:12px;font-weight:600;color:#09090b;margin-bottom:14px">Follow-Up Completion</div><div style="font-size:26px;font-weight:600;color:#09090b">${pct}%</div><div class="prog-track" style="margin-bottom:10px"><div class="prog-fill" style="width:${pct}%;background:#22c55e"></div></div><div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#166534">${c.fuDone} done</span><span style="color:#991b1b">${c.fuMissed} missed</span></div></div><div class="perf-card"><div style="font-size:12px;font-weight:600;color:#09090b;margin-bottom:14px">Lead Pipeline</div>${[['Hot Leads',3,'#166534'],['In Progress',12,'#92400e'],['Needs Followup',8,'#991b1b'],['Total Assigned',23,'#09090b']].map(([l,n,col])=>`<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f4f4f5;font-size:13px"><span style="color:#52525b">${l}</span><span style="font-weight:600;color:${col}">${n}</span></div>`).join('')}</div></div>`;}
-function pML(){return`<h1 class="page-title">My Leads</h1><p class="page-sub">Your assigned lead pipeline for 2025-2026</p><div class="filters"><div class="inp-group" style="width:240px"><span class="inp-icon"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search leads..."></div><select class="inp" style="width:160px"><option>All Programs</option><option>MBA Finance</option><option>MBA Marketing</option><option>PGDM</option></select><select class="inp" style="width:200px"><option>All Interest Levels</option><option>Highly Interested</option><option>Undecided</option><option>Low Interest</option></select></div><table><thead><tr><th>Lead Name</th><th>Mobile</th><th>Program</th><th>Interest Level</th><th>Lead Score</th><th>Due Action</th><th>Last Contacted</th></tr></thead><tbody>${D.leads.map(l=>`<tr class="clickable" onclick="openLeadPanel(${l.id})"><td class="td-name">${l.name}</td><td class="mono">${l.mobile}</td><td>${l.program}</td><td>${H.ib(l.interest)}</td><td>${H.sb(l.score)}</td><td>${H.ab(l.action)}</td><td style="color:#a1a1aa;font-size:12px">${l.contacted}</td></tr>`).join('')}</tbody></table>`;}
-function leadsTable(leads){return`<table><thead><tr><th>Lead Name</th><th>Mobile</th><th>Lead Score</th><th>Program</th><th>Interest Level</th><th>Due Action</th><th>Last Contacted</th></tr></thead><tbody>${leads.map(l=>`<tr class="clickable" onclick="openLeadPanel(${l.id})"><td class="td-name">${l.name}</td><td class="mono">${l.mobile}</td><td>${H.sb(l.score)}</td><td>${l.program}</td><td>${H.ib(l.interest)}</td><td>${H.ab(l.action)}</td><td style="color:#a1a1aa;font-size:12px">${l.contacted}</td></tr>`).join('')}</tbody></table>`;}
-function openPanel(html){document.getElementById('spInner').innerHTML=html;document.getElementById('sidePanel').classList.add('open');}
-function closePanel(){document.getElementById('sidePanel').classList.remove('open');}
-function openLeadPanel(id){const lead=D.leads.find(l=>l.id===id);const calls=D.calls.filter(c=>c.leadId===id);openPanel(`<div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div style="display:flex;align-items:center;gap:9px;margin-bottom:4px"><span style="font-size:16px;font-weight:600;color:#09090b">${lead.name}</span>${H.ib(lead.interest)}</div><span style="font-size:12px;color:#71717a">${lead.program} - ${lead.mobile}</span></div><button class="btn btn-ghost btn-sm" onclick="closePanel()">x</button></div></div><div class="sp-actions"><button class="btn btn-primary" style="flex:1;justify-content:center">Call Now</button><button class="btn" style="flex:1;justify-content:center">Schedule Follow-Up</button></div><div class="sp-body"><div class="sp-section-lbl">Call History</div>${calls.length===0?'<p style="font-size:13px;color:#a1a1aa">No calls recorded yet.</p>':calls.map(call=>`<div class="call-card" onclick="openCallPanel('${call.id}')"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;font-weight:500;color:#09090b">${call.date} - ${call.time}</span>${H.sb(call.score)}</div><div style="display:flex;align-items:center;gap:16px"><span style="font-size:12px;color:#71717a">Duration: ${call.dur}</span><span style="font-size:12px;color:#2563eb;font-weight:500">View AI Breakdown</span></div></div>`).join('')}${calls[0]?`<hr class="divider"><div class="sp-section-lbl">Concerns from Last Call</div>${calls[0].concerns.map(c=>`<div class="bullet"><span class="bullet-dot" style="background:#ef4444"></span><span style="font-size:13px;color:#52525b">${c}</span></div>`).join('')}<hr class="divider"><div class="sp-section-lbl">Next Steps</div>${calls[0].nextSteps.map(s=>`<div class="bullet"><span class="bullet-dot" style="background:#a1a1aa"></span><span style="font-size:13px;color:#52525b">${s}</span></div>`).join('')}`:''}</div>`);}
-function openCallPanel(id){const call=D.calls.find(c=>c.id===id);openPanel(`<div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:10px"><button class="btn btn-ghost btn-sm" onclick="openLeadPanel(${call.leadId})">back</button><div><div style="font-size:15px;font-weight:600;color:#09090b">Call Score Breakdown</div><div style="font-size:12px;color:#71717a;margin-top:1px">${call.date} - ${call.time} - ${call.dur}</div></div></div><div style="display:flex;align-items:center;gap:12px"><div style="text-align:right"><div style="font-size:30px;font-weight:700;color:${H.scColor(call.score)};line-height:1">${call.score}</div><div style="font-size:10px;color:#a1a1aa">/ 100</div></div><button class="btn btn-ghost btn-sm" onclick="closePanel()">x</button></div></div></div><div class="sp-body"><div class="summary-box"><div class="sp-section-lbl" style="margin-bottom:8px">Call Summary</div><p style="font-size:13px;color:#52525b;line-height:1.65;margin:0">${call.summary}</p></div><div class="sp-section-lbl">Category Scores</div>${D.catMeta.map(({key,label,w})=>`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:#3f3f46">${label}</span><span style="font-size:11px;color:#a1a1aa">${w}</span></div><div class="score-bar-row"><div class="score-bar-track"><div class="score-bar-fill" style="width:${(call.cats[key]/5)*100}%;background:${H.barColor((call.cats[key]/5)*100)}"></div></div><span class="score-bar-num" style="color:${H.barColor((call.cats[key]/5)*100)}">${call.cats[key]}</span></div></div>`).join('')}<hr class="divider"><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px"><div><div style="font-size:10px;font-weight:600;color:#166534;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">What Went Well</div>${D.catMeta.filter(({key})=>call.cats[key]>=3).slice(0,3).map(({key,label})=>`<div class="bullet"><span class="bullet-dot" style="background:#22c55e"></span><span style="font-size:12px;color:#52525b">${label} (${call.cats[key]}/5)</span></div>`).join('')}</div><div><div style="font-size:10px;font-weight:600;color:#991b1b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">To Improve</div>${D.catMeta.filter(({key})=>call.cats[key]<=2).slice(0,3).map(({key,label})=>`<div class="bullet"><span class="bullet-dot" style="background:#ef4444"></span><span style="font-size:12px;color:#52525b">${label} (${call.cats[key]}/5)</span></div>`).join('')}</div></div><hr class="divider"><div class="sp-section-lbl">KSP Coverage</div>${call.ksps.map(k=>`<div class="ksp-row"><div style="display:flex;align-items:center;gap:10px"><span style="width:18px;height:18px;border-radius:50%;background:${k.pitched?'#dcfce7':'#fee2e2'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:${k.pitched?'#166534':'#991b1b'}">${k.pitched?'v':'x'}</span><span style="font-size:13px;color:#09090b">${k.name}</span></div><span class="badge ${k.pitched?'b-green':'b-red'}">${k.pitched?'Pitched':'Not Pitched'}</span></div>`).join('')}<hr class="divider"><div class="sp-section-lbl">Lead Assessment</div><div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="font-size:13px;color:#71717a">Interest Level:</span>${H.ib(call.interest)}</div><div class="sp-section-lbl">Agreed Next Steps</div>${call.nextSteps.map(s=>`<div class="bullet"><span class="bullet-dot" style="background:#a1a1aa"></span><span style="font-size:13px;color:#52525b">${s}</span></div>`).join('')}</div>`);}
-function openCounsellorPanel(id){const c=D.counsellors.find(x=>x.id===id);openPanel(`<div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:12px"><div class="avatar" style="width:38px;height:38px;font-size:13px">${H.ini(c.name)}</div><div><div style="font-size:16px;font-weight:600;color:#09090b">${c.name}</div><div style="font-size:12px;color:#71717a;margin-top:2px">${c.email}</div></div></div><button class="btn btn-ghost btn-sm" onclick="closePanel()">x</button></div></div><div class="sp-body"><div class="stat-grid" style="grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">${[['Avg Call Score',c.score,H.scColor(c.score)],['Calls Handled',c.calls,'#09090b'],['Follow-Ups Done',c.fuDone,'#166534'],['Follow-Ups Missed',c.fuMissed,'#991b1b']].map(([l,v,col])=>`<div class="stat" style="padding:14px"><div class="stat-lbl">${l}</div><div style="font-size:22px;font-weight:600;color:${col}">${v}</div></div>`).join('')}</div><hr class="divider">${[['mCube Number',c.mcube,true],['Onboarding Date',c.onboarding,false]].map(([l,v,mono])=>`<div style="margin-bottom:14px"><div style="font-size:11px;color:#a1a1aa;margin-bottom:3px">${l}</div><div style="font-size:13px;color:#09090b;${mono?'font-family:monospace':''}">${v}</div></div>`).join('')}<div style="margin-bottom:16px"><div style="font-size:11px;color:#a1a1aa;margin-bottom:4px">Status</div>${H.sp(c.status)}</div><hr class="divider"><button class="btn" style="width:100%;justify-content:center">Edit Counsellor</button></div>`);}
-function openAddPanel(type){const isC=type==='counsellor';openPanel(`<div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:16px;font-weight:600;color:#09090b">${isC?'Create New Counsellor':'New KSP'}</div>${!isC?'<div style="font-size:12px;color:#71717a;margin-top:2px">Key Selling Point</div>':''}</div><button class="btn btn-ghost btn-sm" onclick="closePanel()">x</button></div></div><div class="sp-body">${isC?`${H.field('Name','text','Enter counsellor name',true)}${H.field('Email ID','email','User email address',true)}${H.field('mCube Number','tel','+91 XXXXX XXXXX',true)}<div class="field"><label>Onboarding Date <span class="req">*</span></label><input type="date" class="inp" style="width:100%"></div>`:`<div class="field"><label>Admission Season <span class="req">*</span></label><select class="inp" style="width:100%"><option>2025 - 2026</option></select></div>${H.field('KSP Name','text','Ex: Early Admission Discount',true)}<div class="field"><label>KSP Description <span class="req">*</span></label><textarea class="inp" style="width:100%" placeholder="Describe the key selling point..."></textarea></div><div class="field"><label>Status <span class="req">*</span></label><div style="display:flex;gap:8px"><button id="sA" onclick="toggleStatus('Active')" class="btn btn-primary">Active</button><button id="sI" onclick="toggleStatus('Inactive')" class="btn">Inactive</button></div></div>`}</div><div style="padding:14px 20px;border-top:1px solid #e4e4e7;display:flex;gap:8px;justify-content:flex-end"><button onclick="closePanel()" class="btn">Cancel</button><button onclick="closePanel()" class="btn btn-primary">Submit</button></div>`);}
-function toggleStatus(v){document.getElementById('sA').className=`btn${v==='Active'?' btn-primary':''}`;document.getElementById('sI').className=`btn${v==='Inactive'?' btn-primary':''}`;}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.sb-footer'))document.getElementById('roleDD').classList.remove('open');
+  if(!e.target.closest('.ai-panel')&&!e.target.closest('.ai-btn'))document.getElementById('aiPanel').classList.remove('open');
+});
+
+/* ── AI PANEL ── */
+function toggleAI(){document.getElementById('aiPanel').classList.toggle('open');}
+
+const AI_RESPONSES={
+  'summarise my follow-up queue for today':'You have <strong>18 follow-ups</strong> scheduled today. 3 are overdue (Sai Sanket, Arjun Pillai, Deepika Joshi). Your highest priority is Vikram Nair — highly interested, last contacted 2 days ago.',
+  'which lead needs the most urgent attention':'<strong>Sai Sanket</strong> needs immediate attention. His call score dropped from 28 to 34 across 2 calls — still below average. He has an EMI concern that\'s unresolved and a follow-up overdue by 2 days.',
+  'give me tips to improve my call score':'Your weakest categories are <strong>KSP Pitch (1.2/5 avg)</strong> and <strong>Closing Technique (1.4/5 avg)</strong>. Start every call by pitching the Early Admission Discount within the first 3 minutes. Before closing, always confirm a specific follow-up date.',
+  'show ksp coverage gaps for this week':'This week, <strong>Early Admission Discount</strong> was pitched in only 2 of 8 calls (25%). <strong>Placement Guarantee</strong> was pitched in 5 of 8 (63%). Industry Mentorship was not pitched at all this week.',
+};
+
+function aiSuggest(text){
+  document.getElementById('aiSuggestions').style.display='none';
+  addAIMsg(text,'user');
+  setTimeout(()=>{
+    const key=text.toLowerCase();
+    const resp=Object.entries(AI_RESPONSES).find(([k])=>key.includes(k.slice(0,20)))?.[1]||'I\'m analysing your data. Give me a moment...';
+    addAIMsg(resp,'ai');
+  },800);
+}
+
+function addAIMsg(text,role){
+  const msgs=document.getElementById('aiMsgs');
+  const div=document.createElement('div');
+  div.className=`ai-msg ai-msg-${role}`;
+  div.innerHTML=text;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function sendAI(){
+  const inp=document.getElementById('aiInput');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';
+  document.getElementById('aiSuggestions').style.display='none';
+  addAIMsg(text,'user');
+  setTimeout(()=>addAIMsg('I\'m working on that. In the live product, this will pull real-time data from your CRM.','ai'),700);
+}
+
+/* ── PANEL ── */
+function openPanel(html){document.getElementById('spI').innerHTML=html;document.getElementById('sp').classList.add('open');}
+function closePanel(){document.getElementById('sp').classList.remove('open');S.selectedLead=null;}
+
+/* ── LEAD TABLE ── */
+function ltbl(leads,fn){
+  return`<div class="tbl-wrap"><table>
+    <thead><tr><th>Lead Name</th><th>Mobile</th><th>Score</th><th>Program</th><th>Interest</th><th>Action</th><th>Last Contacted</th></tr></thead>
+    <tbody>${leads.map(l=>`
+      <tr class="clickable ${S.selectedLead===l.id?'sel':''}" onclick="${fn||'openLeadPanel'}(${l.id})">
+        <td class="td-name">${l.name}</td><td class="mono">${l.mobile}</td><td>${sb(l.score)}</td>
+        <td class="body">${l.program}</td><td>${ib(l.interest)}</td><td>${ab(l.action)}</td>
+        <td class="meta">${l.contacted}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table></div>`;
+}
+
+/* ── PAGES ── */
+function renderPage(){
+  const el=document.getElementById('pageArea');el.scrollTop=0;
+  const map={dashboard:pCAdmin,counsellorManager:pCM,cDashboard:pCDash,myLeads:pMyLeads,leadsOpps:pLeadsOpps,leadDetail:pLeadDetail};
+  el.innerHTML=(map[S.page]||(() =>'<div class="page-inner"><p class="body" style="color:#8B96AA">Coming soon.</p></div>'))();
+}
+
+/* ── COUNSELLOR ADMIN DASHBOARD ── */
+function pCAdmin(){return`<div class="page-inner">
+  <div class="page-title">Your data at a glance.</div>
+  <p class="page-sub">Here's what's happening at JAGSoM · Friday, 17 April 2026</p>
+  <div class="filters">
+    <div class="fl"><span class="fl-lbl">Admission Season</span><select class="inp" style="width:152px"><option>2025–2026</option><option>2024–2025</option></select></div>
+    <div class="fl"><span class="fl-lbl">Counsellor</span><select class="inp" style="width:152px"><option>All Counsellors</option>${D.counsellors.map(c=>`<option>${c.name}</option>`).join('')}</select></div>
+    <div class="fl"><span class="fl-lbl">Period</span><select class="inp" style="width:115px"><option>Today</option><option>This Week</option><option>This Month</option></select></div>
+    <button class="btn btn-primary" style="align-self:flex-end">Apply</button>
+  </div>
+  <div class="sg g3" style="margin-bottom:10px">
+    <div class="stat">
+      <div class="stat-lbl">Calls Handled</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div class="stat-val">1,395</div>
+        <div class="stat-spark">${spark([820,950,1100,980,1200,1395],scC(62))}</div>
+      </div>
+      <div class="stat-sub">+12% vs last week</div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl">Inbound Calls</div>
+      <div class="stat-val">487</div>
+      <div class="stat-bd">${[['Answered','441','#039855'],['Exec Busy','31','#B54708'],['Cancelled','15','#D92D20']].map(([l,v,c])=>`<div class="bd-row"><span style="color:#667085">${l}</span><span style="font-weight:500;color:${c}">${v}</span></div>`).join('')}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl">Outbound Calls</div>
+      <div class="stat-val">908</div>
+      <div class="stat-bd">${[['Initiated','312','#039855'],['No Answer','398','#B54708'],['Busy','198','#D92D20']].map(([l,v,c])=>`<div class="bd-row"><span style="color:#667085">${l}</span><span style="font-weight:500;color:${c}">${v}</span></div>`).join('')}</div>
+    </div>
+  </div>
+  <div class="sg g3" style="margin-bottom:20px">
+    <div class="stat">
+      <div class="stat-lbl">Today's Follow-Ups</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div class="stat-val">132</div>
+        <div class="stat-spark">${spark([80,95,110,88,120,132],'#6832BA')}</div>
+      </div>
+    </div>
+    <div class="stat"><div class="stat-lbl">Completed Today</div><div class="stat-val" style="color:#039855">28</div><div class="stat-sub">of 132 target</div></div>
+    <div class="stat"><div class="stat-lbl">Missed Follow-Ups</div><div class="stat-val" style="color:#D92D20">104</div><div class="stat-sub">action required</div></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="card-title" style="margin:0">Follow Up Queue</div>
+      <button class="btn btn-sm">Filter</button>
+    </div>
+    ${ltbl(D.leads)}
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="card-title" style="margin:0">Call Performance Summary</div>
+      <div style="display:flex;gap:5px">
+        <button class="btn btn-sm btn-purple" id="cfW">This Week</button>
+        <button class="btn btn-sm" id="cfA">All Calls</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:5px;height:72px;padding-bottom:3px;border-bottom:1px solid #EDEFF2;margin-bottom:14px">
+      ${D.counsellors.map(c=>{const h=Math.round((c.calls/412)*62);return`<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+        <div style="width:100%;background:${scBg(c.score)};border-radius:3px 3px 0 0;height:${h}px;border:1px solid ${scC(c.score)}30"></div>
+        <span style="font-size:9px;color:#8B96AA;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%">${c.name.split(' ')[0]}</span>
+      </div>`;}).join('')}
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Counsellor</th><th>Total Calls</th><th>Avg Score</th><th>Total Call Time</th><th>Missed FU</th></tr></thead>
+      <tbody>${D.counsellors.map(c=>`<tr class="clickable" onclick="openCounsellorPanel(${c.id})">
+        <td class="td-name">${c.name}</td><td>${c.calls}</td><td>${sb(c.score)}</td>
+        <td class="mono">${c.callTime}</td>
+        <td style="color:${c.fuMissed>15?'#D92D20':c.fuMissed>8?'#B54708':'#039855'};font-weight:500">${String(c.fuMissed).padStart(2,'0')}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>
+</div>`;}
+
+/* ── COUNSELLOR MANAGER ── */
+function pCM(){return`<div class="page-inner">
+  <div class="page-title">Counsellor Manager</div>
+  <p class="page-sub">Oversee and manage counsellors and KSPs</p>
+  <div class="tabs">
+    <button class="tab ${S.adminTab==='counsellors'?'active':''}" onclick="setATab('counsellors')">Counsellors</button>
+    <button class="tab ${S.adminTab==='ksp'?'active':''}" onclick="setATab('ksp')">KSP</button>
+  </div>
+  <div id="tabContent">${S.adminTab==='counsellors'?tC():tK()}</div>
+</div>`;}
+function setATab(t){S.adminTab=t;document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&t==='counsellors')||(i===1&&t==='ksp')));document.getElementById('tabContent').innerHTML=t==='counsellors'?tC():tK();}
+function tC(){return`<div style="display:flex;justify-content:space-between;margin-bottom:12px">
+  <div class="inp-wrap" style="width:210px"><span class="inp-ico"><svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search counsellors..."></div>
+  <button class="btn btn-primary btn-sm" onclick="openAddCPanel()">+ Add New</button>
+</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Name</th><th>Avg Score</th><th>mCube Number</th><th>Email</th><th>Onboarding</th><th>Status</th><th></th></tr></thead>
+  <tbody>${D.counsellors.map(c=>`<tr class="clickable" onclick="openCounsellorPanel(${c.id})">
+    <td class="td-name">${c.name}</td><td>${sb(c.score)}</td><td class="mono">${c.mcube}</td>
+    <td style="max-width:155px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#667085;font-size:11px">${c.email}</td>
+    <td class="meta">${c.onboarding}</td><td>${sp2(c.status)}</td>
+    <td><button class="btn btn-sm" onclick="event.stopPropagation();openCounsellorPanel(${c.id})">View</button></td>
+  </tr>`).join('')}
+  </tbody>
+</table></div>`;}
+function tK(){return`<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px">
+  <div class="fl"><span class="fl-lbl">Admission Season</span><select class="inp" style="width:152px"><option>2025–2026</option></select></div>
+  <button class="btn btn-primary btn-sm" onclick="openAddKPanel()">+ Add New</button>
+</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>KSP Name</th><th>Description</th><th>Status</th></tr></thead>
+  <tbody>${D.ksps.map(k=>`<tr><td class="td-name" style="min-width:170px">${k.name}</td><td class="body" style="max-width:300px;font-size:12px">${k.desc}</td><td>${sp2(k.status)}</td></tr>`).join('')}
+  </tbody>
+</table></div>`;}
+
+/* ── COUNSELLOR DASHBOARD ── */
+function pCDash(){
+  const c=D.counsellors[0];
+  return`<div class="page-inner">
+  <div class="page-title">Good morning, ${c.name.split(' ')[0]}.</div>
+  <p class="page-sub">Friday, 17 April 2026</p>
+  <div class="sg g4" style="margin-bottom:18px">
+    <div class="stat">
+      <div class="stat-lbl">Avg Call Score</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div class="stat-val" style="color:${scC(c.score)}">${c.score}</div>
+        <div class="stat-spark">${spark([55,60,58,62,64,62],scC(c.score))}</div>
+      </div>
+      <div class="stat-sub">out of 100</div>
+    </div>
+    <div class="stat"><div class="stat-lbl">Leads Owned</div><div class="stat-val">129</div><div class="stat-sub">this season</div></div>
+    <div class="stat"><div class="stat-lbl">Today's Follow-Ups</div><div class="stat-val">18</div></div>
+    <div class="stat"><div class="stat-lbl">Follow-Ups Missed</div><div class="stat-val" style="color:#D92D20">${c.fuMissed}</div><div class="stat-sub">pending action</div></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="card-title" style="margin:0">My Queue</div>
+      <div style="display:flex;gap:5px">
+        ${[['All','99'],['New Leads','02'],['Calls','05'],['Emails','17']].map(([l,n],i)=>`<button class="btn btn-sm ${i===0?'btn-purple':''}">${l} <span style="background:#EDEFF2;color:#667085;border-radius:3px;padding:1px 5px;font-size:9px">${n}</span></button>`).join('')}
+      </div>
+    </div>
+    ${ltbl(D.leads,'openLeadPanel')}
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="card-title" style="margin:0">Call Performance Summary</div>
+      <div style="display:flex;gap:5px">
+        <button class="btn btn-sm btn-purple">This Week</button>
+        <button class="btn btn-sm">All Calls</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:7px;height:64px;padding-bottom:3px;border-bottom:1px solid #EDEFF2;margin-bottom:12px">
+      ${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d,i)=>{const vals=[45,62,38,71,55,20,10];const h=Math.round(vals[i]*0.8);const col=vals[i]>=71?'#1ACC73':vals[i]>=41?'#FCBC28':'#F04438';return`<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+        <div style="width:100%;background:${col}20;border-radius:3px 3px 0 0;height:${h}px;border:1px solid ${col}40"></div>
+        <span style="font-size:9px;color:#8B96AA">${d}</span>
+      </div>`;}).join('')}
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Call ID</th><th>Lead Name</th><th>Score</th><th>Call Time</th><th></th></tr></thead>
+      <tbody>${D.calls.map(call=>`<tr class="clickable" onclick="openCallPanel('${call.id}')">
+        <td class="mono" style="color:#6832BA;font-size:11px">F8GH9IN</td>
+        <td class="td-name">${D.leads.find(l=>l.id===call.leadId)?.name}</td>
+        <td>${sb(call.score)}</td>
+        <td class="meta">${call.date} ${call.time}</td>
+        <td><button class="btn btn-sm" onclick="event.stopPropagation();openCallPanel('${call.id}')">View Details</button></td>
+      </tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="perf-grid">
+    <div class="perf-card"><div class="card-title">Follow-Up Completion</div>
+      <div style="font-size:22px;font-weight:500;color:#2E3751;margin-bottom:5px">70%</div>
+      <div class="prog" style="margin-bottom:7px"><div class="prog-fill" style="width:70%;background:#1ACC73"></div></div>
+      <div style="display:flex;justify-content:space-between"><span class="meta" style="color:#039855">28 done</span><span class="meta" style="color:#D92D20">${c.fuMissed} missed</span></div>
+    </div>
+    <div class="perf-card"><div class="card-title">Score Distribution</div>
+      ${[['Excellent (71–100)',48,'#1ACC73'],['Average (41–70)',172,'#FCBC28'],['Poor (0–40)',120,'#F04438']].map(([l,n,col])=>`
+        <div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span class="meta">${l}</span><span style="font-size:11px;font-weight:500;color:#2E3751">${n}</span></div>
+        <div class="prog"><div class="prog-fill" style="width:${(n/c.calls)*100}%;background:${col}"></div></div></div>`).join('')}
+    </div>
+    <div class="perf-card"><div class="card-title">Lead Pipeline</div>
+      ${[['Hot Leads',3,'#039855'],['In Progress',12,'#B54708'],['Needs Followup',8,'#D92D20'],['Total Assigned',23,'#2E3751']].map(([l,n,col])=>`
+        <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #F5F6F7;font-size:12px"><span class="body">${l}</span><span style="font-weight:500;color:${col}">${n}</span></div>`).join('')}
+    </div>
+  </div>
+</div>`;}
+
+/* ── MY LEADS ── */
+function pMyLeads(){return`<div class="page-inner">
+  <div class="page-title">My Leads</div>
+  <p class="page-sub">Your assigned pipeline for 2025–2026 · 5 leads</p>
+  <div class="filters">
+    <div class="inp-wrap" style="width:210px"><span class="inp-ico"><svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search by name or mobile..."></div>
+    <div class="fl"><span class="fl-lbl">Program</span><select class="inp" style="width:145px"><option>All Programs</option><option>MBA Finance</option><option>MBA Marketing</option><option>PGDM</option></select></div>
+    <div class="fl"><span class="fl-lbl">Interest Level</span><select class="inp" style="width:175px"><option>All Interest Levels</option><option>Highly Interested</option><option>Moderately Interested</option><option>Undecided</option><option>Low Interest</option></select></div>
+  </div>
+  <div style="display:flex;gap:7px;margin-bottom:14px">
+    ${[['#1ACC73','Hot Leads','1'],['#FCBC28','In Progress','2'],['#F04438','Needs Followup','2']].map(([col,lbl,n])=>`
+      <div style="display:flex;align-items:center;gap:5px;background:#F9FAFB;border:1px solid #E2E4E8;border-radius:20px;padding:4px 11px;font-size:11px;color:#3C4458">
+        <span style="width:6px;height:6px;border-radius:50%;background:${col}"></span>${lbl} <strong style="margin-left:2px">${n}</strong>
+      </div>`).join('')}
+  </div>
+  ${ltbl(D.leads,'openLeadFull')}
+</div>`;}
+
+/* ── LEADS & OPPS ── */
+function pLeadsOpps(){return`<div class="page-inner">
+  <div class="page-title">Leads & Opportunities</div>
+  <p class="page-sub">Here's what's happening with your leads</p>
+  <div class="sg g3" style="margin-bottom:18px">
+    <div class="stat"><div class="stat-lbl">Your Leads</div><div class="stat-val">3,012</div></div>
+    <div class="stat"><div class="stat-lbl">Leads Converted</div><div class="stat-val" style="color:#039855">120</div></div>
+    <div class="stat"><div class="stat-lbl">Today's Follow-Ups</div><div class="stat-val">3</div></div>
+  </div>
+  <div class="tabs">
+    <button class="tab active">Leads</button>
+    <button class="tab">Opportunities</button>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Lead Name</th><th>Score</th><th>Email</th><th>Mobile</th><th>Program</th><th>Contacted On</th><th></th></tr></thead>
+    <tbody>${D.leads.map(l=>`<tr class="clickable" onclick="openLeadFull(${l.id})">
+      <td class="td-name">${l.name}</td><td>${sb(l.score)}</td><td class="meta">${l.email}</td>
+      <td class="mono">${l.mobile}</td><td class="body">${l.program}</td><td class="meta">${l.contacted}</td>
+      <td><button class="btn btn-sm" onclick="event.stopPropagation();openLeadFull(${l.id})">View Details</button></td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>
+</div>`;}
+
+/* ── LEAD FULL PAGE ── */
+function openLeadFull(id){S.selectedLead=id;S.leadTab='info';S.page='leadDetail';renderSB();renderPage();}
+function pLeadDetail(){
+  const l=D.leads.find(x=>x.id===S.selectedLead);
+  if(!l)return`<div class="page-inner"><p class="body">Not found.</p></div>`;
+  const calls=D.calls.filter(c=>c.leadId===l.id);
+  return`<div style="padding:24px 32px">
+    <div class="breadcrumb">
+      <a onclick="navigate(S.role==='counsellor'?'myLeads':'dashboard')">Dashboard</a>
+      <svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+      <span>Lead Details</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid #E2E4E8">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="lead-score-circle" style="background:${scBg(l.score)};border:1.5px solid ${scC(l.score)}30">
+          <span style="font-size:17px;font-weight:500;color:${scC(l.score)};line-height:1">${l.score}</span>
+          <span style="font-size:8px;font-weight:500;color:${scC(l.score)};text-transform:uppercase;letter-spacing:.04em;margin-top:1px">Score</span>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:4px">
+            <span style="font-size:20px;font-weight:500;color:#2E3751;letter-spacing:-.2px">${l.name}</span>
+            ${ib(l.interest)}
+          </div>
+          <div style="font-size:11px;color:#667085">Lead ID: EHFUD-${l.id.toString().padStart(6,'0')} · ${l.program}</div>
+          <div style="font-size:11px;color:#8B96AA;margin-top:2px">${l.mobile} · ${l.email}</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:9px">
+        <div class="upcoming-fu">
+          <svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd"/></svg>
+          Upcoming Follow-Up: ${l.fuDate}
+        </div>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-primary btn-sm"><svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 15.352V16.5a1.5 1.5 0 0 1-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 0 1 2.43 8.326 13.019 13.019 0 0 1 2 5V3.5Z" clip-rule="evenodd"/></svg>Call Now</button>
+          <button class="btn btn-sm">Schedule Follow-Up</button>
+          <button class="btn btn-ghost btn-sm" onclick="openLeadPanel(${l.id})">Quick View →</button>
+        </div>
+      </div>
+    </div>
+    <div class="tabs" style="margin-bottom:0">
+      <button class="tab ${!S.leadTab||S.leadTab==='info'?'active':''}" onclick="setLTab('info',this)">Lead Information</button>
+      <button class="tab ${S.leadTab==='sched'?'active':''}" onclick="setLTab('sched',this)">Scheduled Logs</button>
+      <button class="tab ${S.leadTab==='comm'?'active':''}" onclick="setLTab('comm',this)">Communication Logs</button>
+    </div>
+    <div id="ltBody" style="padding-top:18px">${lTabC(S.leadTab||'info',l,calls)}</div>
+  </div>`;}
+
+function setLTab(t,btn){S.leadTab=t;document.querySelectorAll('[id=ltBody]~* .tab,[id=ltBody]+* .tab,.tabs .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const l=D.leads.find(x=>x.id===S.selectedLead);const c=D.calls.filter(x=>x.leadId===S.selectedLead);document.getElementById('ltBody').innerHTML=lTabC(t,l,c);}
+function setCommFilter(f,btn){S.commFilter=f;document.querySelectorAll('.ch-chip').forEach(b=>b.classList.toggle('active',b.textContent===(f==='ALL'?'All Channels':f)));const l=D.leads.find(x=>x.id===S.selectedLead);const c=D.calls.filter(x=>x.leadId===S.selectedLead);document.getElementById('ltBody').innerHTML=lTabC('comm',l,c);}
+
+function lTabC(t,l,calls){
+  if(t==='info')return`<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div><div class="sec-lbl">Personal Details</div>
+      <div style="background:#F9FAFB;border-radius:8px;padding:13px;border:1px solid #EDEFF2">
+        ${[['Lead Name',l.name],['Email',l.email],['Phone',l.mobile],['Program',l.program],['Lead Source',l.source]].map(([k,v])=>`<div class="info-row"><span class="meta">${k}</span><span style="font-weight:500;color:#2E3751;font-size:12px">${v}</span></div>`).join('')}
+      </div>
+    </div>
+    <div><div class="sec-lbl">Activity Details</div>
+      <div style="background:#F9FAFB;border-radius:8px;padding:13px;border:1px solid #EDEFF2">
+        ${[['Created On',l.created],['Last Active On',l.lastActive],['Last Contacted',l.contacted],['Due Action',l.action],['Upcoming Follow-Up',l.fuDate]].map(([k,v])=>`<div class="info-row"><span class="meta">${k}</span><span style="font-weight:500;color:#2E3751;font-size:12px">${v}</span></div>`).join('')}
+      </div>
+      ${calls[0]?`<div class="sec-lbl" style="margin-top:14px">Concerns from Last Call</div>
+      ${calls[0].concerns.map(c=>`<div class="blt"><span class="blt-dot" style="background:#F04438"></span><span class="body">${c}</span></div>`).join('')}`:''}
+    </div>
+  </div>`;
+  if(t==='sched')return`<div class="sec-lbl">Scheduled Communications</div>
+    ${[{type:'EMAIL',date:'20 Apr 2026',time:'11:00 AM',subject:'MBA Finance — Fee Breakup Follow-up',to:l.email,status:'scheduled'},
+       {type:'CALL',date:'10 Apr 2026',time:'2:30 PM',subject:'Initial contact call',to:l.mobile,status:'cancelled'}].map(item=>`
+      <div class="comm-item" style="border-left:2px solid ${item.status==='scheduled'?'#6832BA':'#F04438'}">
+        <div class="comm-hdr">
+          <div style="font-size:11px;font-weight:500;color:${item.status==='scheduled'?'#6832BA':'#D92D20'}">${item.status==='scheduled'?'Scheduled for':'Cancelled on'}: ${item.date} ${item.time}</div>
+          ${item.status==='scheduled'?`<button class="btn btn-sm" style="color:#D92D20;border-color:#FEE4E2;background:#FFFBFA;font-size:10px">Intervene</button>`:''}
+        </div>
+        <div style="font-size:12px;font-weight:500;color:#2E3751;margin-bottom:2px">${item.type}: ${item.subject}</div>
+        <div class="meta">To: ${item.to}</div>
+      </div>`).join('')}`;
+  return`<div style="margin-bottom:12px">
+    ${['ALL','CALL','EMAIL','WHATSAPP','SMS'].map(ch=>`<button class="ch-chip ${(S.commFilter||'ALL')===ch?'active':''}" onclick="setCommFilter('${ch}',this)">${ch==='ALL'?'All Channels':ch}</button>`).join('')}
+  </div>
+  ${D.commLogs.filter(lg=>lg.leadId===l.id&&((S.commFilter||'ALL')==='ALL'||(S.commFilter||'ALL')===lg.type)).map(lg=>`
+    <div class="comm-item">
+      <div class="comm-hdr">
+        <div style="font-size:11px;font-weight:500;color:${ctColor(lg.type)};display:flex;align-items:center;gap:5px">${lg.type}${lg.duration?' · '+lg.duration:''}</div>
+        <span class="meta">${lg.date} ${lg.time}</span>
+      </div>
+      ${lg.subject?`<div style="font-size:11px;font-weight:500;color:#2E3751;margin-bottom:3px">${lg.subject}</div>`:''}
+      <p style="font-size:12px;color:#3C4458;line-height:1.5;margin:0">${lg.body}</p>
+    </div>`).join('')}`;}
+
+/* ── LEAD PANEL (quick view) ── */
+function openLeadPanel(id){
+  S.selectedLead=id;
+  const l=D.leads.find(x=>x.id===id);
+  const calls=D.calls.filter(c=>c.leadId===id);
+  openPanel(`
+    <div class="sp-hdr">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <span style="font-size:15px;font-weight:500;color:#2E3751">${l.name}</span>${ib(l.interest)}
+          </div>
+          <div class="body">${l.program} · ${l.mobile}</div>
+          <div class="meta" style="margin-top:2px">Last contacted ${l.contacted}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closePanel()" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg></button>
+      </div>
+    </div>
+    <div class="sp-act">
+      <button class="btn btn-primary" style="flex:1;justify-content:center;font-size:12px">Call Now</button>
+      <button class="btn" style="flex:1;justify-content:center;font-size:12px">Schedule Follow-Up</button>
+    </div>
+    <div class="sp-body">
+      <button class="btn btn-purple btn-sm" style="width:100%;justify-content:center;margin-bottom:13px" onclick="closePanel();openLeadFull(${id})">Open Full Lead Detail →</button>
+      <div class="tabs" style="margin-bottom:0">
+        <button class="tab active" style="font-size:11px;padding:6px 0;margin-right:14px" onclick="setPTab('calls',this,${id})">Call History</button>
+        <button class="tab" style="font-size:11px;padding:6px 0;margin-right:14px" onclick="setPTab('info',this,${id})">Lead Info</button>
+        <button class="tab" style="font-size:11px;padding:6px 0" onclick="setPTab('notes',this,${id})">Notes</button>
+      </div>
+      <div id="pTabBody" style="margin-top:14px">${pCallsTab(calls)}</div>
+    </div>`);
+}
+
+function setPTab(t,btn,id){
+  document.querySelectorAll('.sp-body .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const l=D.leads.find(x=>x.id===id);const calls=D.calls.filter(c=>c.leadId===id);
+  document.getElementById('pTabBody').innerHTML={calls:()=>pCallsTab(calls),info:()=>pInfoTab(l),notes:()=>pNotesTab()}[t]();}
+function pCallsTab(calls){return`<div class="sec-lbl">${calls.length} call${calls.length!==1?'s':''} recorded</div>
+  ${calls.map(c=>`<div class="call-card" onclick="openCallPanel('${c.id}')">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+      <span style="font-size:11px;font-weight:500;color:#2E3751">${c.date} · ${c.time}</span>${sb(c.score)}
+    </div>
+    <div style="display:flex;gap:12px"><span class="meta">Duration: ${c.dur}</span><span style="font-size:10px;color:#6832BA;font-weight:500">View AI Breakdown</span></div>
+  </div>`).join('')}
+  ${calls[0]?`<hr class="divider">
+    <div class="sec-lbl">Concerns from last call</div>
+    ${calls[0].concerns.map(c=>`<div class="blt"><span class="blt-dot" style="background:#F04438"></span><span class="body">${c}</span></div>`).join('')}
+    <hr class="divider">
+    <div class="sec-lbl">Next steps</div>
+    ${calls[0].nextSteps.map(s=>`<div class="blt"><span class="blt-dot" style="background:#B1B8C4"></span><span class="body">${s}</span></div>`).join('')}`:''}`;
+}
+function pInfoTab(l){return`<div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #EDEFF2">
+  ${[['Program',l.program],['Mobile',l.mobile],['Email',l.email],['Source',l.source],['Created',l.created]].map(([k,v])=>`<div class="info-row"><span class="meta">${k}</span><span style="font-weight:500;color:#2E3751;font-size:12px">${v}</span></div>`).join('')}
+</div>`;}
+function pNotesTab(){return`<textarea class="inp" style="width:100%;min-height:80px;font-size:12px" placeholder="Add a note..."></textarea>
+<button class="btn btn-primary btn-sm" style="margin-top:7px">Save Note</button>`;}
+
+/* ── CALL PANEL ── */
+function openCallPanel(id){
+  S.callTab='score';
+  const call=D.calls.find(c=>c.id===id);
+  openPanel(`
+    <div class="sp-hdr">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:7px">
+          <button class="btn btn-ghost btn-sm" onclick="openLeadPanel(${call.leadId})" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd"/></svg></button>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:#2E3751">Call Breakdown</div>
+            <div class="meta">${call.date} · ${call.time} · ${call.dur}</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closePanel()" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg></button>
+      </div>
+    </div>
+    <div class="sp-body">
+      <div style="display:flex;justify-content:center;margin-bottom:12px">${gauge(call.score)}</div>
+      <div class="tabs" style="margin-bottom:0">
+        <button class="tab ${S.callTab==='score'?'active':''}" style="font-size:11px;padding:6px 0;margin-right:14px" onclick="setCTab('score',this,'${call.id}')">Call Score</button>
+        <button class="tab ${S.callTab==='insights'?'active':''}" style="font-size:11px;padding:6px 0" onclick="setCTab('insights',this,'${call.id}')">Call Insights</button>
+      </div>
+      <div id="cTabBody" style="margin-top:14px">${cTabC(S.callTab,call)}</div>
+    </div>
+    <div style="padding:10px 20px;border-top:1px solid #E2E4E8;display:flex;gap:7px">
+      <button class="btn btn-sm" style="flex:1;justify-content:center">Get Transcript</button>
+      <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="openFUModal()">Schedule Follow-Up</button>
+    </div>`);
+}
+
+function setCTab(t,btn,id){S.callTab=t;document.querySelectorAll('.sp-body .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('cTabBody').innerHTML=cTabC(t,D.calls.find(c=>c.id===id));}
+function cTabC(t,call){
+  if(t==='score')return`
+    <div class="sec-lbl">Category Scores</div>
+    ${D.catMeta.map(({key,label,w})=>{const pct=(call.cats[key]/5)*100;const col=barC(pct);return`<div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span class="body">${label}</span><span class="meta">${w}</span></div>
+      <div class="sbar"><div class="sbar-track"><div class="sbar-fill" style="width:${pct}%;background:${col}"></div></div><span class="sbar-num" style="color:${col}">${call.cats[key]}</span></div>
+    </div>`;}).join('')}
+    <hr class="divider">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div><div style="font-size:9px;font-weight:500;color:#039855;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">Strengths</div>
+        ${D.catMeta.filter(({key})=>call.cats[key]>=3).slice(0,3).map(({key,label})=>`<div class="blt"><span class="blt-dot" style="background:#1ACC73"></span><span class="meta">${label} (${call.cats[key]}/5)</span></div>`).join('')}</div>
+      <div><div style="font-size:9px;font-weight:500;color:#D92D20;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">To Improve</div>
+        ${D.catMeta.filter(({key})=>call.cats[key]<=2).slice(0,3).map(({key,label})=>`<div class="blt"><span class="blt-dot" style="background:#F04438"></span><span class="meta">${label} (${call.cats[key]}/5)</span></div>`).join('')}</div>
+    </div>
+    <hr class="divider">
+    <div class="sec-lbl">KSP Coverage</div>
+    ${call.ksps.map(k=>`<div class="ksp-row">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="width:16px;height:16px;border-radius:50%;background:${k.pitched?'#D1FADF':'#FEE4E2'};display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:${k.pitched?'#039855':'#D92D20'};flex-shrink:0">${k.pitched?'✓':'✕'}</span>
+        <span class="body">${k.name}</span>
+      </div>
+      <span class="badge" style="background:${k.pitched?'#D1FADF':'#FEE4E2'};color:${k.pitched?'#039855':'#D92D20'}">${k.pitched?'Pitched':'Not Pitched'}</span>
+    </div>`).join('')}`;
+  return`
+    <div style="background:#F9FAFB;border:1px solid #EDEFF2;border-radius:8px;padding:12px;margin-bottom:13px">
+      <div class="sec-lbl" style="margin-bottom:5px">Call Summary</div>
+      <p class="body" style="line-height:1.6;font-size:12px">${call.summary}</p>
+    </div>
+    <div class="sec-lbl">Key Details</div>
+    <p class="body" style="margin-bottom:13px;line-height:1.6;font-size:12px">${call.keyDetails}</p>
+    <hr class="divider">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div><div style="font-size:9px;font-weight:500;color:#039855;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Strengths</div><p class="body" style="font-size:12px;line-height:1.55">${call.strengths}</p></div>
+      <div><div style="font-size:9px;font-weight:500;color:#D92D20;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Areas of Improvement</div><p class="body" style="font-size:12px;line-height:1.55">${call.improvements}</p></div>
+    </div>
+    <hr class="divider">
+    <div class="sec-lbl">Lead Concerns</div>
+    ${call.concerns.map(c=>`<div class="blt"><span class="blt-dot" style="background:#F04438"></span><span class="body">${c}</span></div>`).join('')}
+    <div class="sec-lbl" style="margin-top:11px">Next Steps</div>
+    ${call.nextSteps.map(s=>`<div class="blt"><span class="blt-dot" style="background:#B1B8C4"></span><span class="body">${s}</span></div>`).join('')}
+    <hr class="divider">
+    <div class="sec-lbl">Lead Assessment</div>
+    ${ib(call.interest)}`;}
+
+function openFUModal(){
+  const m=document.createElement('div');
+  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:300';
+  m.innerHTML=`<div style="background:#fff;border-radius:12px;padding:22px;width:300px;box-shadow:0 16px 48px rgba(0,0,0,.15)">
+    <div style="font-size:14px;font-weight:500;color:#2E3751;margin-bottom:14px">Schedule Follow-Up</div>
+    <div class="field"><label>Date <span class="req">*</span></label><input type="date" class="inp" style="width:100%"></div>
+    <div class="field"><label>Time <span class="req">*</span></label><input type="time" class="inp" style="width:100%"></div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-sm" onclick="this.closest('[style*=fixed]').remove()">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="this.closest('[style*=fixed]').remove()">Done</button>
+    </div>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+/* ── COUNSELLOR DETAIL PANEL ── */
+function openCounsellorPanel(id){
+  const c=D.counsellors.find(x=>x.id===id);
+  openPanel(`
+    <div class="sp-hdr">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:11px">
+          <div class="av" style="width:34px;height:34px;font-size:11px">${ini(c.name)}</div>
+          <div><div style="font-size:14px;font-weight:500;color:#2E3751">${c.name}</div><div class="meta">${c.email}</div></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closePanel()" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg></button>
+      </div>
+    </div>
+    <div class="sp-body">
+      <div class="sg" style="grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px">
+        ${[['Avg Score',c.score,scC(c.score)],['Total Calls',c.calls,'#2E3751'],['Call Time',c.callTime,'#2E3751'],['FU Missed',c.fuMissed,'#D92D20']].map(([l,v,col])=>`
+          <div class="stat" style="padding:11px"><div class="stat-lbl">${l}</div><div style="font-size:18px;font-weight:500;color:${col};font-variant-numeric:tabular-nums">${v}</div></div>`).join('')}
+      </div>
+      <hr class="divider">
+      ${[['mCube Number',c.mcube,true],['Onboarding Date',c.onboarding,false]].map(([l,v,m])=>`<div style="margin-bottom:11px"><div class="meta" style="margin-bottom:2px">${l}</div><div class="${m?'mono':''} body">${v}</div></div>`).join('')}
+      <div style="margin-bottom:13px"><div class="meta" style="margin-bottom:3px">Status</div>${sp2(c.status)}</div>
+      <hr class="divider">
+      <button class="btn" style="width:100%;justify-content:center;font-size:12px">Edit Counsellor</button>
+    </div>`);
+}
+
+function openAddCPanel(){
+  openPanel(`
+    <div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:14px;font-weight:500;color:#2E3751">Create New Counsellor</div>
+      <button class="btn btn-ghost btn-sm" onclick="closePanel()" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg></button>
+    </div></div>
+    <div class="sp-body">
+      <div class="field"><label>Name <span class="req">*</span></label><input class="inp" style="width:100%" placeholder="Enter counsellor name"></div>
+      <div class="field"><label>Email ID <span class="req">*</span></label><input class="inp" style="width:100%" type="email" placeholder="User email"></div>
+      <div class="field"><label>mCube Number <span class="req">*</span></label><input class="inp" style="width:100%" type="tel" placeholder="+91"></div>
+      <div class="field"><label>Onboarding Date <span class="req">*</span></label><input class="inp" style="width:100%" type="date"></div>
+    </div>
+    <div style="padding:10px 20px;border-top:1px solid #E2E4E8;display:flex;gap:7px;justify-content:flex-end">
+      <button onclick="closePanel()" class="btn btn-sm">Cancel</button>
+      <button onclick="closePanel()" class="btn btn-primary btn-sm">Add</button>
+    </div>`);
+}
+
+function openAddKPanel(){
+  openPanel(`
+    <div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:14px;font-weight:500;color:#2E3751">New KSP</div><div class="meta">Key Selling Point</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="closePanel()" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg></button>
+    </div></div>
+    <div class="sp-body">
+      <div class="field"><label>Admission Season <span class="req">*</span></label><select class="inp" style="width:100%"><option>2025–2026</option></select></div>
+      <div class="field"><label>KSP Name <span class="req">*</span></label><input class="inp" style="width:100%" placeholder="Ex: Early Admission Discount"></div>
+      <div class="field"><label>Description <span class="req">*</span></label><textarea class="inp" style="width:100%" placeholder="Describe the key selling point..."></textarea></div>
+      <div class="field"><label>Status <span class="req">*</span></label>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-primary btn-sm" id="kA" onclick="kSt('A')">Active</button>
+          <button class="btn btn-sm" id="kI" onclick="kSt('I')">Inactive</button>
+        </div>
+      </div>
+    </div>
+    <div style="padding:10px 20px;border-top:1px solid #E2E4E8;display:flex;gap:7px;justify-content:flex-end">
+      <button onclick="closePanel()" class="btn btn-sm">Cancel</button>
+      <button onclick="closePanel()" class="btn btn-primary btn-sm">Add</button>
+    </div>`);
+}
+function kSt(v){document.getElementById('kA').className=`btn btn-sm${v==='A'?' btn-primary':''}`;document.getElementById('kI').className=`btn btn-sm${v==='I'?' btn-primary':''}`;}
+
 renderSB();renderPage();
 </script>
 </body>
