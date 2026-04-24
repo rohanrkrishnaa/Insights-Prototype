@@ -203,6 +203,7 @@ textarea.inp{resize:vertical;min-height:72px}
     <div class="role-dd" id="roleDD">
       <div class="ro" onclick="switchRole('cadmin')"><svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/></svg>Counsellor Admin</div>
       <div class="ro" onclick="switchRole('counsellor')"><svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/></svg>Counsellor</div>
+      <div class="ro" onclick="switchRole('iadmin')"><svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M1 2.75A.75.75 0 0 1 1.75 2h16.5a.75.75 0 0 1 0 1.5H18v8.75A2.75 2.75 0 0 1 15.25 15h-1.072l.798 3.06a.75.75 0 0 1-1.452.38L13.41 18H6.59l-.114.44a.75.75 0 0 1-1.452-.38L5.823 15H4.75A2.75 2.75 0 0 1 2 12.25V3.5h-.25A.75.75 0 0 1 1 2.75Z" clip-rule="evenodd"/></svg>Institute Admin</div>
     </div>
     <button class="user-btn" onclick="toggleDD()">
       <div class="av" id="userAv">CA</div>
@@ -366,6 +367,19 @@ const NAVS={
     {id:'cDashboard',label:'My Dashboard',ic:'<path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"/>'},
     {id:'myLeads',label:'My Leads',ic:'<path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z"/>'},
     {id:'leadsOpps',label:'Leads & Opportunities',ic:'<path d="M7 3.5A1.5 1.5 0 0 1 8.5 2h3A1.5 1.5 0 0 1 13 3.5v13A1.5 1.5 0 0 1 11.5 18h-3A1.5 1.5 0 0 1 7 16.5v-13ZM2.5 8A1.5 1.5 0 0 0 1 9.5v7A1.5 1.5 0 0 0 2.5 18h3A1.5 1.5 0 0 0 7 16.5v-7A1.5 1.5 0 0 0 5.5 8h-3ZM15 13.5A1.5 1.5 0 0 0 13.5 12h-1A1.5 1.5 0 0 0 11 13.5v3a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5-1.5v-3Z"/>'},
+  ],
+  iadmin:[
+    {id:'iaDashboard',label:'Dashboard',ic:'<path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"/>'},
+    {id:'iaFunnels',label:'Funnels',ic:'<path fill-rule="evenodd" d="M3 3a1 1 0 0 1 1-1h12a1 1 0 0 1 .8 1.6L11 11.333V15a1 1 0 0 1-.553.894l-4 2A1 1 0 0 1 5 17v-5.667L3.2 4.6A1 1 0 0 1 3 4V3Z" clip-rule="evenodd"/>'},
+    {id:'iaChannels',label:'Channels',ic:'<path d="M13.5 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM3 8.062C3 6.76 4.235 5.765 5.53 6.027A6.955 6.955 0 0 1 9.5 5c2.204 0 4.17.909 5.604 2.373L15.5 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3l-.396.627A5.955 5.955 0 0 0 9.5 7c-1.577 0-3.008.6-4.074 1.58L5 9a1 1 0 0 1-2 0v-.938Z"/>'},
+    {id:'iaPrograms',label:'Programs',ic:'<path d="M9.5 2a.5.5 0 0 1 .5.5V4h1a1 1 0 0 1 0 2h-1v6.268a2 2 0 1 1-2 0V6H7a1 1 0 0 1 0-2h1V2.5a.5.5 0 0 1 .5-.5Z"/><path fill-rule="evenodd" d="M4.25 3A2.25 2.25 0 0 0 2 5.25v9.5A2.25 2.25 0 0 0 4.25 17h11.5A2.25 2.25 0 0 0 18 14.75v-9.5A2.25 2.25 0 0 0 15.75 3H4.25ZM3.5 5.25a.75.75 0 0 1 .75-.75h11.5a.75.75 0 0 1 .75.75v9.5a.75.75 0 0 1-.75.75H4.25a.75.75 0 0 1-.75-.75v-9.5Z" clip-rule="evenodd"/>'},
+    {id:'iaMasters',label:'Masters',ic:'<path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z"/>'},
+    {id:'iaCampaigns',label:'Campaigns',ic:'<path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-11.25a.75.75 0 0 0-1.5 0v2.5h-2.5a.75.75 0 0 0 0 1.5h2.5v2.5a.75.75 0 0 0 1.5 0v-2.5h2.5a.75.75 0 0 0 0-1.5h-2.5v-2.5Z" clip-rule="evenodd"/>'},
+    {id:'iaUploads',label:'Uploads',ic:'<path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clip-rule="evenodd"/>'},
+    {id:'iaConnectors',label:'Connectors',ic:'<path fill-rule="evenodd" d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z" clip-rule="evenodd"/>'},
+    {id:'iaLeadsOpps',label:'Leads & Opportunities',ic:'<path d="M7 3.5A1.5 1.5 0 0 1 8.5 2h3A1.5 1.5 0 0 1 13 3.5v13A1.5 1.5 0 0 1 11.5 18h-3A1.5 1.5 0 0 1 7 16.5v-13ZM2.5 8A1.5 1.5 0 0 0 1 9.5v7A1.5 1.5 0 0 0 2.5 18h3A1.5 1.5 0 0 0 7 16.5v-7A1.5 1.5 0 0 0 5.5 8h-3ZM15 13.5A1.5 1.5 0 0 0 13.5 12h-1A1.5 1.5 0 0 0 11 13.5v3a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5-1.5v-3Z"/>'},
+    {id:'iaReports',label:'Reports',ic:'<path d="M2 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-5ZM8 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V7ZM14 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4Z"/>'},
+    {id:'iaSettings',label:'Settings',ic:'<path fill-rule="evenodd" d="M7.84 1.804A1 1 0 0 1 8.82 1h2.36a1 1 0 0 1 .98.804l.331 1.652a6.993 6.993 0 0 1 1.929 1.115l1.598-.54a1 1 0 0 1 1.186.447l1.18 2.044a1 1 0 0 1-.205 1.251l-1.267 1.113a7.047 7.047 0 0 1 0 2.228l1.267 1.113a1 1 0 0 1 .206 1.25l-1.18 2.045a1 1 0 0 1-1.187.447l-1.598-.54a6.993 6.993 0 0 1-1.929 1.115l-.33 1.652a1 1 0 0 1-.98.804H8.82a1 1 0 0 1-.98-.804l-.331-1.652a6.993 6.993 0 0 1-1.929-1.115l-1.598.54a1 1 0 0 1-1.186-.447l-1.18-2.044a1 1 0 0 1 .205-1.251l1.267-1.114a7.05 7.05 0 0 1 0-2.227L1.821 7.773a1 1 0 0 1-.206-1.25l1.18-2.045a1 1 0 0 1 1.187-.447l1.598.54A6.993 6.993 0 0 1 7.51 3.456l.33-1.652ZM10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/>'},
   ]
 };
 
@@ -379,10 +393,13 @@ function renderSB(){
 function navigate(p){S.page=p;S.selectedLead=null;closePanel();renderSB();renderPage();}
 
 function switchRole(r){
-  S.role=r;S.page={cadmin:'dashboard',counsellor:'cDashboard'}[r]||'dashboard';
+  S.role=r;S.page={cadmin:'dashboard',counsellor:'cDashboard',iadmin:'iaDashboard'}[r]||'dashboard';
   S.selectedLead=null;document.getElementById('roleDD').classList.remove('open');closePanel();
-  const cfg={cadmin:{rn:'Counsellor Admin',ri:'JAGSoM',av:'CA',un:'Admin User',ue:'admin@jagsom.edu.in'},
-    counsellor:{rn:'Manohar Reddy',ri:'Counsellor · JAGSoM',av:'MR',un:'Manohar Reddy',ue:'manoharreddy@jagsom.edu.in'}}[r];
+  const cfg={
+    cadmin:{rn:'Counsellor Admin',ri:'JAGSoM',av:'CA',un:'Admin User',ue:'admin@jagsom.edu.in'},
+    counsellor:{rn:'Manohar Reddy',ri:'Counsellor · JAGSoM',av:'MR',un:'Manohar Reddy',ue:'manoharreddy@jagsom.edu.in'},
+    iadmin:{rn:'Institute Admin',ri:'Vijaybhoomi University',av:'IA',un:'Arjun Mehta',ue:'arjun.mehta@vijaybhoomi.edu.in'},
+  }[r];
   ['sbRN','sbRI','userAv','userName','userEmail'].forEach((id,i)=>document.getElementById(id).textContent=[cfg.rn,cfg.ri,cfg.av,cfg.un,cfg.ue][i]);
   renderSB();renderPage();
 }
@@ -453,7 +470,9 @@ function ltbl(leads,fn){
 /* ── PAGES ── */
 function renderPage(){
   const el=document.getElementById('pageArea');el.scrollTop=0;
-  const map={dashboard:pCAdmin,counsellorManager:pCM,cDashboard:pCDash,myLeads:pMyLeads,leadsOpps:pLeadsOpps,leadDetail:pLeadDetail};
+  const map={dashboard:pCAdmin,counsellorManager:pCM,cDashboard:pCDash,myLeads:pMyLeads,leadsOpps:pLeadsOpps,leadDetail:pLeadDetail,
+    iaDashboard:pIADash,iaFunnels:pIAFunnels,iaChannels:pIAChannels,iaPrograms:pIAPrograms,iaMasters:pIAMasters,
+    iaCampaigns:pIACampaigns,iaUploads:pIAUploads,iaConnectors:pIAConnectors,iaLeadsOpps:pIALeadsOpps,iaReports:pIAReports,iaSettings:pIASettings};
   el.innerHTML=(map[S.page]||(() =>'<div class="page-inner"><p class="body" style="color:#8B96AA">Coming soon.</p></div>'))();
 }
 
@@ -989,6 +1008,319 @@ function openAddKPanel(){
     </div>`);
 }
 function kSt(v){document.getElementById('kA').className=`btn btn-sm${v==='A'?' btn-primary':''}`;document.getElementById('kI').className=`btn btn-sm${v==='I'?' btn-primary':''}`;}
+
+/* ── INSTITUTE ADMIN PAGES ── */
+function pIADash(){return`<div class="page-inner">
+  <div class="page-title">Your data at a glance.</div>
+  <p class="page-sub">Here's what's happening at Vijaybhoomi University · 2025–2026</p>
+  <div class="filters">
+    <div class="fl"><span class="fl-lbl">Admission Season</span><select class="inp" style="width:152px"><option>2025–2026</option><option>2024–2025</option></select></div>
+    <div class="fl"><span class="fl-lbl">Campaign</span><select class="inp" style="width:152px"><option>All Campaigns</option><option>MBA 2026 Digital</option></select></div>
+    <div class="fl"><span class="fl-lbl">Date Range</span><div style="display:flex;align-items:center;gap:6px"><input type="date" class="inp" style="width:128px" value="2025-12-01"><span class="meta">to</span><input type="date" class="inp" style="width:128px" value="2026-03-31"></div></div>
+    <button class="btn btn-primary" style="align-self:flex-end">Apply</button>
+  </div>
+  <div class="sg g4" style="margin-bottom:12px">
+    <div class="stat"><div class="stat-lbl">Total Leads</div><div style="display:flex;align-items:flex-end;justify-content:space-between"><div class="stat-val">33,138</div><div class="stat-spark">${spark([18000,22000,26000,29000,31000,33138],'#6832BA')}</div></div><div class="stat-sub">+8.4% vs last season</div></div>
+    <div class="stat"><div class="stat-lbl">MQL</div><div class="stat-val">4,820</div><div class="stat-sub">14.5% of total</div></div>
+    <div class="stat"><div class="stat-lbl">Opportunities</div><div class="stat-val">312</div><div class="stat-sub">0.94% conversion</div></div>
+    <div class="stat"><div class="stat-lbl">Total Spend</div><div class="stat-val">₹48.2L</div><div class="stat-sub">₹145 cost per lead</div></div>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="card-title" style="margin:0">Marketing Performance Table</div>
+      <span class="meta">Leads by channel × stage</span>
+    </div>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Channel</th><th>Total Leads</th><th>Touched</th><th>Warm</th><th>MQL</th><th>SQL</th><th>App Started</th><th>Reg Fee Paid</th><th>Cost/Lead</th></tr></thead>
+      <tbody>
+        ${[['Paid Media — Google',12400,'37%','22%','15%','8%','4%','1.2%','₹132'],['Paid Media — Meta',8900,'34%','19%','12%','6%','3%','0.9%','₹148'],['TEP — CollegeDunia',5200,'28%','16%','10%','5%','2%','0.6%','₹210'],['Direct / Organic',3800,'41%','28%','18%','10%','6%','2.1%','₹0'],['Outreach Events',2838,'52%','35%','22%','14%','8%','3.4%','₹380']].map(([ch,n,...p])=>`<tr>
+          <td class="td-name" style="font-size:12px">${ch}</td><td style="font-weight:500;color:#2E3751">${n.toLocaleString()}</td>
+          ${p.slice(0,6).map(x=>`<td class="meta">${x}</td>`).join('')}<td class="body">${p[6]}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+    <div class="card" style="margin:0">
+      <div class="card-title">Lead Funnel Velocity</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        ${[['Data → MQL','02 days'],['MQL → SQL','03 days'],['SQL → Opportunity','02.25 days'],['Opp → Offer','05 days']].map(([l,v])=>`
+          <div style="background:#F9FAFB;border-radius:7px;padding:10px;border:1px solid #EDEFF2"><div class="meta" style="margin-bottom:3px">${l}</div><div style="font-size:15px;font-weight:500;color:#2E3751">${v}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="card" style="margin:0">
+      <div class="card-title">Lead Aging Summary</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        ${[['Total','33,138','#2E3751'],['Touched','28,420','#039855'],['Untouched','4,718','#D92D20'],['Avg Age','09 days','#B54708']].map(([l,v,c])=>`
+          <div style="flex:1;background:#F9FAFB;border-radius:7px;padding:8px;border:1px solid #EDEFF2;text-align:center"><div class="meta">${l}</div><div style="font-size:13px;font-weight:500;color:${c};margin-top:2px">${v}</div></div>`).join('')}
+      </div>
+      <div class="tbl-wrap"><table><thead><tr><th>Lead ID</th><th>Lead Name</th><th>Last Touched</th><th>Medium</th></tr></thead>
+        <tbody>${[['HUCIOEC','Rajkumar Singh','05 days','CALL'],['ICXPOMWC','Balu Jaikumar','05 days','WHATSAPP'],['IUCKISIOC','Hanson Solo','08 days','SMS']].map(([id,n,d,m])=>`<tr><td class="mono" style="color:#6832BA">${id}</td><td class="td-name">${n}</td><td class="meta">${d}</td><td>${ab(m)}</td></tr>`).join('')}</tbody>
+      </table></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div class="card" style="margin:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="card-title" style="margin:0">Lead Rate Trends</div>
+        <div style="display:flex;gap:4px">${['Day','Week','Month'].map((l,i)=>`<button class="btn btn-sm ${i===1?'btn-purple':''}" style="padding:3px 8px;font-size:10px">${l}</button>`).join('')}</div>
+      </div>
+      <div style="height:72px;display:flex;align-items:flex-end;gap:3px;border-bottom:1px solid #EDEFF2;padding-bottom:3px;margin-bottom:5px">
+        ${[40,55,48,62,70,65,80,72,88,85,92,100].map((h,i)=>`<div style="flex:1;background:${i===11?'#6832BA':'#ECE3FA'};border-radius:2px 2px 0 0;height:${h}%"></div>`).join('')}
+      </div>
+      <div style="display:flex;justify-content:space-between"><span class="meta">Dec 2025</span><span class="meta">Mar 2026</span></div>
+    </div>
+    <div class="card" style="margin:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="card-title" style="margin:0">Opportunity Rate Trends</div>
+        <div style="display:flex;gap:4px">${['Day','Week','Month'].map((l,i)=>`<button class="btn btn-sm ${i===1?'btn-purple':''}" style="padding:3px 8px;font-size:10px">${l}</button>`).join('')}</div>
+      </div>
+      <div style="height:72px;display:flex;align-items:flex-end;gap:3px;border-bottom:1px solid #EDEFF2;padding-bottom:3px;margin-bottom:5px">
+        ${[20,30,25,40,38,52,48,60,55,70,68,80].map((h,i)=>`<div style="flex:1;background:${i===11?'#1ACC73':'#D1FADF'};border-radius:2px 2px 0 0;height:${h}%"></div>`).join('')}
+      </div>
+      <div style="display:flex;justify-content:space-between"><span class="meta">Dec 2025</span><span class="meta">Mar 2026</span></div>
+    </div>
+  </div>
+</div>`;}
+
+function pIAFunnels(){return`<div class="page-inner">
+  <div class="page-title">Funnels</div>
+  <p class="page-sub">Define lead and opportunity pipeline stages. These drive all funnel visualisations and reports.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    ${['Lead Funnel','Opportunity Funnel'].map((title,fi)=>{
+      const stages=fi===0?[{n:'Touched',c:'#6832BA'},{n:'Warm',c:'#0073FF'},{n:'MQL',c:'#FCBC28'},{n:'SQL',c:'#B54708'},{n:'Hot',c:'#F04438'}]:[{n:'App Started',c:'#6832BA'},{n:'Eligibility',c:'#0073FF'},{n:'Reg Fee Paid',c:'#FCBC28'},{n:'1st Instalment',c:'#1ACC73'}];
+      return`<div class="card" style="margin:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div class="card-title" style="margin:0">${title}</div>
+          <button class="btn btn-primary btn-sm" onclick="openAddStagePanel('${title}')">+ Add Stage</button>
+        </div>
+        <div style="background:#FEF2C1;border:1px solid #FCBC28;border-radius:7px;padding:8px 11px;margin-bottom:12px;font-size:11px;color:#B54708;line-height:1.5">
+          ⚠ Deleting or renaming a stage will permanently wipe all historical data tagged to it.
+        </div>
+        ${stages.map((st,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 11px;background:#F9FAFB;border:1px solid #EDEFF2;border-radius:7px;margin-bottom:6px">
+          <div style="width:3px;height:28px;background:${st.c};border-radius:9999px;flex-shrink:0"></div>
+          <div style="flex:1"><div style="font-size:12px;font-weight:500;color:#2E3751">${st.n}</div><div class="meta">Stage ${i+1}</div></div>
+          <button class="btn btn-ghost btn-sm" style="padding:3px 6px"><svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20"><path d="M5.433 13.917l1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z"/></svg></button>
+          <button class="btn btn-ghost btn-sm" style="padding:3px 6px;color:#D92D20"><svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4Z" clip-rule="evenodd"/></svg></button>
+        </div>`).join('')}
+      </div>`;}).join('')}
+  </div>
+</div>`;}
+
+function openAddStagePanel(title){openPanel(`
+  <div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:center">
+    <div><div style="font-size:14px;font-weight:500;color:#2E3751">Add Funnel Stage</div><div class="meta">${title}</div></div>
+    <button class="btn btn-ghost btn-sm" onclick="closePanel()" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg></button>
+  </div></div>
+  <div class="sp-body">
+    <div class="field"><label>Stage Name <span class="req">*</span></label><input class="inp" style="width:100%" placeholder="e.g. Qualified Lead"></div>
+    <div class="field"><label>Colour</label>
+      <div style="display:flex;gap:8px">${['#6832BA','#0073FF','#1ACC73','#FCBC28','#F04438','#027A48'].map(c=>`<div style="width:22px;height:22px;border-radius:50%;background:${c};cursor:pointer;border:2px solid transparent" onclick="this.parentElement.querySelectorAll('div').forEach(x=>x.style.borderColor='transparent');this.style.borderColor='#2E3751'"></div>`).join('')}</div>
+    </div>
+    <div class="field"><label>Position</label><select class="inp" style="width:100%"><option>Add at end</option><option>Add at beginning</option></select></div>
+  </div>
+  <div style="padding:10px 20px;border-top:1px solid #E2E4E8;display:flex;gap:7px;justify-content:flex-end">
+    <button onclick="closePanel()" class="btn btn-sm">Cancel</button>
+    <button onclick="closePanel()" class="btn btn-primary btn-sm">Add Stage</button>
+  </div>`);}
+
+function pIAChannels(){return`<div class="page-inner">
+  <div class="page-title">Channels</div>
+  <p class="page-sub">Define marketing channels through which leads are sourced. These feed the Marketing Performance Table.</p>
+  <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+    <div class="inp-wrap" style="width:210px"><span class="inp-ico"><svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search channels..."></div>
+    <button class="btn btn-primary btn-sm">+ Add Channel</button>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Channel Name</th><th>Sub-channels</th><th>Connected Connector</th><th>Leads (Season)</th><th>Status</th><th></th></tr></thead>
+    <tbody>${[['Paid Media — Google',['Search','Performance Max'],'Google Ads','12,400'],['Paid Media — Meta',['Feed','Reels','Stories'],'Meta Ads','8,900'],['TEP — CollegeDunia',['Listing','Banner'],'CollegeDunia API','5,200'],['Direct / Organic',['Website','SEO'],'—','3,800'],['Outreach Events',['School Fairs','College Fairs'],'—','2,838']].map(([name,subs,conn,leads])=>`<tr>
+      <td class="td-name">${name}</td><td style="font-size:11px;color:#667085">${subs.join(', ')}</td>
+      <td class="meta">${conn}</td><td style="font-weight:500;color:#2E3751">${leads}</td>
+      <td>${sp2('ACTIVE')}</td><td><button class="btn btn-sm">Edit</button></td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>
+</div>`;}
+
+function pIAPrograms(){return`<div class="page-inner">
+  <div class="page-title">Programs</div>
+  <p class="page-sub">Define academic programs. Leads are tagged to programs via webhook mappings.</p>
+  <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+    <div class="inp-wrap" style="width:210px"><span class="inp-ico"><svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search programs..."></div>
+    <button class="btn btn-primary btn-sm">+ Add Program</button>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Program Name</th><th>Code</th><th>Duration</th><th>Webhook Mapped</th><th>Total Leads</th><th>Status</th></tr></thead>
+    <tbody>${[['MBA Finance','MBAF','2 Years',true,'8,240'],['MBA Marketing','MBAM','2 Years',true,'6,180'],['PGDM','PGDM','1 Year',true,'5,420'],['MBA HR','MBAHR','2 Years',false,'4,100'],['MBA Operations','MBAOP','2 Years',false,'3,890'],['BBA','BBA','3 Years',true,'5,308']].map(([name,code,dur,mapped,leads])=>`<tr>
+      <td class="td-name">${name}</td><td class="mono">${code}</td><td class="meta">${dur}</td>
+      <td><span class="badge" style="background:${mapped?'#D1FADF':'#FEE4E2'};color:${mapped?'#039855':'#D92D20'}">${mapped?'Mapped':'Not Mapped'}</span></td>
+      <td style="font-weight:500;color:#2E3751">${leads}</td><td>${sp2('ACTIVE')}</td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>
+</div>`;}
+
+function pIAMasters(){return`<div class="page-inner">
+  <div class="page-title">Masters</div>
+  <p class="page-sub">Define specialisations within programs. Used as a filter dimension across all metrics.</p>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+    <div class="fl"><span class="fl-lbl">Filter by Program</span><select class="inp" style="width:175px"><option>All Programs</option><option>MBA Finance</option><option>MBA Marketing</option></select></div>
+    <button class="btn btn-primary btn-sm">+ Add Master</button>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Specialisation</th><th>Parent Program</th><th>Webhook Mapped</th><th>Total Leads</th></tr></thead>
+    <tbody>${[['Financial Analytics','MBA Finance',true,'2,840'],['Investment Banking','MBA Finance',true,'2,100'],['Digital Marketing','MBA Marketing',true,'3,200'],['Brand Management','MBA Marketing',false,'1,980'],['Operations & SCM','MBA Operations',true,'2,400'],['HR Analytics','MBA HR',false,'1,600']].map(([name,prog,mapped,leads])=>`<tr>
+      <td class="td-name">${name}</td><td class="meta">${prog}</td>
+      <td><span class="badge" style="background:${mapped?'#D1FADF':'#FEE4E2'};color:${mapped?'#039855':'#D92D20'}">${mapped?'Mapped':'Not Mapped'}</span></td>
+      <td style="font-weight:500;color:#2E3751">${leads}</td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>
+</div>`;}
+
+function pIACampaigns(){return`<div class="page-inner">
+  <div class="page-title">Campaigns</div>
+  <p class="page-sub">Create and manage campaigns integrated with ad platforms via connectors.</p>
+  <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+    <div style="display:flex;gap:8px;align-items:flex-end">
+      <div class="fl"><span class="fl-lbl">Admission Season</span><select class="inp" style="width:145px"><option>2025–2026</option></select></div>
+      <div class="inp-wrap" style="width:190px"><span class="inp-ico"><svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search campaigns..."></div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="openCreateCampaign()">+ Create Campaign</button>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Campaign Name</th><th>Channel</th><th>Dates</th><th>Budget</th><th>Leads</th><th>Spend</th><th>Status</th><th></th></tr></thead>
+    <tbody>${[['MBA 2026 — Google Search','Paid Media — Google','01 Dec – 31 Mar','₹8,00,000','12,400','₹7,20,000','ACTIVE'],['MBA 2026 — Meta','Paid Media — Meta','01 Dec – 31 Mar','₹6,00,000','8,900','₹5,40,000','ACTIVE'],['CollegeDunia Listing','TEP — CollegeDunia','01 Jan – 31 Mar','₹3,00,000','5,200','₹2,80,000','ACTIVE'],['PGDM Retargeting','Paid Media — Meta','15 Jan – 31 Mar','₹2,00,000','3,100','₹1,60,000','ACTIVE'],['Brand Awareness — YT','Paid Media — Google','01 Dec – 15 Feb','₹1,50,000','4,200','₹1,50,000','INACTIVE']].map(([name,ch,dates,budget,leads,spend,status])=>`<tr class="clickable">
+      <td class="td-name" style="font-size:12px">${name}</td><td class="meta">${ch}</td><td class="meta">${dates}</td>
+      <td class="body">${budget}</td><td style="font-weight:500;color:#2E3751">${leads}</td>
+      <td class="meta">${spend}</td><td>${sp2(status)}</td>
+      <td><button class="btn btn-sm">View</button></td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>
+</div>`;}
+
+function openCreateCampaign(){openPanel(`
+  <div class="sp-hdr"><div style="display:flex;justify-content:space-between;align-items:center">
+    <div style="font-size:14px;font-weight:500;color:#2E3751">Create New Campaign</div>
+    <button class="btn btn-ghost btn-sm" onclick="closePanel()" style="padding:4px 7px"><svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg></button>
+  </div></div>
+  <div style="padding:10px 20px;border-bottom:1px solid #E2E4E8;display:flex;align-items:center;gap:4px">
+    ${['Campaign Details','Set Lead Attribution','Generate Campaign Links'].map((s,i)=>`
+      <div style="display:flex;align-items:center;gap:4px">
+        <div style="width:20px;height:20px;border-radius:50%;background:${i===0?'#6832BA':'#EDEFF2'};color:${i===0?'#fff':'#8B96AA'};font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div>
+        <span style="font-size:10px;font-weight:500;color:${i===0?'#6832BA':'#8B96AA'};white-space:nowrap">${s}</span>
+        ${i<2?`<svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" style="color:#EDEFF2;flex-shrink:0"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>`:''}
+      </div>`).join('')}
+  </div>
+  <div class="sp-body">
+    <div class="field"><label>Campaign Name <span class="req">*</span></label><input class="inp" style="width:100%" placeholder="e.g. MBA 2026 — Google Search"></div>
+    <div class="field"><label>Admission Season <span class="req">*</span></label><select class="inp" style="width:100%"><option>2025–2026</option></select></div>
+    <div class="field"><label>Channel <span class="req">*</span></label><select class="inp" style="width:100%"><option>Select channel</option><option>Paid Media — Google</option><option>Paid Media — Meta</option><option>TEP — CollegeDunia</option></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="field"><label>Start Date <span class="req">*</span></label><input type="date" class="inp" style="width:100%"></div>
+      <div class="field"><label>End Date <span class="req">*</span></label><input type="date" class="inp" style="width:100%"></div>
+    </div>
+    <div class="field"><label>Budget (₹) <span class="req">*</span></label><input class="inp" style="width:100%" type="number" placeholder="e.g. 800000"></div>
+  </div>
+  <div style="padding:10px 20px;border-top:1px solid #E2E4E8;display:flex;gap:7px;justify-content:flex-end">
+    <button onclick="closePanel()" class="btn btn-sm">Cancel</button>
+    <button onclick="closePanel()" class="btn btn-primary btn-sm">Next →</button>
+  </div>`);}
+
+function pIAUploads(){return`<div class="page-inner">
+  <div class="page-title">Uploads</div>
+  <p class="page-sub">View and manage all lead upload history across campaigns.</p>
+  <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+    <div style="display:flex;gap:8px;align-items:flex-end">
+      <div class="fl"><span class="fl-lbl">Campaign</span><select class="inp" style="width:175px"><option>All Campaigns</option></select></div>
+      <div class="fl"><span class="fl-lbl">From</span><input type="date" class="inp" style="width:128px" value="2026-01-01"></div>
+    </div>
+    <button class="btn btn-primary btn-sm">Upload Leads</button>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Date of Upload</th><th>Campaign</th><th>Uploaded By</th><th>Total Rows</th><th>Accepted</th><th>Failed</th><th></th></tr></thead>
+    <tbody>${[['23 Jan, 2026','MBA 2026 — Google Search','Arjun Mehta','1,240','1,198','42'],['18 Jan, 2026','CollegeDunia Listing','Arjun Mehta','890','876','14'],['10 Jan, 2026','MBA 2026 — Meta','Priya S','2,100','2,044','56'],['05 Jan, 2026','PGDM Retargeting','Arjun Mehta','640','598','42'],['28 Dec, 2025','MBA 2026 — Google','Arjun Mehta','980','980','0']].map(([date,camp,by,total,acc,fail])=>`<tr>
+      <td class="meta">${date}</td><td class="td-name" style="font-size:12px">${camp}</td><td class="meta">${by}</td>
+      <td style="font-weight:500;color:#2E3751">${total}</td>
+      <td style="color:#039855;font-weight:500">${acc}</td>
+      <td style="color:${fail==='0'?'#8B96AA':'#D92D20'};font-weight:500">${fail}</td>
+      <td><button class="btn btn-sm">Download</button></td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>
+</div>`;}
+
+function pIAConnectors(){return`<div class="page-inner">
+  <div class="page-title">Connectors</div>
+  <p class="page-sub">Configure integrations with external platforms via webhooks and APIs.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+    ${[{name:'Google Ads',desc:'Pull lead and spend data from Google Ads campaigns.',status:'ACTIVE',type:'API',ico:'G',col:'#4285F4'},{name:'Meta Ads',desc:'Pull lead and spend data from Meta campaigns.',status:'ACTIVE',type:'API',ico:'M',col:'#1877F2'},{name:'Google Analytics 4',desc:'Track website events and conversion goals.',status:'ACTIVE',type:'API',ico:'GA',col:'#E37400'},{name:'Meritto (CRM)',desc:'Two-way sync with Meritto CRM for lead and opportunity data.',status:'ACTIVE',type:'Webhook',ico:'Me',col:'#6832BA'},{name:'mCube',desc:'Call data — sync call logs, recordings, and scores.',status:'ACTIVE',type:'API',ico:'mC',col:'#039855'},{name:'WhatsApp (Kaleyra)',desc:'WhatsApp messaging logs and delivery receipts.',status:'ACTIVE',type:'Webhook',ico:'W',col:'#25D366'},{name:'SES (Email)',desc:'AWS SES for transactional email delivery and tracking.',status:'ACTIVE',type:'API',ico:'S',col:'#FF9900'},{name:'CollegeDunia',desc:'Lead import from CollegeDunia campaigns.',status:'INACTIVE',type:'API',ico:'CD',col:'#667085'},{name:'Chatbot',desc:'Lead capture from website chatbot interactions.',status:'INACTIVE',type:'Webhook',ico:'CB',col:'#667085'}].map(c=>`
+      <div class="card" style="margin:0">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:34px;height:34px;border-radius:8px;background:${c.status==='ACTIVE'?c.col+'18':'#F5F6F7'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:${c.status==='ACTIVE'?c.col:'#8B96AA'};flex-shrink:0">${c.ico}</div>
+          <div style="flex:1"><div style="font-size:12px;font-weight:500;color:#2E3751">${c.name}</div><div class="meta">${c.type}</div></div>
+          ${sp2(c.status)}
+        </div>
+        <p style="font-size:11px;color:#667085;line-height:1.5;margin-bottom:10px">${c.desc}</p>
+        <button class="btn btn-sm" style="width:100%;justify-content:center;font-size:11px">${c.status==='ACTIVE'?'Configure':'Connect'}</button>
+      </div>`).join('')}
+  </div>
+</div>`;}
+
+function pIALeadsOpps(){return`<div class="page-inner">
+  <div class="page-title">Leads & Opportunities</div>
+  <p class="page-sub">Full lead and opportunity database for Vijaybhoomi University</p>
+  <div class="sg g4" style="margin-bottom:18px">
+    <div class="stat"><div class="stat-lbl">Total Leads</div><div class="stat-val">33,138</div></div>
+    <div class="stat"><div class="stat-lbl">Opportunities</div><div class="stat-val">312</div></div>
+    <div class="stat"><div class="stat-lbl">Today's Follow-Ups</div><div class="stat-val">48</div></div>
+    <div class="stat"><div class="stat-lbl">Hot Leads</div><div class="stat-val" style="color:#D92D20">142</div></div>
+  </div>
+  <div class="tabs"><button class="tab active">Leads</button><button class="tab">Opportunities</button></div>
+  <div class="filters" style="margin-bottom:14px">
+    <div class="inp-wrap" style="width:195px"><span class="inp-ico"><svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg></span><input class="inp" placeholder="Search leads..."></div>
+    <div class="fl"><span class="fl-lbl">Program</span><select class="inp" style="width:140px"><option>All Programs</option><option>MBA Finance</option></select></div>
+    <div class="fl"><span class="fl-lbl">Stage</span><select class="inp" style="width:125px"><option>All Stages</option><option>Touched</option><option>MQL</option><option>Hot</option></select></div>
+    <button class="btn btn-primary btn-sm" style="align-self:flex-end">Filter</button>
+  </div>
+  ${ltbl(D.leads)}
+</div>`;}
+
+function pIAReports(){return`<div class="page-inner">
+  <div class="page-title">Reports</div>
+  <p class="page-sub">Generate and analyse key business insights across seasons, channels, and programs.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+    ${[{t:'Seasonal Performance Comparison',d:'Compare lead and opportunity metrics across up to 3 admission seasons.',tag:'Analytics'},{t:'Lead Funnel Report',d:'Detailed funnel breakdown by stage, channel, and program with velocity metrics.',tag:'Funnel'},{t:'Campaign Performance Report',d:'ROI analysis per campaign — cost per lead, cost per opportunity, and conversion rates.',tag:'Marketing'},{t:'Channel Attribution Report',d:'Multi-touch attribution showing primary, secondary, and tertiary channel contributions.',tag:'Analytics'},{t:'Counsellor Performance Report',d:'Call score trends, follow-up compliance, and lead conversion rates per counsellor.',tag:'Operations'},{t:'Lead Aging Report',d:'Identify untouched and stale leads by age bracket, counsellor, and stage.',tag:'Operations'}].map(r=>`
+      <div class="card" style="margin:0;cursor:pointer" onmouseenter="this.style.borderColor='#DDCEF2'" onmouseleave="this.style.borderColor='#E2E4E8'">
+        <div style="display:flex;justify-content:space-between;margin-bottom:7px">
+          <span class="badge" style="background:#ECE3FA;color:#532399">${r.tag}</span>
+          <svg width="11" height="11" fill="currentColor" viewBox="0 0 20 20" style="color:#B1B8C4"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+        </div>
+        <div style="font-size:13px;font-weight:500;color:#2E3751;margin-bottom:4px">${r.t}</div>
+        <p style="font-size:11px;color:#667085;line-height:1.55;margin:0">${r.d}</p>
+      </div>`).join('')}
+  </div>
+</div>`;}
+
+function pIASettings(){return`<div class="page-inner">
+  <div class="page-title">Settings</div>
+  <p class="page-sub">Institute-level configuration for Vijaybhoomi University</p>
+  <div style="display:grid;grid-template-columns:190px 1fr;gap:20px">
+    <div>${['General','Users & Roles','Notifications','Data & Privacy','Integrations'].map((s,i)=>`<button class="btn btn-ghost btn-sm" style="width:100%;justify-content:flex-start;margin-bottom:4px;${i===0?'background:#ECE3FA;color:#532399;border-color:#DDCEF2;':''}">${s}</button>`).join('')}</div>
+    <div class="card" style="margin:0">
+      <div class="card-title">General Settings</div>
+      <div class="field"><label>Institute Name</label><input class="inp" style="width:100%" value="Vijaybhoomi University"></div>
+      <div class="field"><label>Default Admission Season</label><select class="inp" style="width:100%"><option>2025–2026</option><option>2026–2027</option></select></div>
+      <div class="field"><label>Timezone</label><select class="inp" style="width:100%"><option>Asia/Kolkata (IST +5:30)</option></select></div>
+      <div class="field"><label>Date Format</label><select class="inp" style="width:100%"><option>DD MMM, YYYY</option><option>MM/DD/YYYY</option></select></div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px">
+        <button class="btn btn-sm">Cancel</button>
+        <button class="btn btn-primary btn-sm">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>`;}
 
 renderSB();renderPage();
 </script>
