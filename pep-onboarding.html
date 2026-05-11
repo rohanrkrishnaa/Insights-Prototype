@@ -573,75 +573,105 @@ function buildArchetype(){
     (S.goalLabel?', working toward: '+S.goalLabel:'')+". Every day you show up, your score grows.";
 }
 
-// ── Physics drag engine for .ft tiles ──────────────────────────────────────
-(function initDrag(){
-  // Spring physics constants
-  const STIFFNESS = 0.12;   // how strong the spring pulls back
-  const DAMPING   = 0.72;   // how much energy each frame loses
-  const MASS      = 1;
 
-  // Track each tile's physics state
-  const tiles = new Map(); // el -> {homeX, homeY, x, y, vx, vy, dragging, offX, offY}
+// ── Jelly bean zero-gravity physics ────────────────────────────────────────
+(function jellyPhysics(){
+  const FRICTION    = 0.995;   // air drag — keeps them drifting forever
+  const BOUNCE      = 0.72;    // energy kept on wall bounce
+  const COLLIDE_R   = 52;      // soft-collision radius (px)
+  const COLLIDE_K   = 0.04;    // collision spring strength
+  const TILT_MAX    = 18;      // max rotation degrees
+  const SQUASH      = 0.18;    // squash/stretch intensity
+  const TILE_SIZE   = 44;
 
-  function getHome(el){
-    const s = window.getComputedStyle(el);
+  const state = new Map();
+
+  function mkState(el, zone){
+    const zr = zone.getBoundingClientRect();
+    // Random start position inside zone
+    const x = TILE_SIZE/2 + Math.random()*(zr.width - TILE_SIZE);
+    const y = TILE_SIZE/2 + Math.random()*(zr.height - TILE_SIZE);
+    // Random gentle initial velocity
+    const spd = 0.6 + Math.random()*0.8;
+    const ang = Math.random()*Math.PI*2;
     return {
-      x: parseFloat(s.left) || 0,
-      y: parseFloat(s.top)  || 0
+      x, y,
+      vx: Math.cos(ang)*spd,
+      vy: Math.sin(ang)*spd,
+      rot: 0, rotV: (Math.random()-0.5)*0.4,
+      sx: 1, sy: 1,            // scale for squash/stretch
+      dragging: false,
+      offX: 0, offY: 0,
+      prevX: x, prevY: y,
+      zone: zone,
+      zoneW: zr.width,
+      zoneH: zr.height,
     };
+  }
+
+  // Absolutely position tile inside its zone
+  function applyTransform(el, s){
+    const x = s.x - TILE_SIZE/2;
+    const y = s.y - TILE_SIZE/2;
+    el.style.left   = x + 'px';
+    el.style.top    = y + 'px';
+    el.style.transform = `rotate(${s.rot.toFixed(2)}deg) scale(${s.sx.toFixed(3)},${s.sy.toFixed(3)})`;
   }
 
   function register(el){
-    if(tiles.has(el)) return;
-    const h = getHome(el);
-    tiles.set(el, {homeX:h.x, homeY:h.y, x:0, y:0, vx:0, vy:0, dragging:false, offX:0, offY:0});
-  }
+    if(state.has(el)) return;
+    const zone = el.parentElement;
+    if(!zone) return;
+    // Make sure tile is absolutely positioned — zone must be relative
+    el.style.position = 'absolute';
+    el.style.left = '0px';
+    el.style.top  = '0px';
+    zone.style.position = 'relative';
 
-  // Register all current and future .ft elements
-  function registerAll(){
-    document.querySelectorAll('.ft').forEach(el => {
-      register(el);
-      attachListeners(el);
-    });
+    const s = mkState(el, zone);
+    state.set(el, s);
+    applyTransform(el, s);
+    attachListeners(el);
   }
 
   function attachListeners(el){
-    // Prevent double-attaching
-    if(el._drag) return;
-    el._drag = true;
-
-    // Mouse
-    el.addEventListener('mousedown', e => startDrag(el, e.clientX, e.clientY, e));
-    // Touch
-    el.addEventListener('touchstart', e => {
-      const t = e.touches[0];
-      startDrag(el, t.clientX, t.clientY, e);
-    }, {passive:false});
+    if(el._jelly) return;
+    el._jelly = true;
+    el.addEventListener('mousedown',  e => startDrag(el, e.clientX, e.clientY, e));
+    el.addEventListener('touchstart', e => { const t=e.touches[0]; startDrag(el,t.clientX,t.clientY,e); },{passive:false});
   }
 
   function startDrag(el, cx, cy, e){
-    e.preventDefault();
-    e.stopPropagation();
-    register(el);
-    const state = tiles.get(el);
-    state.dragging = true;
-    state.vx = 0; state.vy = 0;
-    // offset from tile top-left to pointer
-    const rect = el.getBoundingClientRect();
-    state.offX = cx - rect.left;
-    state.offY = cy - rect.top;
-    el.style.transition = 'box-shadow 0.15s';
-    el.style.boxShadow = '0 8px 28px rgba(0,0,0,0.28)';
-    el.style.zIndex = '20';
+    e.preventDefault(); e.stopPropagation();
+    const s = state.get(el);
+    if(!s) return;
+    s.dragging = true;
+    s.vx = 0; s.vy = 0; s.rotV = 0;
+    const zr = s.zone.getBoundingClientRect();
+    s.offX = cx - zr.left - s.x;
+    s.offY = cy - zr.top  - s.y;
+    el.style.zIndex = '30';
 
-    // Move handlers
     const onMove = ev => {
       const px = ev.touches ? ev.touches[0].clientX : ev.clientX;
       const py = ev.touches ? ev.touches[0].clientY : ev.clientY;
-      moveDrag(el, px, py);
+      const zr2 = s.zone.getBoundingClientRect();
+      const nx = px - zr2.left - s.offX;
+      const ny = py - zr2.top  - s.offY;
+      // Velocity from movement
+      s.vx = (nx - s.x) * 0.8;
+      s.vy = (ny - s.y) * 0.8;
+      s.rotV = s.vx * 0.25;
+      s.x = nx; s.y = ny;
+      applyTransform(el, s);
     };
-    const onEnd = () => {
-      endDrag(el);
+    const onEnd = ev => {
+      s.dragging = false;
+      // Flick velocity from last frame delta — amplify for throw feel
+      s.vx *= 1.4;
+      s.vy *= 1.4;
+      s.rotV = s.vx * 0.3;
+      el.style.zIndex = '2';
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseup', onEnd);
       window.removeEventListener('touchmove', onMove);
@@ -653,62 +683,124 @@ function buildArchetype(){
     window.addEventListener('touchend', onEnd);
   }
 
-  function moveDrag(el, cx, cy){
-    const state = tiles.get(el);
-    if(!state || !state.dragging) return;
-    const parent = el.parentElement.getBoundingClientRect();
-    // Target position in parent coordinates
-    const targetX = cx - parent.left - state.offX;
-    const targetY = cy - parent.top  - state.offY;
-    // Set displacement from home
-    state.x = targetX - state.homeX;
-    state.y = targetY - state.homeY;
-    el.style.transform = `translate(${state.x}px, ${state.y}px)`;
+  // Soft circle-circle collision
+  function collide(a, sa, b, sb){
+    const dx = sb.x - sa.x;
+    const dy = sb.y - sa.y;
+    const dist = Math.sqrt(dx*dx + dy*dy) || 0.01;
+    if(dist >= COLLIDE_R) return;
+    const overlap = (COLLIDE_R - dist) / COLLIDE_R;
+    const nx = dx/dist, ny = dy/dist;
+    const force = overlap * COLLIDE_K;
+    sa.vx -= nx*force*2; sa.vy -= ny*force*2;
+    sb.vx += nx*force*2; sb.vy += ny*force*2;
+    sa.rotV += (sa.vx - sb.vx) * 0.1;
+    sb.rotV += (sb.vx - sa.vx) * 0.1;
+    // Squash on collision
+    const sq = 1 + overlap * SQUASH;
+    sa.sx = 1/sq; sa.sy = sq;
+    sb.sx = 1/sq; sb.sy = sq;
   }
 
-  function endDrag(el){
-    const state = tiles.get(el);
-    if(!state) return;
-    state.dragging = false;
-    el.style.boxShadow = '';
-    el.style.zIndex = '2';
-    // Give it a little outward velocity based on displacement
-    state.vx = state.x * 0.06;
-    state.vy = state.y * 0.06;
-  }
-
-  // Animation loop — spring settle + idle float
   let frame = 0;
   function tick(){
     requestAnimationFrame(tick);
     frame++;
-    tiles.forEach((state, el) => {
-      if(state.dragging) return;
-      // Spring force toward home
-      const fx = -STIFFNESS * state.x;
-      const fy = -STIFFNESS * state.y;
-      // Idle float — gentle sine wave, unique per tile
-      const seed = el._seed || (el._seed = Math.random() * Math.PI * 2);
-      const floatY = Math.sin(frame * 0.018 + seed) * 0.15;
-      const floatX = Math.cos(frame * 0.012 + seed) * 0.08;
-      // Integrate
-      state.vx = (state.vx + fx / MASS) * DAMPING + floatX;
-      state.vy = (state.vy + fy / MASS) * DAMPING + floatY;
-      state.x += state.vx;
-      state.y += state.vy;
-      // Apply — only update if moved meaningfully
-      if(Math.abs(state.x) > 0.01 || Math.abs(state.y) > 0.01 || Math.abs(state.vx) > 0.01){
-        el.style.transform = `translate(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px)`;
+
+    const entries = [...state.entries()];
+
+    // Update zone size periodically (handles screen transitions)
+    if(frame % 60 === 0){
+      entries.forEach(([el, s]) => {
+        const zr = s.zone.getBoundingClientRect();
+        if(zr.width > 0){ s.zoneW = zr.width; s.zoneH = zr.height; }
+      });
+    }
+
+    // Pairwise collision
+    for(let i=0; i<entries.length; i++){
+      for(let j=i+1; j<entries.length; j++){
+        const [ea,sa] = entries[i];
+        const [eb,sb] = entries[j];
+        if(sa.zone !== sb.zone) continue;
+        if(sa.dragging || sb.dragging) continue;
+        collide(ea, sa, eb, sb);
       }
+    }
+
+    entries.forEach(([el, s]) => {
+      if(s.dragging) return;
+
+      // Integrate velocity
+      s.x += s.vx;
+      s.y += s.vy;
+
+      // Wall bounce with BOUNCE coefficient
+      const r = TILE_SIZE/2;
+      if(s.x < r){
+        s.x = r; s.vx = Math.abs(s.vx)*BOUNCE;
+        s.rotV = -s.rotV * 0.6;
+        s.sx = 1 + SQUASH; s.sy = 1 - SQUASH*0.5;
+      }
+      if(s.x > s.zoneW - r){
+        s.x = s.zoneW - r; s.vx = -Math.abs(s.vx)*BOUNCE;
+        s.rotV = -s.rotV * 0.6;
+        s.sx = 1 + SQUASH; s.sy = 1 - SQUASH*0.5;
+      }
+      if(s.y < r){
+        s.y = r; s.vy = Math.abs(s.vy)*BOUNCE;
+        s.rotV = s.rotV * 0.6;
+        s.sx = 1 - SQUASH*0.5; s.sy = 1 + SQUASH;
+      }
+      if(s.y > s.zoneH - r){
+        s.y = s.zoneH - r; s.vy = -Math.abs(s.vy)*BOUNCE;
+        s.rotV = s.rotV * 0.6;
+        s.sx = 1 - SQUASH*0.5; s.sy = 1 + SQUASH;
+      }
+
+      // Apply friction
+      s.vx *= FRICTION;
+      s.vy *= FRICTION;
+
+      // Ensure minimum drift so nothing ever fully stops
+      const speed = Math.sqrt(s.vx*s.vx + s.vy*s.vy);
+      if(speed < 0.25 && speed > 0){
+        const factor = 0.25/speed;
+        s.vx *= factor; s.vy *= factor;
+      }
+      // Random tiny nudge to prevent perfect static equilibrium
+      if(frame % 180 === 0 && Math.random() < 0.5){
+        s.vx += (Math.random()-0.5)*0.4;
+        s.vy += (Math.random()-0.5)*0.4;
+      }
+
+      // Rotation
+      s.rotV *= 0.96;
+      // Add tilt from velocity
+      const targetRot = s.vx * 2.5;
+      s.rot = s.rot * 0.85 + (s.rotV + targetRot) * 0.15;
+      s.rot = Math.max(-TILT_MAX, Math.min(TILT_MAX, s.rot));
+
+      // Ease squash/stretch back to 1
+      s.sx = s.sx + (1 - s.sx) * 0.18;
+      s.sy = s.sy + (1 - s.sy) * 0.18;
+
+      applyTransform(el, s);
     });
   }
+
+  function registerAll(){
+    document.querySelectorAll('.ft').forEach(el => register(el));
+  }
+
+  registerAll();
   tick();
 
-  // Initial registration + watch for new screens becoming active
-  registerAll();
+  // Watch for screen changes
   const obs = new MutationObserver(() => registerAll());
   obs.observe(document.getElementById('app'), {childList:true, subtree:true, attributes:true, attributeFilter:['class']});
 })();
+
 </script>
 </body>
 </html>
