@@ -6,12 +6,11 @@
 <title>PEP — Onboarding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --p:#6832BA;--pd:#532399;--pl:#F5F0FC;--pm:#ECE3FA;--pb:#DDCEF2;
-  --logo-stroke:#42355D;
   --bg:#FFFFFF;--g100:#F1F1F4;--g200:#E2E3E9;--g300:#CDD0DA;
   --g400:#B1B5C6;--g500:#8B93AB;--g600:#667088;--g700:#3C4460;--g800:#2E3753;
   --font:'Plus Jakarta Sans',sans-serif;
@@ -19,269 +18,140 @@
 }
 html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-smoothing:antialiased}
 
-.ms{
-  font-family:'Material Symbols Rounded';
-  font-weight:normal;font-style:normal;
-  font-size:24px;line-height:1;
-  letter-spacing:normal;text-transform:none;
-  display:inline-block;white-space:nowrap;
-  word-wrap:normal;direction:ltr;
-  -webkit-font-feature-settings:'liga';
-  font-feature-settings:'liga';
-  -webkit-font-smoothing:antialiased;
-}
+.ms{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;-webkit-font-feature-settings:'liga';font-feature-settings:'liga';-webkit-font-smoothing:antialiased}
 
-.phone{
-  width:390px;height:844px;background:var(--bg);
-  margin:24px auto;border-radius:44px;border:8px solid #1A1A2E;
-  overflow:hidden;position:relative;
-  box-shadow:0 40px 80px rgba(0,0,0,0.25);
-}
+/* ── Phone ───────────────────────────────────── */
+.phone{width:390px;height:844px;background:var(--bg);margin:24px auto;border-radius:44px;border:8px solid #1A1A2E;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.25)}
 
 /* ── Screens ─────────────────────────────────── */
-.screen{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  transform:translateX(100%);
-  transition:transform 0.35s var(--ease);
-  background:var(--bg);overflow:hidden;
-}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.35s var(--ease);background:var(--bg);overflow:hidden}
 .screen.active{transform:translateX(0)}
 .screen.exit{transform:translateX(-100%)}
 
-/* ── Hero zone ───────────────────────────────── */
-.hero-zone{
-  position:relative;flex-shrink:0;
-  display:flex;align-items:center;
-  justify-content:center;overflow:hidden;
-}
-.hero-bg{position:absolute;inset:0;transition:background 0.5s ease}
-.hero-content{
-  position:relative;z-index:2;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  width:100%;height:100%;
-}
-.wave{position:absolute;bottom:-1px;left:0;right:0;z-index:3;height:60px}
-.wave svg{width:100%;height:100%}
+/* ── Full-bleed color screens (Waking Up pattern) */
+.color-screen{background:var(--p)}
 
-/* ── Content zone ────────────────────────────── */
-.content-zone{
-  flex:1;background:var(--bg);
-  display:flex;flex-direction:column;
-  padding:0 28px 24px;overflow-y:auto;
-  position:relative;z-index:4;
-}
-.content-zone::-webkit-scrollbar{display:none}
+/* ── Question layout ─────────────────────────── */
+/* Top: character + floating icons on brand color */
+/* Bottom: question + white pill options on same color */
+.q-top{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.q-bottom{padding:24px 24px 32px;display:flex;flex-direction:column;gap:0}
 
-/* ── Type ────────────────────────────────────── */
-.q-head{font-size:26px;font-weight:800;color:var(--g800);line-height:1.2;margin-bottom:8px;letter-spacing:-0.5px}
-.q-sub{font-size:14px;color:var(--g600);line-height:1.6;margin-bottom:22px}
+/* ── PEP face ────────────────────────────────── */
+.pep-orb{border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.face-svg{display:block}
 
-/* ── Progress ────────────────────────────────── */
-.prog-wrap{height:3px;background:rgba(255,255,255,0.25);position:absolute;top:0;left:0;right:0;z-index:10}
-.prog-fill{height:100%;background:#fff;border-radius:0 2px 2px 0;transition:width 0.4s ease}
+/* ── Floating shapes on color bg ────────────── */
+.fl{position:absolute;border-radius:50%;background:rgba(255,255,255,0.12);pointer-events:none}
+.ft{position:absolute;z-index:2;width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;cursor:grab;user-select:none;touch-action:none;will-change:transform;transition:box-shadow 0.15s}
+.ft:active{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,0.25)}
+.ft .ms{font-size:22px;color:rgba(255,255,255,0.9);pointer-events:none}
+.ft.circle{border-radius:50%}
 
-/* ── Back / Skip ─────────────────────────────── */
-.back{
-  position:absolute;top:16px;left:16px;z-index:10;
-  width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,0.2);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:background 0.15s;
-}
-.back:hover{background:rgba(255,255,255,0.35)}
-.back .ms{font-size:20px;color:#fff}
-.skip-btn{
-  position:absolute;top:20px;right:20px;z-index:10;
-  background:none;border:none;cursor:pointer;
-  font-size:13px;font-weight:600;color:rgba(255,255,255,0.75);
-  font-family:var(--font);padding:4px 8px;
-}
-.skip-btn:hover{color:#fff}
+/* ── Question text ───────────────────────────── */
+.q-head{font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px;letter-spacing:-0.5px}
+.q-sub{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.55;margin-bottom:18px}
 
-/* ── Buttons ─────────────────────────────────── */
-.btn{
-  width:100%;border:none;border-radius:14px;
-  padding:16px;font-size:15px;font-weight:700;
-  font-family:var(--font);cursor:pointer;
-  transition:transform 0.1s,background 0.15s;
-  min-height:54px;letter-spacing:-0.1px;
-}
-.btn:active{transform:scale(0.98)}
-.btn-primary{background:var(--p);color:#fff}
-.btn-primary:hover{background:var(--pd)}
-.btn-primary:disabled{background:var(--g200);color:var(--g400);cursor:not-allowed;transform:none}
-.btn-secondary{background:var(--g100);color:var(--g700);margin-top:10px}
-.btn-secondary:hover{background:var(--g200)}
-
-/* ── Option rows ─────────────────────────────── */
-.opt-list{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
-.opt-row{
-  width:100%;background:var(--g100);border:none;border-radius:14px;
-  padding:16px 18px;cursor:pointer;
-  display:flex;align-items:center;gap:12px;
-  text-align:left;font-family:var(--font);
-  transition:background 0.15s;min-height:56px;
-}
-.opt-row:hover{background:#E8E8EF}
-.opt-row.sel{background:var(--pm)}
-.opt-row-icon{
-  width:36px;height:36px;border-radius:10px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,0.06);
-  transition:background 0.15s;
-}
-.opt-row.sel .opt-row-icon{background:rgba(104,50,186,0.12)}
-.opt-row-icon .ms{font-size:20px;color:var(--g600)}
-.opt-row.sel .opt-row-icon .ms{color:var(--p)}
-.opt-row-label{font-size:15px;font-weight:600;color:var(--g800);flex:1}
-.opt-row.sel .opt-row-label{color:var(--pd)}
-.opt-radio{
-  width:22px;height:22px;border-radius:50%;
-  border:2px solid var(--g300);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.15s;background:#fff;
-}
-.opt-row.sel .opt-radio{border-color:var(--p);background:var(--p)}
-.opt-row.sel .opt-radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff}
+/* ── White pill options (Waking Up style) ────── */
+.opt-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.opt-pill{width:100%;background:rgba(255,255,255,0.95);border:none;border-radius:14px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;font-family:var(--font);min-height:56px;transition:background 0.15s}
+.opt-pill:hover{background:#fff}
+.opt-pill.sel{background:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.8)}
+.pill-icon{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(104,50,186,0.08)}
+.pill-icon .ms{font-size:18px;color:var(--p)}
+.opt-pill.sel .pill-icon{background:rgba(104,50,186,0.12)}
+.pill-label{font-size:15px;font-weight:600;color:var(--g800);flex:1}
+.pill-radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--g300);flex-shrink:0;background:#fff;transition:all 0.15s}
+.opt-pill.sel .pill-radio{border-color:var(--p);background:var(--p)}
+.opt-pill.sel .pill-radio::after{content:'';display:block;width:7px;height:7px;border-radius:50%;background:#fff;margin:calc((22px - 7px)/2 - 2px) auto 0}
 
 /* ── 2x2 goal grid ───────────────────────────── */
-.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
-.goal-card{
-  background:var(--g100);border:none;border-radius:14px;
-  padding:16px 14px;cursor:pointer;text-align:left;
-  font-family:var(--font);min-height:108px;
-  display:flex;flex-direction:column;gap:8px;
-  transition:background 0.15s;position:relative;
-}
-.goal-card:hover{background:#E8E8EF}
-.goal-card.sel{background:var(--pm)}
-.goal-card-icon{
-  width:40px;height:40px;border-radius:12px;
-  background:rgba(0,0,0,0.07);
-  display:flex;align-items:center;justify-content:center;
-}
-.goal-card.sel .goal-card-icon{background:rgba(104,50,186,0.15)}
-.goal-card-icon .ms{font-size:22px;color:var(--g600)}
-.goal-card.sel .goal-card-icon .ms{color:var(--p)}
-.goal-label{font-size:13px;font-weight:700;color:var(--g800);line-height:1.3}
-.goal-card.sel .goal-label{color:var(--pd)}
-.goal-desc{font-size:11px;color:var(--g500);line-height:1.3}
-.goal-card.sel .goal-desc{color:var(--p)}
-.goal-check{
-  position:absolute;top:10px;right:10px;
-  width:18px;height:18px;border-radius:50%;
-  border:1.5px solid var(--g300);background:#fff;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.15s;
-}
-.goal-card.sel .goal-check{background:var(--p);border-color:var(--p)}
-.goal-card.sel .goal-check .ms{font-size:12px;color:#fff;display:block}
-.goal-check .ms{display:none}
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.goal-pill{background:rgba(255,255,255,0.95);border:none;border-radius:14px;padding:14px 12px;cursor:pointer;text-align:left;font-family:var(--font);min-height:100px;display:flex;flex-direction:column;gap:7px;position:relative;transition:background 0.15s}
+.goal-pill:hover{background:#fff}
+.goal-pill.sel{background:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.8)}
+.goal-pill-icon{width:36px;height:36px;border-radius:10px;background:rgba(104,50,186,0.08);display:flex;align-items:center;justify-content:center}
+.goal-pill-icon .ms{font-size:20px;color:var(--p)}
+.goal-pill-label{font-size:13px;font-weight:700;color:var(--g800);line-height:1.3}
+.goal-pill-desc{font-size:11px;color:var(--g500);line-height:1.3}
+.goal-chk{position:absolute;top:9px;right:9px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--g300);background:#fff;transition:all 0.15s}
+.goal-pill.sel .goal-chk{background:var(--p);border-color:var(--p)}
 
 /* ── Interest chips ──────────────────────────── */
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chip{
-  background:var(--g100);border:none;border-radius:24px;
-  padding:8px 14px;font-size:13px;font-weight:600;
-  color:var(--g700);font-family:var(--font);cursor:pointer;
-  display:flex;align-items:center;gap:6px;
-  transition:all 0.15s;min-height:40px;
-}
-.chip:hover{background:#E8E8EF}
-.chip.sel{background:var(--pm);color:var(--pd)}
-.chip .ms{font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{background:rgba(255,255,255,0.18);border:none;border-radius:24px;padding:8px 14px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.9);font-family:var(--font);cursor:pointer;display:flex;align-items:center;gap:6px;min-height:40px;transition:background 0.15s}
+.chip:hover{background:rgba(255,255,255,0.25)}
+.chip.sel{background:rgba(255,255,255,0.95);color:var(--p)}
 .chip.sel .ms{color:var(--p)}
+.chip .ms{font-size:15px;color:rgba(255,255,255,0.85)}
 
-/* ── PEP face SVG ────────────────────────────── */
-.pep-face{border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* ── Primary CTA ─────────────────────────────── */
+.btn-cta{width:100%;background:#fff;color:var(--p);border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;min-height:54px;letter-spacing:-0.1px;transition:background 0.15s,transform 0.1s}
+.btn-cta:hover{background:rgba(255,255,255,0.9)}
+.btn-cta:active{transform:scale(0.98)}
+.btn-cta:disabled{background:rgba(255,255,255,0.35);color:rgba(255,255,255,0.5);cursor:not-allowed;transform:none}
 
-/* ── Float orbs ──────────────────────────────── */
-.float{position:absolute;border-radius:50%;opacity:0.2;pointer-events:none}
+/* ── Secondary CTA ───────────────────────────── */
+.btn-sec{width:100%;background:transparent;color:rgba(255,255,255,0.7);border:1.5px solid rgba(255,255,255,0.3);border-radius:14px;padding:14px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;min-height:50px;margin-top:10px;transition:all 0.15s}
+.btn-sec:hover{border-color:rgba(255,255,255,0.6);color:#fff}
 
-/* ── Floating icon tiles ─────────────────────── */
-.ftile{
-  position:absolute;z-index:2;
-  width:44px;height:44px;border-radius:14px;
-  background:rgba(255,255,255,0.18);
-  display:flex;align-items:center;justify-content:center;
-}
-.ftile .ms{font-size:22px;color:rgba(255,255,255,0.9)}
+/* ── White content screens ───────────────────── */
+.white-cta{width:100%;background:var(--p);color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;min-height:54px;transition:background 0.15s,transform 0.1s}
+.white-cta:hover{background:var(--pd)}
+.white-cta:active{transform:scale(0.98)}
+.white-sec{width:100%;background:transparent;color:var(--p);border:1.5px solid var(--pb);border-radius:14px;padding:14px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;min-height:50px;margin-top:10px;transition:all 0.15s}
+.white-sec:hover{background:var(--pl)}
+
+/* ── Back / Skip ─────────────────────────────── */
+.back{position:absolute;top:16px;left:16px;z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s}
+.back:hover{background:rgba(255,255,255,0.25)}
+.back .ms{font-size:20px;color:#fff}
+.skip{position:absolute;top:20px;right:20px;z-index:10;background:none;border:none;cursor:pointer;font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);font-family:var(--font)}
+.skip:hover{color:rgba(255,255,255,0.9)}
+
+/* ── Step pill ───────────────────────────────── */
+.step-pill{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:10;font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.12);padding:4px 12px;border-radius:20px;white-space:nowrap}
+
+/* ── Progress bar ────────────────────────────── */
+.prog{height:3px;background:rgba(255,255,255,0.2);position:absolute;top:0;left:0;right:0;z-index:10}
+.prog-fill{height:100%;background:rgba(255,255,255,0.8);border-radius:0 2px 2px 0;transition:width 0.4s ease}
 
 /* ── Thinking overlay ────────────────────────── */
-.thinking-screen{
-  position:absolute;inset:0;background:var(--p);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:20px;
-  z-index:20;transform:translateX(100%);
-  transition:transform 0.35s var(--ease);
-}
+.thinking-screen{position:absolute;inset:0;background:var(--p);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:20;transform:translateX(100%);transition:transform 0.35s var(--ease)}
 .thinking-screen.active{transform:translateX(0)}
 
-/* ── Archetype ───────────────────────────────── */
-.arch-top{
-  height:440px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  flex-shrink:0;position:relative;overflow:hidden;
-}
-.arch-content{padding:20px 28px 24px;display:flex;flex-direction:column;overflow-y:auto}
-.arch-content::-webkit-scrollbar{display:none}
+/* ── Text input (name screen, white bg) ──────── */
+.t-inp{width:100%;background:var(--g100);border:2px solid var(--p);border-radius:14px;padding:16px;font-size:16px;font-family:var(--font);font-weight:500;color:var(--g800);outline:none;margin-bottom:20px}
+.t-inp::placeholder{color:var(--g400);font-weight:400}
+.t-inp:focus{background:#fff;box-shadow:0 0 0 4px rgba(104,50,186,0.1)}
 
-/* ── Trait chip ──────────────────────────────── */
-.trait-chip{
-  background:var(--g100);border-radius:10px;
-  padding:10px 14px;font-size:13px;font-weight:600;
-  color:var(--g700);display:flex;align-items:center;gap:8px;
-  margin-bottom:8px;
-}
-.trait-chip .ms{font-size:16px;color:var(--p)}
+/* ── Name screen (white bg exception) ───────── */
+.name-screen-body{flex:1;display:flex;flex-direction:column;padding:60px 28px 32px}
 
-/* ── Dots ────────────────────────────────────── */
-.dots{display:flex;gap:6px;justify-content:center;padding:12px 0;flex-shrink:0;background:var(--bg)}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--g200);transition:all 0.3s}
-.dot.on{background:var(--p);width:18px;border-radius:3px}
+/* ── Archetype reveal (white screen) ────────── */
+.arch-reveal{flex:1;display:flex;flex-direction:column;padding:48px 28px 32px;overflow-y:auto}
+.arch-reveal::-webkit-scrollbar{display:none}
 
-/* ── Text input ──────────────────────────────── */
-.text-input{
-  width:100%;background:var(--g100);border:none;
-  border-radius:14px;padding:16px;
-  font-size:16px;font-family:var(--font);font-weight:500;
-  color:var(--g800);outline:none;
-  transition:background 0.2s,box-shadow 0.2s;margin-bottom:20px;
-}
-.text-input::placeholder{color:var(--g400);font-weight:400}
-.text-input:focus{background:#fff;box-shadow:0 0 0 2px var(--p)}
+/* ── Trait pills ─────────────────────────────── */
+.trait-pill{background:var(--g100);border-radius:10px;padding:12px 16px;font-size:14px;font-weight:600;color:var(--g700);display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.trait-pill .ms{font-size:16px;color:var(--p)}
 
-/* ── Summary items ───────────────────────────── */
-.sum-item{
-  background:var(--g100);border-radius:12px;
-  padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;
-}
-.sum-ic{
-  width:38px;height:38px;border-radius:10px;background:var(--pm);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
+/* ── All set screen ──────────────────────────── */
+.allset-body{flex:1;display:flex;flex-direction:column;padding:48px 28px 32px;overflow-y:auto}
+.allset-body::-webkit-scrollbar{display:none}
+.sum-row{background:var(--g100);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sum-ic{width:38px;height:38px;border-radius:10px;background:var(--pm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sum-ic .ms{font-size:20px;color:var(--p)}
-.sum-lbl{font-size:11px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:0.06em}
+.sum-lbl{font-size:11px;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:0.06em}
 .sum-val{font-size:14px;font-weight:700;color:var(--g800)}
 
-/* ── Welcome ─────────────────────────────────── */
-.welcome-top{
-  height:420px;background:var(--p);
-  position:relative;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  flex-shrink:0;overflow:hidden;
-}
-.welcome-content{padding:24px 28px 0;display:flex;flex-direction:column;flex:1}
-.welcome-title{font-size:30px;font-weight:800;color:var(--g800);margin-bottom:10px;letter-spacing:-0.5px;line-height:1.2}
-.welcome-title span{color:var(--p)}
-.welcome-sub{font-size:15px;color:var(--g600);line-height:1.65;margin-bottom:28px}
+/* ── Welcome screen (white bg) ───────────────── */
+.welcome-body{flex:1;display:flex;flex-direction:column;padding:48px 28px 32px}
 
-@media(max-width:430px){
-  .phone{width:100%;margin:0;border-radius:0;border:none;height:100dvh}
-  html,body{background:#fff}
-}
+/* ── Dots ────────────────────────────────────── */
+.dots-wrap{display:flex;justify-content:center;gap:6px;padding:14px 0;flex-shrink:0;position:relative;z-index:5}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.3);transition:all 0.3s}
+.dot.on{background:#fff;width:18px;border-radius:3px}
 </style>
 </head>
 <body>
@@ -290,56 +160,54 @@ html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-sm
 
   <!-- ══ THINKING OVERLAY ══════════════════════════ -->
   <div class="thinking-screen" id="thinking">
-    <div class="float" style="width:220px;height:220px;top:-60px;right:-60px;background:#fff"></div>
-    <div class="float" style="width:140px;height:140px;bottom:60px;left:-50px;background:#fff"></div>
-    <svg width="64" height="30" viewBox="0 0 38 18" fill="none" style="opacity:0.9;position:relative;z-index:2">
-      <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-      <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-      <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="34.5" cy="4.5" r="2.5" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="2"/>
-      <circle cx="3.5" cy="4.5" r="2.5" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="2"/>
-    </svg>
-    <div style="font-size:24px;font-weight:800;color:#fff;text-align:center;line-height:1.3;max-width:260px;letter-spacing:-0.3px;position:relative;z-index:2">Building your<br>PEP profile…</div>
-    <div style="font-size:14px;color:rgba(255,255,255,0.6);text-align:center;position:relative;z-index:2">Just a moment</div>
+    <div class="fl" style="width:260px;height:260px;top:-80px;right:-80px"></div>
+    <div class="fl" style="width:160px;height:160px;bottom:60px;left:-50px"></div>
+    <div class="pep-orb" style="width:80px;height:80px;background:rgba(255,255,255,0.12);position:relative;z-index:2">
+      <svg class="face-svg" width="42" height="19" viewBox="0 0 38 18" fill="none">
+        <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="34.5" cy="4.5" r="2.5" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="2"/>
+        <circle cx="3.5" cy="4.5" r="2.5" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="2"/>
+      </svg>
+    </div>
+    <div style="font-size:22px;font-weight:800;color:#fff;text-align:center;line-height:1.3;max-width:240px;letter-spacing:-0.3px;position:relative;z-index:2">Building your<br>PEP profile…</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.55);position:relative;z-index:2">Just a moment</div>
   </div>
 
-  <!-- ══ S0: BREATHE SPLASH ═══════════════════════ -->
-  <div class="screen active" id="s0">
-    <div style="flex:1;background:var(--p);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden">
-      <div class="float" style="width:300px;height:300px;top:-80px;right:-80px;background:#fff"></div>
-      <div class="float" style="width:180px;height:180px;bottom:60px;left:-50px;background:#fff"></div>
-      <div id="pepOrb" style="width:160px;height:160px;border-radius:50%;background:#8A5DC8;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;transition:transform 2s ease-in-out">
-        <svg width="80" height="36" viewBox="0 0 38 18" fill="none">
-          <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-          <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-          <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-          <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-        </svg>
+  <!-- ══ S0: SPLASH — "Grow a little every day." ══ -->
+  <div class="screen color-screen active" id="s0">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden">
+      <div class="fl" style="width:280px;height:280px;top:-80px;right:-80px"></div>
+      <div class="fl" style="width:200px;height:200px;bottom:-40px;left:-60px"></div>
+
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:32px">
+        <!-- PEP face in soft circle -->
+        <div style="width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
+          <svg width="60" height="27" viewBox="0 0 38 18" fill="none">
+            <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+            <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+            <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+            <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+          </svg>
+        </div>
+        <!-- Tagline -->
+        <div style="font-size:22px;font-style:italic;font-weight:500;color:rgba(255,255,255,0.9);letter-spacing:-0.2px;text-align:center">"Grow a little every day."</div>
       </div>
-      <div id="breatheText" style="position:relative;z-index:2;font-size:28px;font-weight:800;color:#fff;margin-top:32px;letter-spacing:-0.3px;transition:opacity 0.6s ease">Breathe in</div>
     </div>
   </div>
 
   <!-- ══ S1: WELCOME ═════════════════════════════ -->
-  <div class="screen" id="s1">
-    <div class="welcome-top">
-      <div class="float" style="width:220px;height:220px;top:-60px;right:-60px;background:#fff"></div>
-      <div class="float" style="width:130px;height:130px;bottom:80px;left:-40px;background:#fff"></div>
-      <div style="position:absolute;top:56px;right:64px;z-index:2;width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
-        <span class="ms" style="color:rgba(255,255,255,0.85);font-size:22px">school</span>
-      </div>
-      <div style="position:absolute;top:96px;left:52px;z-index:2;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center">
-        <span class="ms" style="color:rgba(255,255,255,0.8);font-size:18px">star</span>
-      </div>
-      <div style="position:absolute;bottom:100px;right:52px;z-index:2;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center">
-        <span class="ms" style="color:rgba(255,255,255,0.8);font-size:18px">trending_up</span>
-      </div>
-      <div style="position:absolute;bottom:88px;left:60px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
-        <span class="ms" style="color:rgba(255,255,255,0.75);font-size:16px">bolt</span>
-      </div>
-      <div style="position:relative;z-index:2;width:100px;height:100px;border-radius:50%;background:#8A5DC8;display:flex;align-items:center;justify-content:center">
-        <svg width="52" height="24" viewBox="0 0 38 18" fill="none">
+  <div class="screen color-screen" id="s1">
+    <div class="q-top">
+      <div class="fl" style="width:240px;height:240px;top:-70px;right:-70px"></div>
+      <div class="fl" style="width:140px;height:140px;bottom:40px;left:-40px"></div>
+      <div class="ft" style="top:60px;right:64px"><span class="ms">school</span></div>
+      <div class="ft circle" style="top:100px;left:52px"><span class="ms">star</span></div>
+      <div class="ft" style="bottom:80px;right:52px"><span class="ms">trending_up</span></div>
+      <div class="pep-orb" style="width:110px;height:110px;background:rgba(255,255,255,0.15)">
+        <svg class="face-svg" width="58" height="26" viewBox="0 0 38 18" fill="none">
           <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
           <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
           <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
@@ -347,213 +215,173 @@ html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-sm
           <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
         </svg>
       </div>
-      <div class="wave"><svg viewBox="0 0 390 60" preserveAspectRatio="none"><path d="M0,60 C130,0 260,0 390,60 L390,60 L0,60 Z" fill="#fff"/></svg></div>
     </div>
-    <div class="welcome-content">
-      <div class="welcome-title">Welcome to <span>PEP</span></div>
-      <div class="welcome-sub">Your personal growth companion. Track, improve, and celebrate who you're becoming — one day at a time.</div>
-      <button class="btn btn-primary" onclick="go(2)">Get started</button>
-      <button class="btn btn-secondary" onclick="go(2)">Sign in to existing account</button>
-      <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--g400)">Takes about 2 minutes · <a href="#" style="color:var(--p);text-decoration:none;font-weight:600">Privacy policy</a></div>
+    <div class="q-bottom">
+      <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2">Welcome to PEP</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:20px">Your personal growth companion. Track, improve, and celebrate who you're becoming.</div>
+      <button class="btn-cta" onclick="go(2)">Get started</button>
+      <button class="btn-sec" onclick="go(2)">Sign in to existing account</button>
     </div>
   </div>
 
-  <!-- ══ S2: NAME ════════════════════════════════ -->
+  <!-- ══ S2: NAME (white bg) ══════════════════════ -->
   <div class="screen" id="s2">
-    <div class="prog-wrap"><div class="prog-fill" style="width:14%"></div></div>
-    <button class="back" onclick="go(1)" aria-label="Back"><span class="ms">arrow_back</span></button>
-    <button class="skip-btn" onclick="go(3)">Skip</button>
-    <div class="hero-zone" style="height:300px">
-      <div class="hero-bg" style="background:var(--p)"></div>
-      <div class="float" style="width:180px;height:180px;top:-40px;right:-40px;background:#fff"></div>
-      <div class="float" style="width:100px;height:100px;bottom:60px;left:-30px;background:#fff"></div>
-      <div style="position:absolute;top:52px;left:52px;z-index:2;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
-        <span class="ms" style="color:rgba(255,255,255,0.85);font-size:20px">person</span>
+    <!-- Purple top zone for character -->
+    <div style="height:260px;background:var(--p);position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center">
+      <div class="prog"><div class="prog-fill" style="width:14%"></div></div>
+      <button class="back" onclick="go(1)" aria-label="Back"><span class="ms">arrow_back</span></button>
+      <div class="step-pill">1 of 6</div>
+      <button class="skip" onclick="go(3)">Skip</button>
+      <div class="fl" style="width:180px;height:180px;top:-50px;right:-50px"></div>
+      <div class="fl" style="width:100px;height:100px;bottom:30px;left:-30px"></div>
+      <div class="ft" style="top:56px;left:52px"><span class="ms">person</span></div>
+      <div class="ft circle" style="top:52px;right:52px"><span class="ms">waving_hand</span></div>
+      <div class="pep-orb" style="width:90px;height:90px;background:rgba(255,255,255,0.15);position:relative;z-index:2">
+        <svg class="face-svg" width="48" height="22" viewBox="0 0 38 18" fill="none">
+          <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+          <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+        </svg>
       </div>
-      <div style="position:absolute;top:48px;right:56px;z-index:2;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center">
-        <span class="ms" style="color:rgba(255,255,255,0.8);font-size:18px">waving_hand</span>
-      </div>
-      <div class="hero-content">
-        <div style="width:100px;height:100px;border-radius:50%;background:#8A5DC8;display:flex;align-items:center;justify-content:center;position:relative;z-index:2">
-          <svg width="52" height="24" viewBox="0 0 38 18" fill="none">
-            <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-            <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-          </svg>
-        </div>
-      </div>
-      <div class="wave"><svg viewBox="0 0 390 60" preserveAspectRatio="none"><path d="M0,60 C130,0 260,0 390,60 L390,60 L0,60 Z" fill="#fff"/></svg></div>
     </div>
-    <div class="content-zone" style="padding-top:22px">
-      <div class="q-head">What should we call you?</div>
-      <div class="q-sub">This is how PEP will greet you every morning.</div>
-      <input class="text-input" id="nameInput" type="text" placeholder="Your first name" maxlength="32" autocomplete="given-name" oninput="onNameInput()"/>
-      <button class="btn btn-primary" id="nameCta" onclick="saveName()" disabled>Continue</button>
+    <div style="flex:1;background:#fff;display:flex;flex-direction:column;padding:28px 28px 32px">
+      <div style="font-size:24px;font-weight:800;color:var(--g800);letter-spacing:-0.4px;margin-bottom:6px">What should we call you?</div>
+      <div style="font-size:14px;color:var(--g600);line-height:1.6;margin-bottom:22px">This is how PEP will greet you every morning.</div>
+      <input class="t-inp" id="nameInput" type="text" placeholder="Your first name" maxlength="32" autocomplete="given-name" oninput="onNameInput()"/>
+      <button class="white-cta" id="nameCta" onclick="saveName()" disabled>Continue</button>
     </div>
-    <div class="dots">
-      <div class="dot"></div><div class="dot on"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
+    <div class="dots-wrap" style="background:#fff">
+      <div class="dot" style="background:var(--g200)"></div><div class="dot on" style="background:var(--p);width:18px"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div>
     </div>
   </div>
 
-  <!-- ══ S3: GOAL ════════════════════════════════ -->
-  <div class="screen" id="s3">
-    <div class="prog-wrap"><div class="prog-fill" style="width:28%"></div></div>
+  <!-- ══ S3: GOAL (full color, Waking Up style) ══ -->
+  <div class="screen color-screen" id="s3">
+    <div class="prog"><div class="prog-fill" style="width:28%"></div></div>
     <button class="back" onclick="go(2)" aria-label="Back"><span class="ms">arrow_back</span></button>
-    <button class="skip-btn" onclick="go(4)">Skip</button>
-    <div class="hero-zone" style="height:272px">
-      <div class="hero-bg" style="background:#4A1F8A"></div>
-      <div class="float" style="width:180px;height:180px;top:-50px;right:-50px;background:#fff"></div>
-      <div class="float" style="width:100px;height:100px;bottom:50px;left:-28px;background:#fff"></div>
-      <div class="ftile" style="top:52px;left:48px"><span class="ms">work</span></div>
-      <div class="ftile" style="top:48px;right:52px;border-radius:50%"><span class="ms">military_tech</span></div>
-      <div class="ftile" style="bottom:72px;right:46px"><span class="ms">emoji_events</span></div>
-      <div class="ftile" style="bottom:68px;left:50px;border-radius:50%"><span class="ms">directions_run</span></div>
-      <div class="hero-content">
-        <div style="width:88px;height:88px;border-radius:50%;background:#7A4ABF;display:flex;align-items:center;justify-content:center;position:relative;z-index:2">
-          <svg width="46" height="21" viewBox="0 0 38 18" fill="none">
-            <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-            <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-          </svg>
-        </div>
+    <div class="step-pill">2 of 6</div>
+    <button class="skip" onclick="go(4)">Skip</button>
+    <div class="q-top" style="background:#4A1F8A">
+      <div class="fl" style="width:220px;height:220px;top:-60px;right:-60px"></div>
+      <div class="fl" style="width:120px;height:120px;bottom:30px;left:-35px"></div>
+      <div class="ft" style="top:68px;left:52px"><span class="ms">work</span></div>
+      <div class="ft circle" style="top:64px;right:56px"><span class="ms">military_tech</span></div>
+      <div class="ft" style="bottom:60px;right:48px"><span class="ms">emoji_events</span></div>
+      <div class="ft circle" style="bottom:56px;left:52px"><span class="ms">directions_run</span></div>
+      <div class="pep-orb" style="width:88px;height:88px;background:rgba(255,255,255,0.15)">
+        <svg class="face-svg" width="46" height="21" viewBox="0 0 38 18" fill="none">
+          <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+          <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+        </svg>
       </div>
-      <div class="wave"><svg viewBox="0 0 390 60" preserveAspectRatio="none"><path d="M0,60 C130,0 260,0 390,60 L390,60 L0,60 Z" fill="#fff"/></svg></div>
     </div>
-    <div class="content-zone" style="padding-top:18px">
+    <div class="q-bottom" style="background:#4A1F8A">
       <div class="q-head" id="goalHead">What do you want most this semester?</div>
       <div class="q-sub">This shapes everything PEP shows you.</div>
       <div class="goal-grid">
-        <button class="goal-card" onclick="selGoal(this,'placement','Land a great placement')">
-          <div class="goal-check"><span class="ms">check</span></div>
-          <div class="goal-card-icon"><span class="ms">work</span></div>
-          <div class="goal-label">Land a great placement</div>
-          <div class="goal-desc">Career-ready by graduation</div>
+        <button class="goal-pill" onclick="selGoal(this,'placement','Land a great placement')">
+          <div class="goal-chk"></div>
+          <div class="goal-pill-icon"><span class="ms">work</span></div>
+          <div class="goal-pill-label">Land a great placement</div>
+          <div class="goal-pill-desc">Career-ready by graduation</div>
         </button>
-        <button class="goal-card" onclick="selGoal(this,'leader','Become a leader')">
-          <div class="goal-check"><span class="ms">check</span></div>
-          <div class="goal-card-icon"><span class="ms">military_tech</span></div>
-          <div class="goal-label">Become a leader</div>
-          <div class="goal-desc">Build real influence</div>
+        <button class="goal-pill" onclick="selGoal(this,'leader','Become a leader')">
+          <div class="goal-chk"></div>
+          <div class="goal-pill-icon"><span class="ms">military_tech</span></div>
+          <div class="goal-pill-label">Become a leader</div>
+          <div class="goal-pill-desc">Build real influence</div>
         </button>
-        <button class="goal-card" onclick="selGoal(this,'fitness','Get fit and healthy')">
-          <div class="goal-check"><span class="ms">check</span></div>
-          <div class="goal-card-icon"><span class="ms">directions_run</span></div>
-          <div class="goal-label">Get fit and healthy</div>
-          <div class="goal-desc">Mind and body in sync</div>
+        <button class="goal-pill" onclick="selGoal(this,'fitness','Get fit and healthy')">
+          <div class="goal-chk"></div>
+          <div class="goal-pill-icon"><span class="ms">directions_run</span></div>
+          <div class="goal-pill-label">Get fit and healthy</div>
+          <div class="goal-pill-desc">Mind and body in sync</div>
         </button>
-        <button class="goal-card" onclick="selGoal(this,'achieve','Win something big')">
-          <div class="goal-check"><span class="ms">check</span></div>
-          <div class="goal-card-icon"><span class="ms">emoji_events</span></div>
-          <div class="goal-label">Win something big</div>
-          <div class="goal-desc">Competitions and awards</div>
+        <button class="goal-pill" onclick="selGoal(this,'achieve','Win something big')">
+          <div class="goal-chk"></div>
+          <div class="goal-pill-icon"><span class="ms">emoji_events</span></div>
+          <div class="goal-pill-label">Win something big</div>
+          <div class="goal-pill-desc">Competitions & awards</div>
         </button>
       </div>
-      <button class="btn btn-primary" id="goalCta" onclick="go(4)" disabled>Continue</button>
+      <button class="btn-cta" id="goalCta" onclick="go(4)" disabled>Continue</button>
     </div>
-    <div class="dots">
-      <div class="dot"></div><div class="dot"></div><div class="dot on"></div>
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
+    <div class="dots-wrap" style="background:#4A1F8A">
+      <div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
   </div>
 
-  <!-- ══ S4: STYLE ═══════════════════════════════ -->
-  <div class="screen" id="s4">
-    <div class="prog-wrap"><div class="prog-fill" style="width:42%"></div></div>
+  <!-- ══ S4: STYLE (full color) ══════════════════ -->
+  <div class="screen color-screen" id="s4">
+    <div class="prog"><div class="prog-fill" style="width:42%"></div></div>
     <button class="back" onclick="go(3)" aria-label="Back"><span class="ms">arrow_back</span></button>
-    <button class="skip-btn" onclick="go(5)">Skip</button>
-    <div class="hero-zone" style="height:252px">
-      <div class="hero-bg" style="background:#3B1A78"></div>
-      <div class="float" style="width:160px;height:160px;top:-40px;right:-40px;background:#fff"></div>
-      <div class="float" style="width:90px;height:90px;bottom:50px;left:-25px;background:#fff"></div>
-      <div class="ftile" style="top:52px;left:50px"><span class="ms">leaderboard</span></div>
-      <div class="ftile" style="top:48px;right:50px;border-radius:50%"><span class="ms">trending_up</span></div>
-      <div class="ftile" style="bottom:70px;right:46px"><span class="ms">calendar_today</span></div>
-      <div class="ftile" style="bottom:66px;left:50px;border-radius:50%"><span class="ms">bolt</span></div>
-      <div class="hero-content">
-        <div style="width:80px;height:80px;border-radius:50%;background:#6A3FAD;display:flex;align-items:center;justify-content:center;position:relative;z-index:2">
-          <svg width="42" height="19" viewBox="0 0 38 18" fill="none">
-            <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-            <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-          </svg>
-        </div>
+    <div class="step-pill">3 of 6</div>
+    <button class="skip" onclick="go(5)">Skip</button>
+    <div class="q-top" style="background:#3B1A78">
+      <div class="fl" style="width:200px;height:200px;top:-55px;right:-55px"></div>
+      <div class="fl" style="width:110px;height:110px;bottom:30px;left:-30px"></div>
+      <div class="ft" style="top:68px;left:52px"><span class="ms">leaderboard</span></div>
+      <div class="ft circle" style="top:64px;right:56px"><span class="ms">trending_up</span></div>
+      <div class="ft" style="bottom:60px;right:48px"><span class="ms">calendar_today</span></div>
+      <div class="ft circle" style="bottom:56px;left:52px"><span class="ms">bolt</span></div>
+      <div class="pep-orb" style="width:84px;height:84px;background:rgba(255,255,255,0.15)">
+        <svg class="face-svg" width="44" height="20" viewBox="0 0 38 18" fill="none">
+          <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+          <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+        </svg>
       </div>
-      <div class="wave"><svg viewBox="0 0 390 60" preserveAspectRatio="none"><path d="M0,60 C130,0 260,0 390,60 L390,60 L0,60 Z" fill="#fff"/></svg></div>
     </div>
-    <div class="content-zone" style="padding-top:18px">
+    <div class="q-bottom" style="background:#3B1A78">
       <div class="q-head">How do you work best?</div>
       <div class="q-sub">Be honest — there's no wrong answer here.</div>
       <div class="opt-list">
-        <button class="opt-row" onclick="selStyle(this,'compete')">
-          <div class="opt-row-icon"><span class="ms">leaderboard</span></div>
-          <span class="opt-row-label">I love competing</span>
-          <div class="opt-radio"></div>
-        </button>
-        <button class="opt-row" onclick="selStyle(this,'improve')">
-          <div class="opt-row-icon"><span class="ms">trending_up</span></div>
-          <span class="opt-row-label">I beat my own best</span>
-          <div class="opt-radio"></div>
-        </button>
-        <button class="opt-row" onclick="selStyle(this,'routine')">
-          <div class="opt-row-icon"><span class="ms">calendar_today</span></div>
-          <span class="opt-row-label">I thrive on routine</span>
-          <div class="opt-radio"></div>
-        </button>
-        <button class="opt-row" onclick="selStyle(this,'burst')">
-          <div class="opt-row-icon"><span class="ms">bolt</span></div>
-          <span class="opt-row-label">I work in bursts</span>
-          <div class="opt-radio"></div>
-        </button>
+        <button class="opt-pill" onclick="selStyle(this,'compete')"><div class="pill-icon"><span class="ms">leaderboard</span></div><span class="pill-label">I love competing</span><div class="pill-radio"></div></button>
+        <button class="opt-pill" onclick="selStyle(this,'improve')"><div class="pill-icon"><span class="ms">trending_up</span></div><span class="pill-label">I beat my own best</span><div class="pill-radio"></div></button>
+        <button class="opt-pill" onclick="selStyle(this,'routine')"><div class="pill-icon"><span class="ms">calendar_today</span></div><span class="pill-label">I thrive on routine</span><div class="pill-radio"></div></button>
+        <button class="opt-pill" onclick="selStyle(this,'burst')"><div class="pill-icon"><span class="ms">bolt</span></div><span class="pill-label">I work in bursts</span><div class="pill-radio"></div></button>
       </div>
-      <button class="btn btn-primary" id="styleCta" onclick="go(5)" disabled>Continue</button>
+      <button class="btn-cta" id="styleCta" onclick="go(5)" disabled>Continue</button>
     </div>
-    <div class="dots">
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot on"></div>
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
+    <div class="dots-wrap" style="background:#3B1A78">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
   </div>
 
-  <!-- ══ S5: INTERESTS ═══════════════════════════ -->
-  <div class="screen" id="s5">
-    <div class="prog-wrap"><div class="prog-fill" style="width:56%"></div></div>
+  <!-- ══ S5: INTERESTS (full color) ══════════════ -->
+  <div class="screen color-screen" id="s5">
+    <div class="prog"><div class="prog-fill" style="width:56%"></div></div>
     <button class="back" onclick="go(4)" aria-label="Back"><span class="ms">arrow_back</span></button>
-    <button class="skip-btn" onclick="go(6)">Skip</button>
-    <div class="hero-zone" style="height:232px">
-      <div class="hero-bg" style="background:#5020A0"></div>
-      <div class="float" style="width:160px;height:160px;top:-40px;right:-40px;background:#fff"></div>
-      <div class="float" style="width:80px;height:80px;bottom:46px;left:-24px;background:#fff"></div>
-      <div class="ftile" style="top:50px;left:46px;border-radius:50%"><span class="ms">sports_soccer</span></div>
-      <div class="ftile" style="top:44px;right:52px"><span class="ms">palette</span></div>
-      <div class="ftile" style="bottom:68px;right:48px;border-radius:50%"><span class="ms">code</span></div>
-      <div class="ftile" style="bottom:64px;left:52px"><span class="ms">music_note</span></div>
-      <div class="hero-content">
-        <div style="width:76px;height:76px;border-radius:50%;background:#7043B5;display:flex;align-items:center;justify-content:center;position:relative;z-index:2">
-          <svg width="40" height="18" viewBox="0 0 38 18" fill="none">
-            <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-            <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-          </svg>
-        </div>
+    <div class="step-pill">4 of 6</div>
+    <button class="skip" onclick="go(6)">Skip</button>
+    <div class="q-top" style="background:#5020A0;flex:0 0 180px">
+      <div class="fl" style="width:180px;height:180px;top:-50px;right:-50px"></div>
+      <div class="fl" style="width:90px;height:90px;bottom:20px;left:-25px"></div>
+      <div class="ft circle" style="top:52px;left:46px"><span class="ms">sports_soccer</span></div>
+      <div class="ft" style="top:44px;right:52px"><span class="ms">palette</span></div>
+      <div class="ft circle" style="bottom:32px;right:48px"><span class="ms">code</span></div>
+      <div class="ft" style="bottom:28px;left:52px"><span class="ms">music_note</span></div>
+      <div class="pep-orb" style="width:76px;height:76px;background:rgba(255,255,255,0.15)">
+        <svg class="face-svg" width="40" height="18" viewBox="0 0 38 18" fill="none">
+          <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+          <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+        </svg>
       </div>
-      <div class="wave"><svg viewBox="0 0 390 60" preserveAspectRatio="none"><path d="M0,60 C130,0 260,0 390,60 L390,60 L0,60 Z" fill="#fff"/></svg></div>
     </div>
-    <div class="content-zone" style="padding-top:18px">
+    <div class="q-bottom" style="background:#5020A0;flex:1;padding-top:20px">
       <div class="q-head">What are you into?</div>
-      <div class="q-sub">We'll surface workshops that match your interests.</div>
-      <div class="chips">
+      <div class="q-sub" style="margin-bottom:14px">We'll surface workshops that match your interests.</div>
+      <div class="chips" style="margin-bottom:16px">
         <button class="chip" onclick="this.classList.toggle('sel')"><span class="ms">sports_soccer</span>Sports</button>
         <button class="chip" onclick="this.classList.toggle('sel')"><span class="ms">mic</span>Debate</button>
         <button class="chip" onclick="this.classList.toggle('sel')"><span class="ms">music_note</span>Music</button>
@@ -567,148 +395,91 @@ html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-sm
         <button class="chip" onclick="this.classList.toggle('sel')"><span class="ms">groups</span>Leadership</button>
         <button class="chip" onclick="this.classList.toggle('sel')"><span class="ms">spa</span>Wellness</button>
       </div>
-      <button class="btn btn-primary" onclick="go(6)">Continue</button>
+      <button class="btn-cta" onclick="go(6)">Continue</button>
     </div>
-    <div class="dots">
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot on"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
+    <div class="dots-wrap" style="background:#5020A0">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
   </div>
 
-  <!-- ══ S6: CHALLENGE ═══════════════════════════ -->
-  <div class="screen" id="s6">
-    <div class="prog-wrap"><div class="prog-fill" style="width:70%"></div></div>
+  <!-- ══ S6: CHALLENGE (full color) ══════════════ -->
+  <div class="screen color-screen" id="s6">
+    <div class="prog"><div class="prog-fill" style="width:70%"></div></div>
     <button class="back" onclick="go(5)" aria-label="Back"><span class="ms">arrow_back</span></button>
-    <button class="skip-btn" onclick="triggerThinking()">Skip</button>
-    <div class="hero-zone" style="height:232px">
-      <div class="hero-bg" style="background:#3D1A72"></div>
-      <div class="float" style="width:160px;height:160px;top:-40px;right:-40px;background:#fff"></div>
-      <div class="float" style="width:80px;height:80px;bottom:46px;left:-24px;background:#fff"></div>
-      <div class="ftile" style="top:50px;left:46px;border-radius:50%"><span class="ms">bedtime</span></div>
-      <div class="ftile" style="top:44px;right:52px"><span class="ms">event_available</span></div>
-      <div class="ftile" style="bottom:68px;right:48px;border-radius:50%"><span class="ms">local_fire_department</span></div>
-      <div class="ftile" style="bottom:64px;left:52px"><span class="ms">center_focus_strong</span></div>
-      <div class="hero-content">
-        <div style="width:76px;height:76px;border-radius:50%;background:#6032A8;display:flex;align-items:center;justify-content:center;position:relative;z-index:2">
-          <svg width="40" height="18" viewBox="0 0 38 18" fill="none">
-            <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-            <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
-          </svg>
-        </div>
-      </div>
-      <div class="wave"><svg viewBox="0 0 390 60" preserveAspectRatio="none"><path d="M0,60 C130,0 260,0 390,60 L390,60 L0,60 Z" fill="#fff"/></svg></div>
-    </div>
-    <div class="content-zone" style="padding-top:18px">
-      <div class="q-head">What's hardest for you right now?</div>
-      <div class="q-sub">No judgement. This is how we make PEP useful from day one.</div>
-      <div class="opt-list">
-        <button class="opt-row" onclick="selChallenge(this,'sleep','Sleep and rest')">
-          <div class="opt-row-icon"><span class="ms">bedtime</span></div>
-          <span class="opt-row-label">Sleep and rest</span>
-          <div class="opt-radio"></div>
-        </button>
-        <button class="opt-row" onclick="selChallenge(this,'attend','Attendance')">
-          <div class="opt-row-icon"><span class="ms">event_available</span></div>
-          <span class="opt-row-label">Staying on top of attendance</span>
-          <div class="opt-radio"></div>
-        </button>
-        <button class="opt-row" onclick="selChallenge(this,'motivate','Staying motivated')">
-          <div class="opt-row-icon"><span class="ms">local_fire_department</span></div>
-          <span class="opt-row-label">Staying motivated</span>
-          <div class="opt-radio"></div>
-        </button>
-        <button class="opt-row" onclick="selChallenge(this,'feedback','Taking feedback')">
-          <div class="opt-row-icon"><span class="ms">chat</span></div>
-          <span class="opt-row-label">Taking feedback well</span>
-          <div class="opt-radio"></div>
-        </button>
-        <button class="opt-row" onclick="selChallenge(this,'focus','Staying focused')">
-          <div class="opt-row-icon"><span class="ms">center_focus_strong</span></div>
-          <span class="opt-row-label">Staying focused</span>
-          <div class="opt-radio"></div>
-        </button>
-      </div>
-      <button class="btn btn-primary" id="challengeCta" onclick="triggerThinking()" disabled>Continue</button>
-    </div>
-    <div class="dots">
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot on"></div>
-      <div class="dot"></div><div class="dot"></div>
-    </div>
-  </div>
-
-  <!-- ══ S7: ARCHETYPE REVEAL ════════════════════ -->
-  <div class="screen" id="s7">
-    <div class="arch-top" id="archTop" style="background:var(--p)">
-      <div class="float" style="width:220px;height:220px;top:-55px;right:-55px;background:#fff"></div>
-      <div class="float" style="width:130px;height:130px;bottom:80px;left:-40px;background:#fff"></div>
-      <div style="position:absolute;top:76px;left:58px;z-index:2;font-size:22px;color:rgba(255,255,255,0.5)">✦</div>
-      <div style="position:absolute;top:66px;right:68px;z-index:2;font-size:14px;color:rgba(255,255,255,0.4)">✦</div>
-      <div style="position:absolute;bottom:96px;right:58px;z-index:2;font-size:16px;color:rgba(255,255,255,0.4)">✦</div>
-      <div style="position:relative;z-index:2;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
-        <svg width="72" height="33" viewBox="0 0 38 18" fill="none">
-          <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-          <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-          <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="34.5" cy="4.5" r="2.5" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="2"/>
-          <circle cx="3.5" cy="4.5" r="2.5" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="2"/>
+    <div class="step-pill">5 of 6</div>
+    <button class="skip" onclick="triggerThinking()">Skip</button>
+    <div class="q-top" style="background:#3D1A72">
+      <div class="fl" style="width:200px;height:200px;top:-55px;right:-55px"></div>
+      <div class="fl" style="width:110px;height:110px;bottom:30px;left:-30px"></div>
+      <div class="ft circle" style="top:68px;left:52px"><span class="ms">bedtime</span></div>
+      <div class="ft" style="top:64px;right:56px"><span class="ms">event_available</span></div>
+      <div class="ft circle" style="bottom:60px;right:48px"><span class="ms">local_fire_department</span></div>
+      <div class="ft" style="bottom:56px;left:52px"><span class="ms">center_focus_strong</span></div>
+      <div class="pep-orb" style="width:84px;height:84px;background:rgba(255,255,255,0.15)">
+        <svg class="face-svg" width="44" height="20" viewBox="0 0 38 18" fill="none">
+          <path d="M36.5 6C32.97 11.98 26.55 17 19 17S5.03 11.98 1.5 6" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 1C15.27 2.2 14.05 3 12.5 3S9.73 2.2 9 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 1C27.27 2.2 26.05 3 24.5 3S21.73 2.2 21 1" stroke="#42355D" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
+          <circle cx="3.5" cy="4.5" r="2.5" fill="#9B8FE8" stroke="#42355D" stroke-width="2"/>
         </svg>
       </div>
-      <div class="wave"><svg viewBox="0 0 390 60" preserveAspectRatio="none"><path d="M0,60 C130,0 260,0 390,60 L390,60 L0,60 Z" fill="#fff"/></svg></div>
     </div>
-    <div class="arch-content">
-      <div style="font-size:13px;font-weight:600;color:var(--g500);margin-bottom:6px">Your style is...</div>
-      <div style="font-size:30px;font-weight:800;color:var(--g800);letter-spacing:-0.5px;margin-bottom:10px" id="archName">The Hustler</div>
-      <div style="font-size:14px;color:var(--g600);line-height:1.65;margin-bottom:18px" id="archDesc">You're driven, ambitious, and always looking for the next win.</div>
-      <div id="traitList" style="margin-bottom:20px"></div>
-      <button class="btn btn-primary" onclick="go(8)">This is me — let's go</button>
-      <button class="btn btn-secondary" onclick="go(3)">Retake the quiz</button>
+    <div class="q-bottom" style="background:#3D1A72">
+      <div class="q-head">What's hardest right now?</div>
+      <div class="q-sub">No judgement. This is how PEP helps where it counts most.</div>
+      <div class="opt-list">
+        <button class="opt-pill" onclick="selChallenge(this,'sleep','Sleep and rest')"><div class="pill-icon"><span class="ms">bedtime</span></div><span class="pill-label">Sleep and rest</span><div class="pill-radio"></div></button>
+        <button class="opt-pill" onclick="selChallenge(this,'attend','Attendance')"><div class="pill-icon"><span class="ms">event_available</span></div><span class="pill-label">Staying on top of attendance</span><div class="pill-radio"></div></button>
+        <button class="opt-pill" onclick="selChallenge(this,'motivate','Staying motivated')"><div class="pill-icon"><span class="ms">local_fire_department</span></div><span class="pill-label">Staying motivated</span><div class="pill-radio"></div></button>
+        <button class="opt-pill" onclick="selChallenge(this,'feedback','Taking feedback')"><div class="pill-icon"><span class="ms">chat</span></div><span class="pill-label">Taking feedback well</span><div class="pill-radio"></div></button>
+        <button class="opt-pill" onclick="selChallenge(this,'focus','Staying focused')"><div class="pill-icon"><span class="ms">center_focus_strong</span></div><span class="pill-label">Staying focused</span><div class="pill-radio"></div></button>
+      </div>
+      <button class="btn-cta" id="challengeCta" onclick="triggerThinking()" disabled>Continue</button>
     </div>
-    <div class="dots">
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot on"></div><div class="dot"></div>
+    <div class="dots-wrap" style="background:#3D1A72">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
     </div>
   </div>
 
-  <!-- ══ S8: ALL SET ══════════════════════════════ -->
+  <!-- ══ S7: ARCHETYPE REVEAL (white — matches screenshot) ══ -->
+  <div class="screen" id="s7">
+    <div class="arch-reveal">
+      <div style="font-size:14px;color:var(--g500);margin-bottom:8px;font-weight:500">Your style is…</div>
+      <div style="font-size:34px;font-weight:800;color:var(--g800);letter-spacing:-0.6px;margin-bottom:12px;line-height:1.1" id="archName">The Hustler</div>
+      <div style="font-size:15px;color:var(--g600);line-height:1.65;margin-bottom:24px" id="archDesc">You're driven, ambitious, and always looking for the next win. PEP keeps you focused on what moves the needle.</div>
+      <div id="traitList">
+        <div class="trait-pill"><span class="ms">check_circle</span>Goal-oriented and focused</div>
+        <div class="trait-pill"><span class="ms">check_circle</span>Thrives on visible progress</div>
+        <div class="trait-pill"><span class="ms">check_circle</span>Motivated by recognition</div>
+      </div>
+      <div style="flex:1;min-height:16px"></div>
+      <button class="white-cta" onclick="go(8)" style="margin-bottom:10px">This is me — let's go</button>
+      <button class="white-sec" onclick="go(3)">Retake the quiz</button>
+    </div>
+    <div class="dots-wrap">
+      <div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot" style="background:var(--g200)"></div><div class="dot on" style="background:var(--p);width:18px"></div><div class="dot" style="background:var(--g200)"></div>
+    </div>
+  </div>
+
+  <!-- ══ S8: ALL SET (white, no HPS ring) ════════ -->
   <div class="screen" id="s8">
     <div style="height:3px;background:var(--p)"></div>
-    <div style="flex:1;overflow-y:auto;padding:28px 28px 32px">
-      <div style="text-align:center;margin-bottom:28px">
-        <div style="width:96px;height:96px;border-radius:50%;border:4px solid var(--pb);background:var(--pl);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px">
-          <div style="font-size:30px;font-weight:800;color:var(--p);line-height:1">0</div>
-          <div style="font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px">HPS</div>
-        </div>
-        <div style="font-size:26px;font-weight:800;color:var(--g800);letter-spacing:-0.3px;margin-bottom:8px" id="readyTitle">You're all set</div>
-        <div style="font-size:14px;color:var(--g600);line-height:1.65" id="readySub">Every day you show up, your score grows.</div>
+    <div class="allset-body">
+      <div style="margin-bottom:28px">
+        <div style="font-size:28px;font-weight:800;color:var(--g800);letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2" id="readyTitle">You're all set</div>
+        <div style="font-size:15px;color:var(--g600);line-height:1.65" id="readySub">Every day you show up, your score grows. Let's make today count.</div>
       </div>
+
       <div style="margin-bottom:24px">
-        <div class="sum-item">
-          <div class="sum-ic"><span class="ms">my_location</span></div>
-          <div><div class="sum-lbl">Your goal</div><div class="sum-val" id="sumGoal">Land a great placement</div></div>
-        </div>
-        <div class="sum-item">
-          <div class="sum-ic"><span class="ms">auto_awesome</span></div>
-          <div><div class="sum-lbl">Your archetype</div><div class="sum-val" id="sumArch">The Hustler</div></div>
-        </div>
-        <div class="sum-item">
-          <div class="sum-ic"><span class="ms">local_fire_department</span></div>
-          <div><div class="sum-lbl">Daily mission</div><div class="sum-val" style="color:var(--p)">Ready and waiting</div></div>
-        </div>
-        <div class="sum-item">
-          <div class="sum-ic"><span class="ms">lightbulb</span></div>
-          <div><div class="sum-lbl">Your challenge</div><div class="sum-val" id="sumChallenge">Staying motivated</div></div>
-        </div>
+        <div class="sum-row"><div class="sum-ic"><span class="ms">my_location</span></div><div><div class="sum-lbl">Your goal</div><div class="sum-val" id="sumGoal">Land a great placement</div></div></div>
+        <div class="sum-row"><div class="sum-ic"><span class="ms">auto_awesome</span></div><div><div class="sum-lbl">Your archetype</div><div class="sum-val" id="sumArch">The Hustler</div></div></div>
+        <div class="sum-row"><div class="sum-ic"><span class="ms">local_fire_department</span></div><div><div class="sum-lbl">Daily mission</div><div class="sum-val" style="color:var(--p)">Ready and waiting</div></div></div>
+        <div class="sum-row"><div class="sum-ic"><span class="ms">lightbulb</span></div><div><div class="sum-lbl">Your challenge</div><div class="sum-val" id="sumChallenge">Staying motivated</div></div></div>
       </div>
-      <button class="btn btn-primary" onclick="go(1)" style="margin-bottom:12px">Open my dashboard</button>
+
+      <div style="flex:1;min-height:8px"></div>
+      <button class="white-cta" onclick="go(1)" style="margin-bottom:12px">Open my dashboard</button>
       <div style="text-align:center;font-size:12px;color:var(--g400)">Update preferences anytime in Settings</div>
     </div>
   </div>
@@ -725,82 +496,57 @@ const ARCHETYPES={
   achieve:{compete:'The Hustler',improve:'The Achiever',routine:'The Consistent',burst:'The Wildcard'},
 };
 
-const ARCH_DATA={
-  'The Strategist':{desc:"You play the long game. Every move is calculated and intentional. PEP helps you stay ten steps ahead.",traits:['Long-term thinker','Deliberate and precise','Thrives on planning'],bg:'#2D1A5E'},
-  'The Climber':{desc:"You measure success by how far you've come, not where you rank. Progress is your fuel.",traits:['Self-improvement focused','Tracks every milestone','Motivated by personal bests'],bg:'#1A4D3A'},
-  'The Professional':{desc:"Consistency is your superpower. You show up every day and let compounding do the work.",traits:['Reliable and dependable','Builds habits that last','Earns trust over time'],bg:'#1A3A5C'},
-  'The Sprinter':{desc:"You bring incredible energy when it matters. PEP helps you channel that power consistently.",traits:['High energy and driven','Excels under pressure','Big results when focused'],bg:'#5C2A0E'},
-  'The Champion':{desc:"You're built for the spotlight. Competition brings out your best and you know it.",traits:['Competitive and ambitious','Performs best when challenged','Inspires others around you'],bg:'#4A2800'},
-  'The Visionary':{desc:"You see the bigger picture. Your leadership comes from ideas and inspiring others.",traits:['Big-picture thinker','Builds followership naturally','Driven by purpose'],bg:'#2A1A5A'},
-  'The Steady Leader':{desc:"People trust you because you're always there. Your consistency builds the teams around you.",traits:['Calm under pressure','Earns deep trust','Leads by example'],bg:'#0E3A2F'},
-  'The Catalyst':{desc:"You spark energy in every room. When you're on, everything moves faster.",traits:['Energising and inspiring','Creates momentum','Thrives in dynamic environments'],bg:'#4A1A0E'},
-  'The Athlete':{desc:"Discipline is your identity. Your physical commitment spills into everything else.",traits:['Physically disciplined','Sets and hits goals','Wellness drives performance'],bg:'#0E2E4A'},
-  'The Transformer':{desc:"You're on a personal mission to grow. Every semester you come back stronger.",traits:['Growth mindset','Embraces challenge','Turns setbacks into fuel'],bg:'#1A4A2A'},
-  'The Disciplined':{desc:"Structure is your secret weapon. Routines let you perform without burning out.",traits:['Highly consistent','Plans ahead always','Rarely misses a commitment'],bg:'#1A1A4A'},
-  'The Warrior':{desc:"You train hard and push limits. Your intensity is unmatched when locked in.",traits:['Intense and committed','Pushes through discomfort','Breakthrough results'],bg:'#4A0E0E'},
-  'The Hustler':{desc:"You're driven, ambitious, and always looking for the next win. PEP keeps you focused on what moves the needle.",traits:['Goal-oriented and focused','Thrives on visible progress','Motivated by recognition'],bg:'#3D1070'},
-  'The Achiever':{desc:"Winning feels amazing, but beating your own record feels better. You're on a personal mission.",traits:['Internally motivated','Tracks everything','Celebrates progress'],bg:'#2A0E4A'},
-  'The Consistent':{desc:"You show up. Every day. That's rarer than talent and more valuable than luck.",traits:['Unshakeable routine','Builds trust through reliability','Long-run winner'],bg:'#0E1E3A'},
-  'The Wildcard':{desc:"Unpredictable, electric, and genuinely unique. When you're switched on, nobody can match you.",traits:['Explosively creative','Breaks the mould','Surprise performances'],bg:'#3A0E4A'},
+const ARCH={
+  'The Strategist':{desc:"You play the long game. Every move is calculated and intentional. PEP helps you stay ten steps ahead.",traits:['Long-term thinker','Deliberate and precise','Thrives on planning']},
+  'The Climber':{desc:"You measure success by how far you've come, not where you rank. Progress is your fuel.",traits:['Self-improvement focused','Tracks every milestone','Motivated by personal bests']},
+  'The Professional':{desc:"Consistency is your superpower. You show up every day and let compounding do the work.",traits:['Reliable and dependable','Builds habits that last','Earns trust over time']},
+  'The Sprinter':{desc:"You bring incredible energy when it matters. PEP helps you channel that power consistently.",traits:['High energy and driven','Excels under pressure','Big results when focused']},
+  'The Champion':{desc:"You're built for the spotlight. Competition brings out your best and you know it.",traits:['Competitive and ambitious','Performs best when challenged','Inspires others around you']},
+  'The Visionary':{desc:"You see the bigger picture. Your leadership comes from ideas and inspiring others.",traits:['Big-picture thinker','Builds followership naturally','Driven by purpose']},
+  'The Steady Leader':{desc:"People trust you because you're always there. Your consistency builds the teams around you.",traits:['Calm under pressure','Earns deep trust','Leads by example']},
+  'The Catalyst':{desc:"You spark energy in every room. When you're on, everything moves faster.",traits:['Energising and inspiring','Creates momentum','Thrives in dynamic environments']},
+  'The Athlete':{desc:"Discipline is your identity. Your physical commitment spills into everything else.",traits:['Physically disciplined','Sets and hits goals','Wellness drives performance']},
+  'The Transformer':{desc:"You're on a personal mission to grow. Every semester you come back stronger.",traits:['Growth mindset','Embraces challenge','Turns setbacks into fuel']},
+  'The Disciplined':{desc:"Structure is your secret weapon. Routines let you perform without burning out.",traits:['Highly consistent','Plans ahead always','Rarely misses a commitment']},
+  'The Warrior':{desc:"You train hard and push limits. Your intensity is unmatched when locked in.",traits:['Intense and committed','Pushes through discomfort','Breakthrough results']},
+  'The Hustler':{desc:"You're driven, ambitious, and always looking for the next win. PEP keeps you focused on what moves the needle.",traits:['Goal-oriented and focused','Thrives on visible progress','Motivated by recognition']},
+  'The Achiever':{desc:"Winning feels amazing, but beating your own record feels better. You're on a personal mission.",traits:['Internally motivated','Tracks everything','Celebrates progress']},
+  'The Consistent':{desc:"You show up. Every day. That's rarer than talent and more valuable than luck.",traits:['Unshakeable routine','Builds trust through reliability','Long-run winner']},
+  'The Wildcard':{desc:"Unpredictable, electric, and genuinely unique. When you're switched on, nobody can match you.",traits:['Explosively creative','Breaks the mould','Surprise performances']},
 };
-
-let cur=0;
 
 function go(n){
   const prev=document.querySelector('.screen.active');
   const next=document.getElementById('s'+n);
   if(!next||prev===next)return;
-  prev.classList.remove('active');
-  prev.classList.add('exit');
+  prev.classList.remove('active');prev.classList.add('exit');
   next.classList.add('active');
   setTimeout(()=>prev.classList.remove('exit'),350);
-  cur=n;
-  const cz=next.querySelector('.content-zone');
+  const cz=next.querySelector('.q-bottom,.arch-reveal,.allset-body');
   if(cz)cz.scrollTop=0;
 }
 
-(function breathe(){
-  const orb=document.getElementById('pepOrb');
-  const txt=document.getElementById('breatheText');
-  if(!orb||!txt)return;
-  let phase=0;
-  const scales=['scale(1.18)','scale(1.18)','scale(1)','scale(1)'];
-  const labels=['Breathe in','','Breathe out',''];
-  setInterval(()=>{
-    phase=(phase+1)%4;
-    orb.style.transform=scales[phase];
-    if(labels[phase]){txt.style.opacity='1';txt.textContent=labels[phase];}
-    else txt.style.opacity='0';
-  },2000);
-  setTimeout(()=>go(1),4200);
-})();
+// Auto-advance splash after 2.5s
+setTimeout(()=>go(1),2500);
 
-function onNameInput(){
-  document.getElementById('nameCta').disabled=document.getElementById('nameInput').value.trim().length<2;
-}
-
-function saveName(){
-  S.name=document.getElementById('nameInput').value.trim()||'there';
-  document.getElementById('goalHead').textContent='What do you want most this semester, '+S.name+'?';
-  go(3);
-}
+function onNameInput(){document.getElementById('nameCta').disabled=document.getElementById('nameInput').value.trim().length<2}
+function saveName(){S.name=document.getElementById('nameInput').value.trim()||'there';document.getElementById('goalHead').textContent='What do you want most this semester, '+S.name+'?';go(3)}
 
 function selGoal(el,val,label){
-  document.querySelectorAll('#s3 .goal-card').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-  S.goal=val;S.goalLabel=label;
+  document.querySelectorAll('#s3 .goal-pill').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');S.goal=val;S.goalLabel=label;
   document.getElementById('sumGoal').textContent=label;
   document.getElementById('goalCta').disabled=false;
 }
 
 function selStyle(el,val){
-  document.querySelectorAll('#s4 .opt-row').forEach(r=>r.classList.remove('sel'));
+  document.querySelectorAll('#s4 .opt-pill').forEach(r=>r.classList.remove('sel'));
   el.classList.add('sel');S.style=val;
   document.getElementById('styleCta').disabled=false;
 }
 
 function selChallenge(el,val,label){
-  document.querySelectorAll('#s6 .opt-row').forEach(r=>r.classList.remove('sel'));
+  document.querySelectorAll('#s6 .opt-pill').forEach(r=>r.classList.remove('sel'));
   el.classList.add('sel');S.challenge=val;S.challengeLabel=label;
   document.getElementById('sumChallenge').textContent=label;
   document.getElementById('challengeCta').disabled=false;
@@ -809,25 +555,160 @@ function selChallenge(el,val,label){
 function triggerThinking(){
   const t=document.getElementById('thinking');
   t.classList.add('active');
-  setTimeout(()=>{buildArchetype();t.classList.remove('active');go(7);},2200);
+  setTimeout(()=>{buildArchetype();t.classList.remove('active');go(7)},2000);
 }
 
 function buildArchetype(){
   const g=S.goal||'achieve';const s=S.style||'improve';
   const name=(ARCHETYPES[g]&&ARCHETYPES[g][s])||'The Achiever';
-  const data=ARCH_DATA[name]||ARCH_DATA['The Achiever'];
+  const data=ARCH[name]||ARCH['The Achiever'];
   document.getElementById('archName').textContent=name;
   document.getElementById('archDesc').textContent=data.desc;
-  document.getElementById('archTop').style.background=data.bg;
   document.getElementById('traitList').innerHTML=data.traits
-    .map(t=>`<div class="trait-chip"><span class="ms">check_circle</span>${t}</div>`)
-    .join('');
+    .map(t=>`<div class="trait-pill"><span class="ms">check_circle</span>${t}</div>`).join('');
   document.getElementById('sumArch').textContent=name;
   const g2=S.name?S.name+", you're":"You're";
   document.getElementById('readyTitle').textContent=g2+' all set';
   document.getElementById('readySub').textContent="You're "+name.replace('The ','a ')+
     (S.goalLabel?', working toward: '+S.goalLabel:'')+". Every day you show up, your score grows.";
 }
+
+// ── Physics drag engine for .ft tiles ──────────────────────────────────────
+(function initDrag(){
+  // Spring physics constants
+  const STIFFNESS = 0.12;   // how strong the spring pulls back
+  const DAMPING   = 0.72;   // how much energy each frame loses
+  const MASS      = 1;
+
+  // Track each tile's physics state
+  const tiles = new Map(); // el -> {homeX, homeY, x, y, vx, vy, dragging, offX, offY}
+
+  function getHome(el){
+    const s = window.getComputedStyle(el);
+    return {
+      x: parseFloat(s.left) || 0,
+      y: parseFloat(s.top)  || 0
+    };
+  }
+
+  function register(el){
+    if(tiles.has(el)) return;
+    const h = getHome(el);
+    tiles.set(el, {homeX:h.x, homeY:h.y, x:0, y:0, vx:0, vy:0, dragging:false, offX:0, offY:0});
+  }
+
+  // Register all current and future .ft elements
+  function registerAll(){
+    document.querySelectorAll('.ft').forEach(el => {
+      register(el);
+      attachListeners(el);
+    });
+  }
+
+  function attachListeners(el){
+    // Prevent double-attaching
+    if(el._drag) return;
+    el._drag = true;
+
+    // Mouse
+    el.addEventListener('mousedown', e => startDrag(el, e.clientX, e.clientY, e));
+    // Touch
+    el.addEventListener('touchstart', e => {
+      const t = e.touches[0];
+      startDrag(el, t.clientX, t.clientY, e);
+    }, {passive:false});
+  }
+
+  function startDrag(el, cx, cy, e){
+    e.preventDefault();
+    e.stopPropagation();
+    register(el);
+    const state = tiles.get(el);
+    state.dragging = true;
+    state.vx = 0; state.vy = 0;
+    // offset from tile top-left to pointer
+    const rect = el.getBoundingClientRect();
+    state.offX = cx - rect.left;
+    state.offY = cy - rect.top;
+    el.style.transition = 'box-shadow 0.15s';
+    el.style.boxShadow = '0 8px 28px rgba(0,0,0,0.28)';
+    el.style.zIndex = '20';
+
+    // Move handlers
+    const onMove = ev => {
+      const px = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      const py = ev.touches ? ev.touches[0].clientY : ev.clientY;
+      moveDrag(el, px, py);
+    };
+    const onEnd = () => {
+      endDrag(el);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onEnd);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onEnd);
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchmove', onMove, {passive:false});
+    window.addEventListener('touchend', onEnd);
+  }
+
+  function moveDrag(el, cx, cy){
+    const state = tiles.get(el);
+    if(!state || !state.dragging) return;
+    const parent = el.parentElement.getBoundingClientRect();
+    // Target position in parent coordinates
+    const targetX = cx - parent.left - state.offX;
+    const targetY = cy - parent.top  - state.offY;
+    // Set displacement from home
+    state.x = targetX - state.homeX;
+    state.y = targetY - state.homeY;
+    el.style.transform = `translate(${state.x}px, ${state.y}px)`;
+  }
+
+  function endDrag(el){
+    const state = tiles.get(el);
+    if(!state) return;
+    state.dragging = false;
+    el.style.boxShadow = '';
+    el.style.zIndex = '2';
+    // Give it a little outward velocity based on displacement
+    state.vx = state.x * 0.06;
+    state.vy = state.y * 0.06;
+  }
+
+  // Animation loop — spring settle + idle float
+  let frame = 0;
+  function tick(){
+    requestAnimationFrame(tick);
+    frame++;
+    tiles.forEach((state, el) => {
+      if(state.dragging) return;
+      // Spring force toward home
+      const fx = -STIFFNESS * state.x;
+      const fy = -STIFFNESS * state.y;
+      // Idle float — gentle sine wave, unique per tile
+      const seed = el._seed || (el._seed = Math.random() * Math.PI * 2);
+      const floatY = Math.sin(frame * 0.018 + seed) * 0.15;
+      const floatX = Math.cos(frame * 0.012 + seed) * 0.08;
+      // Integrate
+      state.vx = (state.vx + fx / MASS) * DAMPING + floatX;
+      state.vy = (state.vy + fy / MASS) * DAMPING + floatY;
+      state.x += state.vx;
+      state.y += state.vy;
+      // Apply — only update if moved meaningfully
+      if(Math.abs(state.x) > 0.01 || Math.abs(state.y) > 0.01 || Math.abs(state.vx) > 0.01){
+        el.style.transform = `translate(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px)`;
+      }
+    });
+  }
+  tick();
+
+  // Initial registration + watch for new screens becoming active
+  registerAll();
+  const obs = new MutationObserver(() => registerAll());
+  obs.observe(document.getElementById('app'), {childList:true, subtree:true, attributes:true, attributeFilter:['class']});
+})();
 </script>
 </body>
 </html>
