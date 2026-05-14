@@ -454,7 +454,7 @@ html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-sm
         <div class="trait-pill"><span class="ms">check_circle</span>Motivated by recognition</div>
       </div>
       <div style="flex:1;min-height:16px"></div>
-      <button class="white-cta" onclick="go(8)" style="margin-bottom:10px">This is me! Let's go</button>
+      <button class="white-cta" onclick="go(8)" style="margin-bottom:10px">This is me — let's go</button>
       <button class="white-sec" onclick="go(3)">Retake the quiz</button>
     </div>
     <div class="dots-wrap">
@@ -479,7 +479,7 @@ html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-sm
       </div>
 
       <div style="flex:1;min-height:8px"></div>
-      <button class="white-cta" onclick="go(1)" style="margin-bottom:12px">Open my dashboard</button>
+      <button class="white-cta" onclick="launchDashboard()" style="margin-bottom:12px">Open my dashboard</button>
       <div style="text-align:center;font-size:12px;color:var(--g400)">Update preferences anytime in Settings</div>
     </div>
   </div>
@@ -802,5 +802,1723 @@ function buildArchetype(){
 })();
 
 </script>
+
+<!-- React CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+
+<!-- Dashboard root -->
+<div id="dashboard-root" style="display:none;position:fixed;inset:0;z-index:100;overflow-y:auto;"></div>
+
+<script>
+function launchDashboard() {
+  window.__pepStudentName = (window.S && window.S.name) ? window.S.name : 'Aaditya';
+  document.getElementById('dashboard-root').style.display = 'block';
+  document.getElementById('app').style.display = 'none';
+  if (!window.__dashboardMounted) {
+    window.__dashboardMounted = true;
+    window.__mountDashboard();
+  }
+}
+</script>
+
+<script>
+const {
+  useState
+} = React;
+const PILLARS = [{
+  id: "persona",
+  name: "Persona",
+  weight: 50,
+  score: 30.4,
+  max: 100,
+  color: "#6832BA",
+  lightBg: "#F5F0FC",
+  borderColor: "#DDCEF2",
+  status: "Cleared",
+  statusColor: "#12B76A",
+  batchAvg: 50,
+  batchBest: 76,
+  subcategories: [{
+    name: "Internal",
+    score: 30.4,
+    max: 40
+  }, {
+    name: "Capstone",
+    score: 0,
+    max: 60
+  }],
+  competencies: [{
+    name: "Communication",
+    score: 18,
+    max: 60,
+    micros: [{
+      name: "C1 - Verbal Communication",
+      score: 0,
+      max: 60
+    }, {
+      name: "C2 - Written Communication",
+      score: 0,
+      max: 60
+    }, {
+      name: "C3 - Presentation Skills",
+      score: 0,
+      max: 60
+    }, {
+      name: "C4 - Active Listening",
+      score: 0,
+      max: 60
+    }]
+  }, {
+    name: "Problem Solving",
+    score: 22,
+    max: 60,
+    micros: [{
+      name: "P1 - Problem Identification",
+      score: 12,
+      max: 60
+    }, {
+      name: "P2 - Solution Generation",
+      score: 10,
+      max: 60
+    }]
+  }, {
+    name: "Critical & Analytical Thinking",
+    score: 20,
+    max: 60,
+    micros: [{
+      name: "CT1 - Analysis",
+      score: 8,
+      max: 60
+    }, {
+      name: "CT2 - Evaluation",
+      score: 12,
+      max: 60
+    }]
+  }, {
+    name: "Empathy",
+    score: 15,
+    max: 60,
+    micros: [{
+      name: "E1 - Active Listening",
+      score: 5,
+      max: 60
+    }, {
+      name: "E2 - Perspective Taking",
+      score: 10,
+      max: 60
+    }]
+  }, {
+    name: "Leadership",
+    score: 12,
+    max: 60,
+    micros: [{
+      name: "L1 - Decision Making",
+      score: 6,
+      max: 60
+    }, {
+      name: "L2 - Influence",
+      score: 6,
+      max: 60
+    }]
+  }, {
+    name: "Teamwork",
+    score: 18,
+    max: 60,
+    micros: [{
+      name: "T1 - Collaboration",
+      score: 10,
+      max: 60
+    }, {
+      name: "T2 - Conflict Resolution",
+      score: 8,
+      max: 60
+    }]
+  }, {
+    name: "Negotiation",
+    score: 14,
+    max: 60,
+    micros: [{
+      name: "N1 - Persuasion",
+      score: 7,
+      max: 60
+    }, {
+      name: "N2 - Bargaining",
+      score: 7,
+      max: 60
+    }]
+  }]
+}, {
+  id: "wellness",
+  name: "Wellness",
+  weight: 30,
+  score: 56.7,
+  max: 100,
+  color: "#12B76A",
+  lightBg: "#ECFDF3",
+  borderColor: "#A9EFC5",
+  status: "Cleared",
+  statusColor: "#12B76A",
+  batchAvg: 39,
+  batchBest: 77,
+  subcategories: [{
+    name: "Fitness Tests - Internal",
+    score: 56.7,
+    max: 100
+  }],
+  competencies: [{
+    name: "Endurance",
+    score: 4,
+    max: 10,
+    micros: [{
+      name: "3KM Run Test",
+      score: 4,
+      max: 10
+    }]
+  }, {
+    name: "Agility",
+    score: 6,
+    max: 10,
+    micros: [{
+      name: "Beep Test",
+      score: 6,
+      max: 10
+    }]
+  }, {
+    name: "Flexibility",
+    score: 5,
+    max: 10,
+    micros: [{
+      name: "Sit & Reach Test",
+      score: 5,
+      max: 10
+    }]
+  }, {
+    name: "Muscle Endurance - Upper",
+    score: 7,
+    max: 10,
+    micros: [{
+      name: "Push Up Test",
+      score: 7,
+      max: 10
+    }]
+  }, {
+    name: "Muscle Endurance - Core",
+    score: 6,
+    max: 10,
+    micros: [{
+      name: "Sit Ups Test",
+      score: 6,
+      max: 10
+    }]
+  }, {
+    name: "Body Composition",
+    score: 8,
+    max: 10,
+    micros: [{
+      name: "Body Composition Analysis",
+      score: 8,
+      max: 10
+    }]
+  }]
+}, {
+  id: "behaviour",
+  name: "Behaviour",
+  weight: 10,
+  score: 98.8,
+  max: 100,
+  color: "#F97066",
+  lightBg: "#FFF1F0",
+  borderColor: "#FECDCA",
+  status: "Cleared",
+  statusColor: "#12B76A",
+  batchAvg: 69,
+  batchBest: 100,
+  subcategories: [{
+    name: "Classroom Behaviour",
+    score: 98.8,
+    max: 100
+  }],
+  competencies: [{
+    name: "Behavior Rating",
+    score: 4,
+    max: 5,
+    micros: [{
+      name: "Behaviour Rating Tool",
+      score: 4,
+      max: 5
+    }, {
+      name: "Attitude Rating Tool",
+      score: 4,
+      max: 5
+    }]
+  }, {
+    name: "Workplace Behavior",
+    score: 5,
+    max: 5,
+    micros: [{
+      name: "Work Place Behaviour",
+      score: 5,
+      max: 5
+    }, {
+      name: "Proactive Behaviour",
+      score: 4,
+      max: 5
+    }]
+  }]
+}, {
+  id: "discipline",
+  name: "Discipline",
+  weight: 10,
+  score: 90,
+  max: 100,
+  color: "#0073FF",
+  lightBg: "#EFF8FF",
+  borderColor: "#B2DDFF",
+  status: "Cleared",
+  statusColor: "#12B76A",
+  batchAvg: 48,
+  batchBest: 100,
+  subcategories: [{
+    name: "Internal",
+    score: 90,
+    max: 100
+  }],
+  competencies: [{
+    name: "Preparedness",
+    score: 30,
+    max: 30,
+    micros: [{
+      name: "Preparedness - Lifeskill",
+      score: 30,
+      max: 30
+    }]
+  }, {
+    name: "Regularity",
+    score: 30,
+    max: 30,
+    micros: [{
+      name: "Regularity - Lifestyle",
+      score: 30,
+      max: 30
+    }]
+  }, {
+    name: "Meeting Deadlines",
+    score: 15,
+    max: 20,
+    micros: [{
+      name: "Meeting Deadlines",
+      score: 15,
+      max: 20
+    }]
+  }, {
+    name: "Attendance",
+    score: 15,
+    max: 20,
+    micros: [{
+      name: "Attendance - Overall Subjects",
+      score: 15,
+      max: 20
+    }]
+  }]
+}];
+const MISSIONS = [{
+  id: 1,
+  pillarId: "persona",
+  title: "Improve Persona Attendance",
+  description: "Improve your attendance in Persona activities to meet the minimum 80% requirement.",
+  points: 25,
+  verify: "Teacher",
+  why: "Your Persona attendance is below the 80% threshold. Missing workshops directly reduces your Internal score. Attending consistently is the fastest way to recover your score.",
+  primary: {
+    name: "C1 - Verbal Communication",
+    current: 0,
+    max: 5
+  },
+  secondary: [{
+    name: "L1 - Decision Making",
+    current: 1,
+    max: 5
+  }, {
+    name: "T1 - Collaboration",
+    current: 2,
+    max: 5
+  }]
+}, {
+  id: 2,
+  pillarId: "discipline",
+  title: "Improve Discipline Attendance",
+  description: "Improve your attendance in Discipline activities to meet the minimum 80% requirement.",
+  points: 20,
+  verify: "Teacher",
+  why: "Discipline attendance directly feeds your Regularity and Preparedness scores — the two largest sub-components in the Discipline pillar.",
+  primary: {
+    name: "Regularity - Lifestyle",
+    current: 3,
+    max: 5
+  },
+  secondary: [{
+    name: "Preparedness - Lifeskill",
+    current: 4,
+    max: 5
+  }, {
+    name: "Attendance - Overall Subjects",
+    current: 3,
+    max: 5
+  }]
+}, {
+  id: 3,
+  pillarId: "wellness",
+  title: "Improve 3km Run Time",
+  description: "Your endurance score is below batch average. Shaving 30 seconds off improves your Wellness score significantly.",
+  points: 50,
+  verify: "Teacher",
+  why: "Cardiovascular endurance is your lowest Wellness microcompetency. Improving your 3km time pushes you closer to the batch best of 77.",
+  primary: {
+    name: "3KM Run Test",
+    current: 2,
+    max: 5
+  },
+  secondary: [{
+    name: "Beep Test",
+    current: 3,
+    max: 5
+  }, {
+    name: "Body Composition Analysis",
+    current: 4,
+    max: 5
+  }]
+}, {
+  id: 4,
+  pillarId: "persona",
+  title: "Submit Empathy Reflection",
+  description: "Write a reflection on your last Empathy workshop session to reinforce learning.",
+  points: 10,
+  verify: "Self",
+  why: "Active reflection after workshops improves competency retention. Submitting this marks your Empathy Internal score directly.",
+  primary: {
+    name: "E1 - Active Listening",
+    current: 1,
+    max: 5
+  },
+  secondary: [{
+    name: "C2 - Written Communication",
+    current: 0,
+    max: 5
+  }]
+}];
+function ProgressBar({
+  value,
+  max,
+  color,
+  height = 6
+}) {
+  const pct = Math.min(100, Math.max(0, value / max * 100));
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      height,
+      background: "#E2E4E8",
+      borderRadius: height,
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "100%",
+      width: `${pct}%`,
+      background: color,
+      borderRadius: height
+    }
+  }));
+}
+function ScoreDots({
+  current,
+  max,
+  color = "#F59E0B"
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 4
+    }
+  }, Array.from({
+    length: max
+  }).map((_, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      width: 8,
+      height: 8,
+      borderRadius: "50%",
+      background: i < current ? color : "#E2E4E8"
+    }
+  })));
+}
+function BottomNav({
+  active,
+  onNavigate
+}) {
+  const tabs = [{
+    id: "home",
+    label: "Home"
+  }, {
+    id: "interventions",
+    label: "Interventions"
+  }, {
+    id: "leaderboard",
+    label: "Leaderboard"
+  }, {
+    id: "menu",
+    label: "Menu"
+  }];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderTop: "1px solid #EDEFF2",
+      display: "flex",
+      justifyContent: "space-around",
+      padding: "10px 0 20px",
+      flexShrink: 0
+    }
+  }, tabs.map(t => /*#__PURE__*/React.createElement("button", {
+    key: t.id,
+    onClick: () => onNavigate(t.id),
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 4,
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      minWidth: 56,
+      padding: "4px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 22,
+      height: 22,
+      borderRadius: 6,
+      background: active === t.id ? "#6832BA" : "#E2E4E8"
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 10,
+      fontWeight: 600,
+      color: active === t.id ? "#6832BA" : "#8B96AA"
+    }
+  }, t.label), active === t.id && /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 4,
+      height: 4,
+      borderRadius: "50%",
+      background: "#6832BA"
+    }
+  }))));
+}
+function MissionSheet({
+  mission,
+  onClose,
+  onComplete,
+  completed
+}) {
+  if (!mission) return null;
+  const pillar = PILLARS.find(p => p.id === mission.pillarId);
+  const isDone = completed.includes(mission.id);
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: onClose,
+    style: {
+      position: "fixed",
+      inset: 0,
+      zIndex: 200,
+      background: "rgba(0,0,0,0.5)",
+      display: "flex",
+      alignItems: "flex-end"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: e => e.stopPropagation(),
+    style: {
+      width: "100%",
+      maxWidth: 390,
+      margin: "0 auto",
+      background: "#fff",
+      borderRadius: "20px 20px 0 0",
+      maxHeight: "88vh",
+      overflowY: "auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      padding: "12px 0 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 36,
+      height: 4,
+      borderRadius: 2,
+      background: "#E2E4E8"
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 16px",
+      borderBottom: "1px solid #EDEFF2"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      marginBottom: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: pillar.lightBg,
+      border: `1px solid ${pillar.borderColor}`,
+      borderRadius: 8,
+      padding: "3px 10px",
+      fontSize: 11,
+      fontWeight: 700,
+      color: pillar.color
+    }
+  }, pillar.name), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginLeft: "auto",
+      display: "flex",
+      alignItems: "center",
+      gap: 5,
+      background: "#FFFBEB",
+      border: "1px solid #FDE68A",
+      borderRadius: 8,
+      padding: "3px 10px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 6,
+      height: 6,
+      borderRadius: "50%",
+      background: "#F59E0B"
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: "#D97706"
+    }
+  }, "+", mission.points, " PEP pts"))), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 17,
+      fontWeight: 700,
+      color: "#2E3751",
+      lineHeight: 1.3,
+      margin: 0
+    }
+  }, mission.title)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      marginBottom: 8
+    }
+  }, "Why this matters"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#667085",
+      lineHeight: 1.6,
+      margin: 0
+    }
+  }, mission.why)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      marginBottom: 10
+    }
+  }, "Primary improvement"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#FFFBEB",
+      border: "1px solid #FDE68A",
+      borderRadius: 14,
+      padding: "14px 16px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 10
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      fontWeight: 700,
+      color: "#2E3751"
+    }
+  }, mission.primary.name), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: "#8B96AA"
+    }
+  }, mission.primary.current, "/", mission.primary.max)), /*#__PURE__*/React.createElement(ScoreDots, {
+    current: mission.primary.current,
+    max: mission.primary.max
+  }), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 11,
+      color: "#D97706",
+      margin: "8px 0 0"
+    }
+  }, "This mission directly improves this microcompetency"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      marginBottom: 10
+    }
+  }, "Also improves"), mission.secondary.map((s, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      borderRadius: 12,
+      padding: "12px 14px",
+      marginBottom: 8,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: "#3C4458",
+      marginBottom: 6
+    }
+  }, s.name), /*#__PURE__*/React.createElement(ScoreDots, {
+    current: s.current,
+    max: s.max,
+    color: pillar.color
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: "#8B96AA"
+    }
+  }, s.current, "/", s.max)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: mission.verify === "Teacher" ? "#F5F0FC" : "#ECFDF3",
+      border: `1px solid ${mission.verify === "Teacher" ? "#DDCEF2" : "#A9EFC5"}`,
+      borderRadius: 12,
+      padding: "12px 14px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: mission.verify === "Teacher" ? "#6832BA" : "#12B76A",
+      marginBottom: 4
+    }
+  }, mission.verify === "Teacher" ? "Teacher verified" : "Self verified"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 11,
+      color: "#667085",
+      margin: 0,
+      lineHeight: 1.5
+    }
+  }, mission.verify === "Teacher" ? "Your teacher confirms completion. Points awarded once they verify." : "Mark as complete yourself. Points awarded immediately."))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "24px 20px 32px"
+    }
+  }, isDone ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "100%",
+      padding: 16,
+      background: "#ECFDF3",
+      border: "1px solid #A9EFC5",
+      borderRadius: 14,
+      textAlign: "center",
+      fontSize: 14,
+      fontWeight: 700,
+      color: "#12B76A"
+    }
+  }, "\u2713 Completed") : /*#__PURE__*/React.createElement("button", {
+    onClick: () => onComplete(mission.id),
+    style: {
+      width: "100%",
+      padding: 16,
+      background: "#6832BA",
+      border: "none",
+      borderRadius: 14,
+      fontSize: 15,
+      fontWeight: 700,
+      color: "#fff",
+      cursor: "pointer"
+    }
+  }, "Mark as Complete \u2014 +", mission.points, " pts"))));
+}
+function CompetencySheet({
+  competency,
+  pillar,
+  onClose
+}) {
+  if (!competency) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: onClose,
+    style: {
+      position: "fixed",
+      inset: 0,
+      zIndex: 200,
+      background: "rgba(0,0,0,0.5)",
+      display: "flex",
+      alignItems: "flex-end"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: e => e.stopPropagation(),
+    style: {
+      width: "100%",
+      maxWidth: 390,
+      margin: "0 auto",
+      background: "#fff",
+      borderRadius: "20px 20px 0 0",
+      maxHeight: "80vh",
+      overflowY: "auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      padding: "12px 0 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 36,
+      height: 4,
+      borderRadius: 2,
+      background: "#E2E4E8"
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 16px",
+      borderBottom: "1px solid #EDEFF2"
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 18,
+      fontWeight: 700,
+      color: "#2E3751",
+      margin: "0 0 4px"
+    }
+  }, competency.name), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "#8B96AA",
+      margin: 0
+    }
+  }, "Microcompetency scores")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "16px 20px 32px",
+      display: "flex",
+      flexDirection: "column",
+      gap: 10
+    }
+  }, competency.micros.map((m, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      borderRadius: 12,
+      padding: "14px 16px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: "#3C4458"
+    }
+  }, m.name), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: "#2E3751"
+    }
+  }, m.score, "/", m.max)), /*#__PURE__*/React.createElement(ProgressBar, {
+    value: m.score,
+    max: m.max,
+    color: pillar.color
+  }))))));
+}
+function HomeScreen({
+  studentName,
+  onViewScore,
+  onStartMission,
+  completedMissions,
+  pepPoints
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      overflowY: "auto",
+      background: "#F5F6F7"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      padding: "16px 20px 16px",
+      borderBottom: "1px solid #EDEFF2"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: 24,
+      fontWeight: 800,
+      color: "#2E3751",
+      margin: "0 0 8px",
+      letterSpacing: "-0.3px"
+    }
+  }, "Hello, ", studentName, "!"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 5,
+      background: "#F5F0FC",
+      border: "1px solid #DDCEF2",
+      borderRadius: 20,
+      padding: "4px 10px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 6,
+      height: 6,
+      borderRadius: "50%",
+      background: "#6832BA"
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#6832BA"
+    }
+  }, "Level 2 \u2014 Growth")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 5,
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      borderRadius: 20,
+      padding: "4px 10px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 6,
+      height: 6,
+      borderRadius: "50%",
+      background: "#10B981"
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#3C4458"
+    }
+  }, "#12 Rank")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-end",
+      background: "#FFFBEB",
+      border: "1px solid #FDE68A",
+      borderRadius: 12,
+      padding: "8px 12px",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 20,
+      fontWeight: 800,
+      color: "#D97706",
+      lineHeight: 1
+    }
+  }, pepPoints), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 10,
+      color: "#92400E",
+      fontWeight: 600,
+      marginTop: 2
+    }
+  }, "PEP Points")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "16px 16px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: 16,
+      border: "1px solid #EDEFF2",
+      padding: 20,
+      boxShadow: "0 2px 12px rgba(0,0,0,0.06)"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      margin: "0 0 14px"
+    }
+  }, "Current HPS Score"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative",
+      width: 100,
+      height: 100,
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 100 100",
+    style: {
+      width: "100%",
+      height: "100%"
+    }
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: "50",
+    cy: "50",
+    r: "42",
+    fill: "none",
+    stroke: "#EDEFF2",
+    strokeWidth: "8"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "50",
+    cy: "50",
+    r: "42",
+    fill: "none",
+    stroke: "url(#hg)",
+    strokeWidth: "8",
+    strokeLinecap: "round",
+    strokeDasharray: "263.9",
+    strokeDashoffset: "71.3",
+    transform: "rotate(-90 50 50)"
+  }), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: "hg",
+    x1: "0%",
+    y1: "0%",
+    x2: "100%",
+    y2: "0%"
+  }, /*#__PURE__*/React.createElement("stop", {
+    offset: "0%",
+    stopColor: "#6832BA"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "100%",
+    stopColor: "#AF8AE5"
+  })))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)",
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 26,
+      fontWeight: 800,
+      color: "#2E3751",
+      lineHeight: 1
+    }
+  }, "74"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "#8B96AA"
+    }
+  }, "/100"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: "#8B96AA",
+      marginBottom: 8
+    }
+  }, "73.88 / 100"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 5,
+      background: "#ECFDF3",
+      border: "1px solid #A9EFC5",
+      borderRadius: 20,
+      padding: "4px 10px",
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 5,
+      height: 5,
+      borderRadius: "50%",
+      background: "#12B76A"
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      fontWeight: 600,
+      color: "#12B76A"
+    }
+  }, "Good")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      color: "#8B96AA"
+    }
+  }, "HPS Rating"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 20,
+      fontWeight: 800,
+      color: "#6832BA"
+    }
+  }, "4 / 5")))), /*#__PURE__*/React.createElement("button", {
+    onClick: onViewScore,
+    style: {
+      width: "100%",
+      marginTop: 16,
+      padding: "12px 0",
+      background: "#6832BA",
+      border: "none",
+      borderRadius: 12,
+      fontSize: 14,
+      fontWeight: 700,
+      color: "#fff",
+      cursor: "pointer"
+    }
+  }, "View Pillar Scores \u2192"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 16px 24px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 14
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 16,
+      fontWeight: 700,
+      color: "#2E3751",
+      margin: 0
+    }
+  }, "Missions"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: "#6832BA",
+      fontWeight: 600
+    }
+  }, MISSIONS.filter(m => !completedMissions.includes(m.id)).length, " active")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 10
+    }
+  }, MISSIONS.map(m => {
+    const pillar = PILLARS.find(p => p.id === m.pillarId);
+    const done = completedMissions.includes(m.id);
+    return /*#__PURE__*/React.createElement("div", {
+      key: m.id,
+      style: {
+        background: "#fff",
+        borderRadius: 14,
+        border: `1px solid ${done ? "#E2E4E8" : pillar.borderColor}`,
+        padding: "14px 16px",
+        opacity: done ? 0.6 : 1,
+        position: "relative",
+        overflow: "hidden"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        width: 3,
+        background: done ? "#E2E4E8" : pillar.color
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        paddingLeft: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 6,
+        marginBottom: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 10,
+        fontWeight: 700,
+        color: pillar.color,
+        background: pillar.lightBg,
+        borderRadius: 6,
+        padding: "2px 8px"
+      }
+    }, pillar.name), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginLeft: "auto",
+        display: "flex",
+        alignItems: "center",
+        gap: 4
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 5,
+        height: 5,
+        borderRadius: "50%",
+        background: "#F59E0B"
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: "#D97706"
+      }
+    }, "+", m.points, " pts"))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 14,
+        fontWeight: 700,
+        color: "#2E3751",
+        marginBottom: 4
+      }
+    }, m.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 12,
+        color: "#667085",
+        margin: "0 0 12px",
+        lineHeight: 1.5
+      }
+    }, m.description), done ? /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: "#12B76A"
+      }
+    }, "\u2713 Completed") : /*#__PURE__*/React.createElement("button", {
+      onClick: () => onStartMission(m.id),
+      style: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
+        background: "#6832BA",
+        border: "none",
+        borderRadius: 10,
+        padding: "9px 16px",
+        fontSize: 13,
+        fontWeight: 700,
+        color: "#fff",
+        cursor: "pointer"
+      }
+    }, "Start Mission \u2192")));
+  }))));
+}
+function PillarScoresScreen({
+  onBack,
+  onOpenCompetency
+}) {
+  const [activeTab, setActiveTab] = useState("persona");
+  const pillar = PILLARS.find(p => p.id === activeTab);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      background: "#F5F6F7",
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderBottom: "1px solid #EDEFF2",
+      padding: "16px 20px 0",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: onBack,
+    style: {
+      width: 36,
+      height: 36,
+      borderRadius: "50%",
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      fontSize: 16
+    }
+  }, "\u2190"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 18,
+      fontWeight: 700,
+      color: "#2E3751",
+      margin: 0
+    }
+  }, "Pillar Scores"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "#8B96AA",
+      margin: 0
+    }
+  }, "73.88 / 100 HPS"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex"
+    }
+  }, PILLARS.map(p => /*#__PURE__*/React.createElement("button", {
+    key: p.id,
+    onClick: () => setActiveTab(p.id),
+    style: {
+      flex: 1,
+      padding: "10px 4px",
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      borderBottom: activeTab === p.id ? `2px solid ${p.color}` : "2px solid transparent",
+      fontSize: 11,
+      fontWeight: activeTab === p.id ? 700 : 500,
+      color: activeTab === p.id ? p.color : "#8B96AA"
+    }
+  }, p.name)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      overflowY: "auto",
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: pillar.color,
+      borderRadius: 16,
+      padding: "18px 20px",
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 20,
+      fontWeight: 800,
+      color: "#fff",
+      margin: "0 0 4px"
+    }
+  }, pillar.name), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "rgba(255,255,255,0.7)",
+      margin: 0
+    }
+  }, "Weightage: ", pillar.weight, "%")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "rgba(255,255,255,0.2)",
+      borderRadius: 8,
+      padding: "4px 10px"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: "#fff"
+    }
+  }, pillar.status))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: 6
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      color: "rgba(255,255,255,0.8)"
+    }
+  }, "Your Score"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      fontWeight: 800,
+      color: "#fff"
+    }
+  }, pillar.score, " / ", pillar.max)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 6,
+      background: "rgba(255,255,255,0.2)",
+      borderRadius: 3,
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "100%",
+      width: `${pillar.score}%`,
+      background: "#fff",
+      borderRadius: 3
+    }
+  })))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: 14,
+      border: "1px solid #EDEFF2",
+      padding: "14px 16px",
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      margin: "0 0 10px"
+    }
+  }, "Sub-categories"), pillar.subcategories.map((s, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "8px 0",
+      borderTop: i > 0 ? "1px solid #F5F6F7" : "none"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      color: "#3C4458"
+    }
+  }, s.name), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      fontWeight: 700,
+      color: "#2E3751"
+    }
+  }, s.score, " / ", s.max)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: 14,
+      border: "1px solid #EDEFF2",
+      padding: "14px 16px",
+      marginBottom: 16,
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      color: "#8B96AA",
+      marginBottom: 4
+    }
+  }, "Batch Average"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 18,
+      fontWeight: 800,
+      color: "#2E3751"
+    }
+  }, pillar.batchAvg, "/100")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "center",
+      borderLeft: "1px solid #EDEFF2"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      color: "#8B96AA",
+      marginBottom: 4
+    }
+  }, "Batch Best"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 18,
+      fontWeight: 800,
+      color: "#6832BA"
+    }
+  }, pillar.batchBest, "/100"))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      margin: "0 0 10px"
+    }
+  }, "Competencies"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, pillar.competencies.map((c, i) => /*#__PURE__*/React.createElement("button", {
+    key: i,
+    onClick: () => onOpenCompetency(c, pillar),
+    style: {
+      background: "#fff",
+      borderRadius: 12,
+      border: "1px solid #EDEFF2",
+      padding: "14px 16px",
+      cursor: "pointer",
+      textAlign: "left",
+      width: "100%",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: "#2E3751",
+      marginBottom: 8
+    }
+  }, c.name), /*#__PURE__*/React.createElement(ProgressBar, {
+    value: c.score,
+    max: c.max,
+    color: pillar.color,
+    height: 5
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginLeft: 16,
+      display: "flex",
+      alignItems: "center",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      fontWeight: 700,
+      color: "#2E3751"
+    }
+  }, c.score, "/", c.max), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#B1B8C4"
+    }
+  }, "\u203A")))))));
+}
+function PlaceholderScreen({
+  title,
+  onBack
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      background: "#F5F6F7"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderBottom: "1px solid #EDEFF2",
+      padding: "16px 20px",
+      display: "flex",
+      alignItems: "center",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: onBack,
+    style: {
+      width: 36,
+      height: 36,
+      borderRadius: "50%",
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      cursor: "pointer",
+      fontSize: 16
+    }
+  }, "\u2190"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 18,
+      fontWeight: 700,
+      color: "#2E3751",
+      margin: 0
+    }
+  }, title)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 14,
+      color: "#8B96AA",
+      textAlign: "center"
+    }
+  }, "Coming in the next sprint.")));
+}
+function PEPApp() {
+  const [screen, setScreen] = useState("home");
+  const [activeTab, setActiveTab] = useState("home");
+  const [activeMissionId, setActiveMissionId] = useState(null);
+  const [activeCompetency, setActiveCompetency] = useState(null);
+  const [activePillar, setActivePillar] = useState(null);
+  const [completed, setCompleted] = useState([]);
+  const [pepPoints, setPepPoints] = useState(850);
+  const studentName = window.__pepStudentName && window.__pepStudentName !== "there" ? window.__pepStudentName : "Aaditya";
+  function handleNavigate(tab) {
+    setActiveTab(tab);
+    setScreen(tab);
+  }
+  function handleComplete(id) {
+    const m = MISSIONS.find(m => m.id === id);
+    setCompleted(p => [...p, id]);
+    setPepPoints(p => p + m.points);
+    setActiveMissionId(null);
+  }
+  const activeMission = MISSIONS.find(m => m.id === activeMissionId);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      minHeight: "100vh",
+      background: "#E5E7EB",
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      padding: "24px 0",
+      fontFamily: "'Plus Jakarta Sans', sans-serif"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "100%",
+      maxWidth: 390,
+      background: "#fff",
+      borderRadius: 40,
+      border: "1.5px solid #E2E4E8",
+      overflow: "hidden",
+      boxShadow: "0 32px 80px rgba(0,0,0,0.15)",
+      display: "flex",
+      flexDirection: "column",
+      height: 780
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "14px 24px 0",
+      fontSize: 12,
+      color: "#8B96AA",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "9:41"), /*#__PURE__*/React.createElement("span", null, "\u25CF\u25CF\u25CF\u25CF")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      overflow: "hidden"
+    }
+  }, screen === "home" && /*#__PURE__*/React.createElement(HomeScreen, {
+    studentName: studentName,
+    onViewScore: () => setScreen("pillarScores"),
+    onStartMission: id => setActiveMissionId(id),
+    completedMissions: completed,
+    pepPoints: pepPoints
+  }), screen === "pillarScores" && /*#__PURE__*/React.createElement(PillarScoresScreen, {
+    onBack: () => setScreen("home"),
+    onOpenCompetency: (c, p) => {
+      setActiveCompetency(c);
+      setActivePillar(p);
+    }
+  }), screen === "interventions" && /*#__PURE__*/React.createElement(PlaceholderScreen, {
+    title: "Interventions",
+    onBack: () => handleNavigate("home")
+  }), screen === "leaderboard" && /*#__PURE__*/React.createElement(PlaceholderScreen, {
+    title: "Leaderboard",
+    onBack: () => handleNavigate("home")
+  }), screen === "menu" && /*#__PURE__*/React.createElement(PlaceholderScreen, {
+    title: "Menu",
+    onBack: () => handleNavigate("home")
+  })), /*#__PURE__*/React.createElement(BottomNav, {
+    active: activeTab,
+    onNavigate: handleNavigate
+  })), activeMission && /*#__PURE__*/React.createElement(MissionSheet, {
+    mission: activeMission,
+    onClose: () => setActiveMissionId(null),
+    onComplete: handleComplete,
+    completed: completed
+  }), activeCompetency && /*#__PURE__*/React.createElement(CompetencySheet, {
+    competency: activeCompetency,
+    pillar: activePillar,
+    onClose: () => {
+      setActiveCompetency(null);
+      setActivePillar(null);
+    }
+  }));
+}
+window.__mountDashboard = function () {
+  ReactDOM.createRoot(document.getElementById('dashboard-root')).render(React.createElement(PEPApp, null));
+};
+
+
+</script>
+
 </body>
 </html>
