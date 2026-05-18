@@ -1458,7 +1458,7 @@ function IconLeaderboard({
     width: "5",
     height: "9",
     rx: "1.5",
-    fill: active ? "#6832BA" : "none",
+    fill: "none",
     stroke: c,
     strokeWidth: "1.8"
   }), /*#__PURE__*/React.createElement("rect", {
@@ -1467,7 +1467,7 @@ function IconLeaderboard({
     width: "5",
     height: "14",
     rx: "1.5",
-    fill: active ? "#6832BA" : "none",
+    fill: "none",
     stroke: c,
     strokeWidth: "1.8"
   }), /*#__PURE__*/React.createElement("rect", {
@@ -1476,7 +1476,7 @@ function IconLeaderboard({
     width: "5",
     height: "18",
     rx: "1.5",
-    fill: active ? "#6832BA" : "none",
+    fill: "none",
     stroke: c,
     strokeWidth: "1.8"
   }));
@@ -3547,286 +3547,185 @@ function InterventionsScreen({
 
 const LB_TABS = ["Overall", "Persona", "Behaviour", "Wellness", "Discipline"];
 
-const LB_PILLAR_BADGES = {
-  Persona:    { label: "Persona Star",      color: "#6832BA" },
-  Behaviour:  { label: "Conduct Champion",  color: "#12B76A" },
-  Wellness:   { label: "Wellness Leader",   color: "#FCBC28" },
-  Discipline: { label: "Iron Discipline",   color: "#0073FF" },
-};
-
 const LB_STUDENTS = {
   Overall: [
-    { id:1, name:"You",               score:5075, rank:1, delta:2,  level:8, isMe:true },
-    { id:2, name:"Derrick L. Thoman", score:4985, rank:2, delta:-1, level:9 },
-    { id:3, name:"Kelsey T. Donovan", score:4642, rank:3, delta:1,  level:8 },
-    { id:4, name:"Jack L. Gregory",   score:3874, rank:4, delta:0,  level:7 },
-    { id:5, name:"Mary R. Mercado",   score:3567, rank:5, delta:-2, level:7 },
-    { id:6, name:"Theresa N. Maki",   score:3478, rank:6, delta:3,  level:6 },
-    { id:7, name:"James A. Wright",   score:3387, rank:7, delta:0,  level:6 },
-    { id:8, name:"Priya S. Nair",     score:3210, rank:8, delta:1,  level:5 },
-    { id:9, name:"Rohan K. Mehta",    score:3050, rank:9, delta:-1, level:5 },
+    { id:1, name:"You",               score:4.8, rank:1, isMe:true },
+    { id:2, name:"Derrick L. Thoman", score:4.6, rank:2 },
+    { id:3, name:"Kelsey T. Donovan", score:4.3, rank:3 },
+    { id:4, name:"Jack L. Gregory",   score:3.9, rank:4 },
+    { id:5, name:"Mary R. Mercado",   score:3.7, rank:5 },
+    { id:6, name:"Theresa N. Maki",   score:3.5, rank:6 },
+    { id:7, name:"James A. Wright",   score:3.4, rank:7 },
+    { id:8, name:"Priya S. Nair",     score:3.2, rank:8 },
+    { id:9, name:"Rohan K. Mehta",    score:3.0, rank:9 },
   ],
   Persona: [
-    { id:1, name:"You",               score:1280, rank:1, delta:1,  level:8, isMe:true },
-    { id:2, name:"Kelsey T. Donovan", score:1240, rank:2, delta:0,  level:8 },
-    { id:3, name:"Derrick L. Thoman", score:1190, rank:3, delta:-1, level:9 },
-    { id:4, name:"Theresa N. Maki",   score:1050, rank:4, delta:2,  level:6 },
-    { id:5, name:"Mary R. Mercado",   score:980,  rank:5, delta:-1, level:7 },
-    { id:6, name:"Jack L. Gregory",   score:910,  rank:6, delta:0,  level:7 },
+    { id:1, name:"You",               score:4.9, rank:1, isMe:true },
+    { id:2, name:"Kelsey T. Donovan", score:4.7, rank:2 },
+    { id:3, name:"Derrick L. Thoman", score:4.4, rank:3 },
+    { id:4, name:"Theresa N. Maki",   score:4.0, rank:4 },
+    { id:5, name:"Mary R. Mercado",   score:3.8, rank:5 },
+    { id:6, name:"Jack L. Gregory",   score:3.5, rank:6 },
   ],
   Behaviour: [
-    { id:1, name:"Derrick L. Thoman", score:1320, rank:1, delta:0,  level:9 },
-    { id:2, name:"You",               score:1280, rank:2, delta:3,  level:8, isMe:true },
-    { id:3, name:"Jack L. Gregory",   score:1100, rank:3, delta:-1, level:7 },
-    { id:4, name:"Priya S. Nair",     score:980,  rank:4, delta:2,  level:5 },
-    { id:5, name:"Mary R. Mercado",   score:920,  rank:5, delta:-1, level:7 },
-    { id:6, name:"Kelsey T. Donovan", score:870,  rank:6, delta:0,  level:8 },
+    { id:1, name:"Derrick L. Thoman", score:4.8, rank:1 },
+    { id:2, name:"You",               score:4.6, rank:2, isMe:true },
+    { id:3, name:"Jack L. Gregory",   score:4.2, rank:3 },
+    { id:4, name:"Priya S. Nair",     score:3.9, rank:4 },
+    { id:5, name:"Mary R. Mercado",   score:3.6, rank:5 },
+    { id:6, name:"Kelsey T. Donovan", score:3.3, rank:6 },
   ],
   Wellness: [
-    { id:1, name:"Mary R. Mercado",   score:1450, rank:1, delta:1,  level:7 },
-    { id:2, name:"Theresa N. Maki",   score:1320, rank:2, delta:0,  level:6 },
-    { id:3, name:"You",               score:1200, rank:3, delta:-1, level:8, isMe:true },
-    { id:4, name:"Derrick L. Thoman", score:1080, rank:4, delta:2,  level:9 },
-    { id:5, name:"Rohan K. Mehta",    score:950,  rank:5, delta:0,  level:5 },
-    { id:6, name:"James A. Wright",   score:880,  rank:6, delta:-2, level:6 },
+    { id:1, name:"Mary R. Mercado",   score:4.7, rank:1 },
+    { id:2, name:"Theresa N. Maki",   score:4.4, rank:2 },
+    { id:3, name:"You",               score:4.1, rank:3, isMe:true },
+    { id:4, name:"Derrick L. Thoman", score:3.8, rank:4 },
+    { id:5, name:"Rohan K. Mehta",    score:3.5, rank:5 },
+    { id:6, name:"James A. Wright",   score:3.2, rank:6 },
   ],
   Discipline: [
-    { id:1, name:"You",               score:1315, rank:1, delta:2,  level:8, isMe:true },
-    { id:2, name:"Jack L. Gregory",   score:1290, rank:2, delta:0,  level:7 },
-    { id:3, name:"Derrick L. Thoman", score:1195, rank:3, delta:-1, level:9 },
-    { id:4, name:"Kelsey T. Donovan", score:1032, rank:4, delta:1,  level:8 },
-    { id:5, name:"James A. Wright",   score:960,  rank:5, delta:-1, level:6 },
-    { id:6, name:"Priya S. Nair",     score:880,  rank:6, delta:0,  level:5 },
+    { id:1, name:"You",               score:4.9, rank:1, isMe:true },
+    { id:2, name:"Jack L. Gregory",   score:4.7, rank:2 },
+    { id:3, name:"Derrick L. Thoman", score:4.5, rank:3 },
+    { id:4, name:"Kelsey T. Donovan", score:4.0, rank:4 },
+    { id:5, name:"James A. Wright",   score:3.7, rank:5 },
+    { id:6, name:"Priya S. Nair",     score:3.3, rank:6 },
   ],
 };
 
-const LB_AVATAR_COLORS = ["#6832BA","#12B76A","#0073FF","#FCBC28","#F97066","#AF8AE5","#0263EB","#FAAB22"];
-
-function LBAvatar({ name, level, size, isMe }) {
-  size = size || 40;
-  var initials = name === "You" ? "Me" : name.split(" ").map(function(n){ return n[0]; }).slice(0,2).join("");
-  var ci = name.charCodeAt(0) % LB_AVATAR_COLORS.length;
-  var bg = isMe ? "#6832BA" : LB_AVATAR_COLORS[ci];
-  return React.createElement("div", { style:{ position:"relative", width:size, height:size, flexShrink:0 } },
-    React.createElement("div", {
-      style:{ width:size, height:size, borderRadius:"50%", background:bg, display:"flex", alignItems:"center",
-              justifyContent:"center", color:"#fff", fontWeight:600, fontSize:size*0.32 }
-    }, initials),
-    React.createElement("div", {
-      style:{ position:"absolute", bottom:-2, right:-2, width:17, height:17, borderRadius:"50%",
-              background:"#0073FF", border:"2px solid #fff", display:"flex", alignItems:"center",
-              justifyContent:"center", color:"#fff", fontWeight:700, fontSize:8 }
-    }, level)
-  );
-}
-
-function LBTrophy({ rank }) {
-  var gold   = { cup:"#FCBC28", stem:"#F79009" };
-  var silver = { cup:"#B1B8C4", stem:"#8B96AA" };
-  var bronze = { cup:"#E8A87C", stem:"#C8763A" };
-  var c = rank===1 ? gold : rank===2 ? silver : bronze;
-  return React.createElement("svg", { width:26, height:26, viewBox:"0 0 28 28", fill:"none" },
-    React.createElement("path", { d:"M8 4h12v10a6 6 0 01-12 0V4z", fill:c.cup, stroke:c.stem, strokeWidth:"1.5" }),
-    React.createElement("path", { d:"M4 6h4v6a2 2 0 01-4 0V6z", fill:c.cup, opacity:"0.7" }),
-    React.createElement("path", { d:"M20 6h4v6a2 2 0 01-4 0V6z", fill:c.cup, opacity:"0.7" }),
-    React.createElement("rect", { x:"11", y:"18", width:"6", height:"4", fill:c.stem }),
-    React.createElement("rect", { x:"8", y:"22", width:"12", height:"3", rx:"1.5", fill:c.cup }),
-    rank===1 && React.createElement("circle", { cx:"14", cy:"9", r:"2", fill:"#fff", opacity:"0.6" })
-  );
-}
-
-function LBDelta({ delta }) {
-  if (delta===0) return React.createElement("span", { style:{ fontSize:10, color:"#B1B8C4" } }, "—");
-  var up = delta > 0;
-  return React.createElement("span", {
-    style:{ fontSize:10, fontWeight:700, color: up ? "#12B76A" : "#F97066", display:"flex", alignItems:"center", gap:1 }
-  }, (up ? "▲" : "▼") + " " + Math.abs(delta));
-}
-
-function LBNudge({ myRank, students }) {
-  var me = students.find(function(s){ return s.isMe; });
-  if (myRank <= 1) return React.createElement("div", {
-    style:{ margin:"0 16px 10px", padding:"8px 12px", borderRadius:12, background:"#F5F0FC",
-            border:"1px solid #DDCEF2", display:"flex", alignItems:"center", gap:8 }
-  }, React.createElement("span", { style:{ fontSize:15 } }, "👑"),
-     React.createElement("span", { style:{ fontSize:11, fontWeight:600, color:"#6832BA" } }, "You're #1 — defend your crown this week!"));
-  var above = students.find(function(s){ return s.rank === myRank-1; });
-  if (!above || !me) return null;
-  var gap = above.score - me.score;
+function LBToggle({ value, onChange }) {
   return React.createElement("div", {
-    style:{ margin:"0 16px 10px", padding:"8px 12px", borderRadius:12, background:"#F5F0FC",
-            border:"1px solid #DDCEF2", display:"flex", alignItems:"center", gap:8 }
-  }, React.createElement("span", { style:{ fontSize:15 } }, "🎯"),
-     React.createElement("span", { style:{ fontSize:11, fontWeight:600, color:"#6832BA" } },
-       "Just ", React.createElement("b", null, gap + " pts"), " from #" + (myRank-1) + " · " + above.name.split(" ")[0]
-     ));
+    onClick: onChange,
+    style:{ width:40, height:22, borderRadius:11, cursor:"pointer", position:"relative",
+            background: value ? "#6832BA" : "#E2E4E8", transition:"background 0.2s", flexShrink:0 }
+  },
+    React.createElement("div", {
+      style:{ position:"absolute", top:2, left: value ? 20 : 2, width:18, height:18,
+              borderRadius:"50%", background:"#fff", boxShadow:"0 1px 3px rgba(0,0,0,0.2)",
+              transition:"left 0.2s" }
+    })
+  );
 }
 
 function LeaderboardScreen({ onBack }) {
   var _s = React.useState("Overall");
   var activeTab = _s[0], setActiveTab = _s[1];
+  var _h = React.useState(false);
+  var hidden = _h[0], setHidden = _h[1];
 
   var students = LB_STUDENTS[activeTab];
-  var me = students.find(function(s){ return s.isMe; });
-  var myRank = me ? me.rank : 1;
-  var total = 240;
-  var pct = Math.round((1 - (myRank-1)/total)*100);
-  var topPct = 100 - pct + 1;
+  var displayStudents = hidden
+    ? students.filter(function(s){ return !s.isMe; })
+    : students;
+
+  var LB_TAB_LABELS = ["Overall", "Persona", "Behaviour", "Wellness", "Discipline"];
 
   return React.createElement("div", {
     style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
   },
 
-  // ── Header
+  // Header
   React.createElement("div", {
-    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px",
-            display:"flex", alignItems:"center", gap:12, flexShrink:0 }
+    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px 0", flexShrink:0 }
   },
-    React.createElement("h2", {
-      style:{ fontSize:22, fontWeight:800, color:"#2E3751", margin:0, flex:1, letterSpacing:"-0.3px" }
-    }, "Leaderboard"),
+    // Title row with back button
     React.createElement("div", {
-      style:{ display:"inline-flex", alignItems:"center", gap:5, background:"#F5F0FC",
-              border:"1px solid #DDCEF2", borderRadius:20, padding:"4px 10px" }
+      style:{ display:"flex", alignItems:"center", gap:12, marginBottom:12 }
     },
-      React.createElement("div", { style:{ width:6, height:6, borderRadius:"50%", background:"#6832BA" } }),
-      React.createElement("span", { style:{ fontSize:11, fontWeight:700, color:"#6832BA" } }, "Top " + topPct + "%")
-    )
-  ),
+      React.createElement(IconBack, { onPress: onBack }),
+      React.createElement("h2", {
+        style:{ fontSize:18, fontWeight:700, color:"#2E3751", margin:0, flex:1 }
+      }, "Leaderboard"),
+      // Hide name toggle
+      React.createElement("div", {
+        style:{ display:"flex", alignItems:"center", gap:8 }
+      },
+        React.createElement("span", {
+          style:{ fontSize:11, fontWeight:600, color:"#8B96AA" }
+        }, "Hide my name"),
+        React.createElement(LBToggle, { value:hidden, onChange:function(){ setHidden(!hidden); } })
+      )
+    ),
 
-  // ── My Rank Hero Card
-  React.createElement("div", { style:{ padding:"12px 16px 0", flexShrink:0 } },
-    React.createElement("div", {
-      style:{ background:"linear-gradient(135deg,#6832BA 0%,#AF8AE5 100%)",
-              borderRadius:16, padding:"14px 16px", display:"flex", alignItems:"center",
-              justifyContent:"space-between", boxShadow:"0 4px 20px rgba(104,50,186,0.25)" }
-    },
-      React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:12 } },
-        myRank <= 3
-          ? React.createElement(LBTrophy, { rank:myRank })
-          : React.createElement("div", {
-              style:{ width:32, height:32, borderRadius:"50%", background:"rgba(255,255,255,0.25)",
-                      display:"flex", alignItems:"center", justifyContent:"center",
-                      color:"#fff", fontWeight:700, fontSize:14 }
-            }, myRank),
-        React.createElement(LBAvatar, { name:"You", level: me ? me.level : 8, size:42, isMe:true }),
-        React.createElement("div", null,
-          React.createElement("p", { style:{ color:"#fff", fontWeight:700, fontSize:14, margin:"0 0 4px" } }, "You"),
-          React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:8 } },
-            React.createElement(LBDelta, { delta: me ? me.delta : 0 }),
-            React.createElement("span", { style:{ fontSize:10, color:"rgba(255,255,255,0.75)" } },
-              "Rank #" + myRank + " of " + total)
-          )
-        )
-      ),
-      React.createElement("span", { style:{ color:"#fff", fontWeight:800, fontSize:20 } },
-        (me ? me.score : 0).toLocaleString())
-    )
-  ),
-
-  // ── Nudge
-  React.createElement("div", { style:{ padding:"10px 0 0", flexShrink:0 } },
-    React.createElement(LBNudge, { myRank:myRank, students:students })
-  ),
-
-  // ── Pillar Tabs
-  React.createElement("div", { style:{ padding:"0 16px 10px", flexShrink:0 } },
-    React.createElement("div", {
-      style:{ display:"flex", gap:4, background:"#fff", borderRadius:12,
-              padding:4, boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }
-    },
-      LB_TABS.map(function(tab) {
+    // Tabs — same style as Interventions
+    React.createElement("div", { style:{ display:"flex" } },
+      LB_TAB_LABELS.map(function(tab) {
         var active = activeTab === tab;
         return React.createElement("button", {
           key: tab,
           onClick: function(){ setActiveTab(tab); },
-          style:{ flex:1, padding:"6px 2px", borderRadius:8, border:"none", cursor:"pointer",
-                  fontSize:10, fontWeight:700, transition:"all 0.2s",
-                  background: active ? "#6832BA" : "transparent",
-                  color: active ? "#fff" : "#8B96AA" }
+          style:{
+            flex:1, padding:"10px 0", background:"none", border:"none", cursor:"pointer",
+            borderBottom: active ? "2px solid #6832BA" : "2px solid transparent",
+            fontSize:11, fontWeight: active ? 700 : 500,
+            color: active ? "#6832BA" : "#8B96AA",
+            transition:"all 0.15s"
+          }
         }, tab);
       })
     )
   ),
 
-  // ── Pillar Champion Badge (non-Overall tabs)
-  activeTab !== "Overall" && React.createElement("div", { style:{ padding:"0 16px 8px", flexShrink:0 } },
-    React.createElement("div", {
-      style:{ display:"flex", alignItems:"center", gap:8, background:"#fff", borderRadius:10,
-              padding:"8px 12px", border:"1px solid " + LB_PILLAR_BADGES[activeTab].color + "33" }
-    },
-      React.createElement("div", {
-        style:{ width:8, height:8, borderRadius:"50%", background:LB_PILLAR_BADGES[activeTab].color }
-      }),
-      React.createElement("span", {
-        style:{ fontSize:11, fontWeight:700, color:LB_PILLAR_BADGES[activeTab].color }
-      }, LB_PILLAR_BADGES[activeTab].label),
-      React.createElement("span", {
-        style:{ fontSize:11, color:"#8B96AA", marginLeft:"auto" }
-      }, students[0] && students[0].isMe ? "You hold this!" : "Held by " + (students[0] ? students[0].name.split(" ")[0] : ""))
-    )
-  ),
-
-  // ── Student List
-  React.createElement("div", { style:{ flex:1, overflowY:"auto", padding:"0 16px 16px" } },
-    students.map(function(s, i) {
+  // List
+  React.createElement("div", {
+    style:{ flex:1, overflowY:"auto", padding:"12px 16px 16px", display:"flex", flexDirection:"column", gap:8 }
+  },
+    displayStudents.map(function(s) {
       return React.createElement("div", {
         key: s.id + activeTab,
         style:{
-          display:"flex", alignItems:"center", gap:12, marginBottom:8,
-          padding:"10px 14px", borderRadius:16, cursor:"default",
-          background: s.isMe ? "linear-gradient(135deg,#ECE3FA,#FAF9FC)" : "#fff",
-          border: s.isMe ? "1.5px solid #AF8AE5" : "1.5px solid transparent",
-          boxShadow: s.isMe ? "0 2px 12px rgba(104,50,186,0.1)" : "0 1px 4px rgba(0,0,0,0.04)"
+          display:"flex", alignItems:"center", gap:12, padding:"12px 14px", borderRadius:14,
+          background: s.isMe ? "#F5F0FC" : "#fff",
+          border: s.isMe ? "1.5px solid #DDCEF2" : "1px solid #EDEFF2",
+          boxShadow:"0 1px 4px rgba(0,0,0,0.04)"
         }
       },
         // Rank
-        React.createElement("div", { style:{ width:28, flexShrink:0, display:"flex", justifyContent:"center" } },
-          s.rank <= 3
-            ? React.createElement(LBTrophy, { rank:s.rank })
-            : React.createElement("div", {
-                style:{ width:26, height:26, borderRadius:"50%", display:"flex", alignItems:"center",
-                        justifyContent:"center", fontSize:11, fontWeight:700,
-                        background: s.isMe ? "#6832BA" : "#F5F6F7",
-                        color: s.isMe ? "#fff" : "#3C4458" }
-              }, s.rank)
-        ),
-        // Avatar
-        React.createElement(LBAvatar, { name:s.name, level:s.level, size:36, isMe:s.isMe }),
-        // Name + delta
-        React.createElement("div", { style:{ flex:1, minWidth:0 } },
-          React.createElement("p", {
-            style:{ fontSize:13, fontWeight:700, color: s.isMe ? "#6832BA" : "#2E3751",
-                    margin:"0 0 2px", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }
-          }, s.name),
-          React.createElement(LBDelta, { delta:s.delta })
-        ),
+        React.createElement("div", {
+          style:{ width:26, height:26, borderRadius:"50%", flexShrink:0, display:"flex",
+                  alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:700,
+                  background: s.isMe ? "#6832BA" : "#F5F6F7",
+                  color: s.isMe ? "#fff" : "#3C4458" }
+        }, s.rank),
+        // Avatar initials
+        React.createElement("div", {
+          style:{ width:36, height:36, borderRadius:"50%", flexShrink:0, display:"flex",
+                  alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:700,
+                  color:"#fff",
+                  background: s.isMe ? "#6832BA" :
+                    ["#12B76A","#0073FF","#FCBC28","#F97066","#AF8AE5","#0263EB","#FAAB22","#F04438"][s.id % 8] }
+        }, s.name === "You" ? "Me" : s.name.split(" ").map(function(n){ return n[0]; }).slice(0,2).join("")),
+        // Name
+        React.createElement("span", {
+          style:{ flex:1, fontSize:13, fontWeight: s.isMe ? 700 : 500,
+                  color: s.isMe ? "#6832BA" : "#2E3751",
+                  whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }
+        }, s.name),
         // Score
         React.createElement("span", {
           style:{ fontSize:14, fontWeight:800, color: s.isMe ? "#6832BA" : "#3C4458", flexShrink:0 }
-        }, s.score.toLocaleString())
+        }, s.score.toFixed(1))
       );
-    })
+    }),
+    React.createElement("div", { style:{ height:8 } })
   ));
 }
-
-
 
 // ─── MENU SCREEN ─────────────────────────────────────────────────────────────
 
 function MenuScreen({ onNavigate, onBack }) {
   var menuItems = [
-    { id:"home",         icon:"🏠", label:"Dashboard",       sub:"Your HPS overview" },
-    { id:"interventions",icon:"📋", label:"Interventions",   sub:"Tasks & activities" },
-    { id:"leaderboard",  icon:"🏆", label:"Leaderboard",     sub:"Batch rankings" },
-    { id:"eligibility",  icon:"🛡️", label:"Eligibility",     sub:"Grading & criteria" },
-    { id:"settings",     icon:"⚙️", label:"Settings",        sub:"Account & preferences" },
+    { id:"home",         ms:"home",        label:"Dashboard",     sub:"Your HPS overview" },
+    { id:"interventions",ms:"assignment",  label:"Interventions", sub:"Tasks & activities" },
+    { id:"leaderboard",  ms:"leaderboard", label:"Leaderboard",   sub:"Batch rankings" },
+    { id:"eligibility",  ms:"verified",    label:"Eligibility",   sub:"Grading & criteria" },
+    { id:"settings",     ms:"settings",    label:"Settings",      sub:"Account & preferences" },
   ];
 
   var termInfo = { level:"Level 2 — Growth", dates:"01/05/2026 – 04/04/2026" };
 
   return React.createElement("div", {
-    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F0FC", overflow:"hidden" }
+    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
   },
 
   // Header
@@ -3839,23 +3738,24 @@ function MenuScreen({ onNavigate, onBack }) {
     },
       React.createElement("div", {
         style:{ width:36, height:36, borderRadius:"50%", background:"rgba(255,255,255,0.2)",
-                display:"flex", alignItems:"center", justifyContent:"center", fontSize:16 }
-      }, "👤"),
+                display:"flex", alignItems:"center", justifyContent:"center" }
+      },
+        React.createElement("span", {
+          className:"ms",
+          style:{ fontSize:20, color:"rgba(255,255,255,0.9)", fontVariationSettings:"'FILL' 0" }
+        }, "person")
+      ),
       React.createElement("div", null,
-        React.createElement("p", { style:{ color:"#fff", fontWeight:800, fontSize:15, margin:0 } }, "Student User"),
+        React.createElement("p", { style:{ color:"#fff", fontWeight:700, fontSize:15, margin:0 } }, "Student User"),
         React.createElement("p", { style:{ color:"rgba(255,255,255,0.7)", fontSize:11, margin:0 } }, "Batch 2024 · PGDM JAGSoM")
       )
     ),
     React.createElement("div", {
-      style:{ background:"rgba(255,255,255,0.15)", borderRadius:10, padding:"8px 12px",
-              display:"flex", alignItems:"center", justifyContent:"space-between" }
+      style:{ background:"rgba(255,255,255,0.15)", borderRadius:10, padding:"10px 12px" }
     },
-      React.createElement("div", null,
-        React.createElement("p", { style:{ color:"rgba(255,255,255,0.7)", fontSize:10, margin:"0 0 2px", fontWeight:600, textTransform:"uppercase", letterSpacing:"0.5px" } }, "Academic Term"),
-        React.createElement("p", { style:{ color:"#fff", fontWeight:700, fontSize:13, margin:0 } }, termInfo.level),
-        React.createElement("p", { style:{ color:"rgba(255,255,255,0.65)", fontSize:10, margin:0 } }, termInfo.dates)
-      ),
-      React.createElement("span", { style:{ color:"rgba(255,255,255,0.5)", fontSize:16 } }, "▾")
+      React.createElement("p", { style:{ color:"rgba(255,255,255,0.65)", fontSize:10, margin:"0 0 2px", fontWeight:600, textTransform:"uppercase", letterSpacing:"0.5px" } }, "Academic Term"),
+      React.createElement("p", { style:{ color:"#fff", fontWeight:700, fontSize:13, margin:0 } }, termInfo.level),
+      React.createElement("p", { style:{ color:"rgba(255,255,255,0.65)", fontSize:10, margin:0 } }, termInfo.dates)
     )
   ),
 
@@ -3873,19 +3773,26 @@ function MenuScreen({ onNavigate, onBack }) {
         key: item.id,
         onClick: function(){ onNavigate(item.id); },
         style:{ width:"100%", display:"flex", alignItems:"center", gap:12, padding:"12px 14px",
-                marginBottom:6, borderRadius:14, border:"none", cursor:"pointer", textAlign:"left",
-                background:"#fff", boxShadow:"0 1px 4px rgba(104,50,186,0.08)",
-                transition:"all 0.15s" }
+                marginBottom:6, borderRadius:12, border:"1px solid #EDEFF2", cursor:"pointer", textAlign:"left",
+                background:"#fff", boxShadow:"0 1px 3px rgba(0,0,0,0.04)", transition:"all 0.15s" }
       },
         React.createElement("div", {
           style:{ width:36, height:36, borderRadius:10, background:"#F5F0FC",
-                  display:"flex", alignItems:"center", justifyContent:"center", fontSize:18, flexShrink:0 }
-        }, item.icon),
+                  display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }
+        },
+          React.createElement("span", {
+            className:"ms",
+            style:{ fontSize:20, color:"#6832BA", fontVariationSettings:"'FILL' 0" }
+          }, item.ms)
+        ),
         React.createElement("div", { style:{ flex:1 } },
-          React.createElement("p", { style:{ fontSize:13, fontWeight:700, color:"#2E3751", margin:0 } }, item.label),
+          React.createElement("p", { style:{ fontSize:13, fontWeight:600, color:"#2E3751", margin:0 } }, item.label),
           React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, item.sub)
         ),
-        React.createElement("span", { style:{ color:"#DDCEF2", fontSize:16 } }, "›")
+        React.createElement("span", {
+          className:"ms",
+          style:{ fontSize:18, color:"#B1B8C4", fontVariationSettings:"'FILL' 0" }
+        }, "chevron_right")
       );
     }),
 
@@ -3894,9 +3801,15 @@ function MenuScreen({ onNavigate, onBack }) {
     React.createElement("button", {
       onClick: function(){ alert("Logged out"); },
       style:{ width:"100%", display:"flex", alignItems:"center", justifyContent:"center", gap:8,
-              padding:"13px", borderRadius:14, border:"1.5px solid #DDCEF2", cursor:"pointer",
-              background:"#fff", color:"#F04438", fontWeight:700, fontSize:13 }
-    }, React.createElement("span", null, "→"), React.createElement("span", null, "Logout"))
+              padding:"12px", borderRadius:12, border:"1.5px solid #DDCEF2", cursor:"pointer",
+              background:"#fff", color:"#F04438", fontWeight:600, fontSize:13 }
+    },
+      React.createElement("span", {
+        className:"ms",
+        style:{ fontSize:18, color:"#F04438", fontVariationSettings:"'FILL' 0" }
+      }, "logout"),
+      React.createElement("span", null, "Logout")
+    )
   ));
 }
 
@@ -4089,7 +4002,7 @@ function SettingsScreen({ onBack, studentName }) {
       React.createElement("h2", { style:{ fontSize:20, fontWeight:800, color:"#2E3751", margin:"0 0 2px", letterSpacing:"-0.3px" } }, "Settings"),
       React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, "Manage your account & preferences")
     ),
-    React.createElement("span", { style:{ fontSize:18 } }, "🔔")
+    React.createElement("span", { className:"ms", style:{ fontSize:22, color:"#8B96AA", fontVariationSettings:"'FILL' 0" } }, "notifications")
   ),
 
   // Scrollable Content
