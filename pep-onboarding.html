@@ -803,11 +803,10 @@ function buildArchetype(){
 
 </script>
 
-<!-- React CDN -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 
-<!-- Dashboard root -->
 <div id="dashboard-root" style="display:none;position:fixed;inset:0;z-index:100;overflow-y:auto;"></div>
 
 <script>
@@ -823,9 +822,13 @@ function launchDashboard() {
 </script>
 
 <script>
+window.addEventListener('load', function() {
 const {
   useState
 } = React;
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
 const PILLARS = [{
   id: "persona",
   name: "Persona",
@@ -1151,7 +1154,7 @@ const MISSIONS = [{
   description: "Improve your attendance in Discipline activities to meet the minimum 80% requirement.",
   points: 20,
   verify: "Teacher",
-  why: "Discipline attendance directly feeds your Regularity and Preparedness scores — the two largest sub-components in the Discipline pillar.",
+  why: "Discipline attendance directly feeds your Regularity and Preparedness scores.",
   primary: {
     name: "Regularity - Lifestyle",
     current: 3,
@@ -1173,7 +1176,7 @@ const MISSIONS = [{
   description: "Your endurance score is below batch average. Shaving 30 seconds off improves your Wellness score significantly.",
   points: 50,
   verify: "Teacher",
-  why: "Cardiovascular endurance is your lowest Wellness microcompetency. Improving your 3km time pushes you closer to the batch best of 77.",
+  why: "Cardiovascular endurance is your lowest Wellness microcompetency.",
   primary: {
     name: "3KM Run Test",
     current: 2,
@@ -1195,7 +1198,7 @@ const MISSIONS = [{
   description: "Write a reflection on your last Empathy workshop session to reinforce learning.",
   points: 10,
   verify: "Self",
-  why: "Active reflection after workshops improves competency retention. Submitting this marks your Empathy Internal score directly.",
+  why: "Active reflection after workshops improves competency retention.",
   primary: {
     name: "E1 - Active Listening",
     current: 1,
@@ -1207,6 +1210,137 @@ const MISSIONS = [{
     max: 5
   }]
 }];
+const INTERVENTIONS_UPCOMING = [{
+  id: 1,
+  title: "Communication Workshop",
+  status: "Active",
+  dateRange: "May 20 - May 24, 2026",
+  enrolled: 45,
+  capacity: 60,
+  objective: "Helps you improve verbal and written communication skills essential for professional environments and client interactions.",
+  micros: [{
+    name: "C1 - Verbal Communication",
+    pillarId: "persona"
+  }, {
+    name: "C2 - Written Communication",
+    pillarId: "persona"
+  }, {
+    name: "E1 - Active Listening",
+    pillarId: "persona"
+  }],
+  scoringStatus: "Scoring Open",
+  scoringDue: "Jun 10, 2026"
+}, {
+  id: 2,
+  title: "Fitness Assessment — Level 2",
+  status: "Upcoming",
+  dateRange: "May 28 - May 30, 2026",
+  enrolled: 80,
+  capacity: 100,
+  objective: "Physical fitness evaluation across endurance, agility, flexibility, and body composition to track your wellness progress.",
+  micros: [{
+    name: "3KM Run Test",
+    pillarId: "wellness"
+  }, {
+    name: "Beep Test",
+    pillarId: "wellness"
+  }, {
+    name: "Push Up Test",
+    pillarId: "wellness"
+  }, {
+    name: "Sit & Reach Test",
+    pillarId: "wellness"
+  }],
+  scoringStatus: "Not Open",
+  scoringDue: null
+}, {
+  id: 3,
+  title: "Leadership in Action",
+  status: "Active",
+  dateRange: "Jun 2 - Jun 6, 2026",
+  enrolled: 30,
+  capacity: 40,
+  objective: "Develops your ability to lead teams, manage conflict, influence stakeholders and take ownership of outcomes.",
+  micros: [{
+    name: "L1 - Decision Making",
+    pillarId: "persona"
+  }, {
+    name: "L2 - Influence",
+    pillarId: "persona"
+  }, {
+    name: "T2 - Conflict Resolution",
+    pillarId: "persona"
+  }],
+  scoringStatus: "Scoring Open",
+  scoringDue: "Jun 20, 2026"
+}];
+const INTERVENTIONS_COMPLETED = [{
+  id: 4,
+  title: "Behavior Rating Scale",
+  status: "Completed",
+  dateRange: "Dec 25 - Dec 30, 2025",
+  attended: true,
+  score: 78,
+  maxScore: 100,
+  pepPointsEarned: 25,
+  objective: "Assess and improve your professional behavior, attitude, and proactive contributions in campus and classroom settings.",
+  micros: [{
+    name: "Behaviour Rating Tool",
+    pillarId: "behaviour"
+  }, {
+    name: "Attitude Rating Tool",
+    pillarId: "behaviour"
+  }, {
+    name: "Work Place Behaviour",
+    pillarId: "behaviour"
+  }],
+  feedbackGiven: false
+}, {
+  id: 5,
+  title: "Group Discussion & Debate",
+  status: "Completed",
+  dateRange: "Nov 10 - Nov 14, 2025",
+  attended: true,
+  score: 62,
+  maxScore: 100,
+  pepPointsEarned: 25,
+  objective: "Sharpen your ability to articulate arguments, listen actively, and persuade through structured group discussions.",
+  micros: [{
+    name: "C1 - Verbal Communication",
+    pillarId: "persona"
+  }, {
+    name: "N1 - Persuasion",
+    pillarId: "persona"
+  }, {
+    name: "T1 - Collaboration",
+    pillarId: "persona"
+  }],
+  feedbackGiven: false
+}, {
+  id: 6,
+  title: "Wellness Baseline Assessment",
+  status: "Completed",
+  dateRange: "Oct 5 - Oct 6, 2025",
+  attended: false,
+  score: null,
+  maxScore: 100,
+  pepPointsEarned: 0,
+  objective: "Initial fitness testing to establish your wellness baseline across all physical competency areas.",
+  micros: [{
+    name: "3KM Run Test",
+    pillarId: "wellness"
+  }, {
+    name: "Body Composition Analysis",
+    pillarId: "wellness"
+  }],
+  feedbackGiven: false
+}];
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function getPillar(id) {
+  return PILLARS.find(p => p.id === id);
+}
 function ProgressBar({
   value,
   max,
@@ -1226,7 +1360,8 @@ function ProgressBar({
       height: "100%",
       width: `${pct}%`,
       background: color,
-      borderRadius: height
+      borderRadius: height,
+      transition: "width 0.4s"
     }
   }));
 }
@@ -1252,22 +1387,234 @@ function ScoreDots({
     }
   })));
 }
+
+// ─── ICONS ───────────────────────────────────────────────────────────────────
+
+function IconHome({
+  active
+}) {
+  const c = active ? "#6832BA" : "#8B96AA";
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M3 12L12 3l9 9",
+    stroke: c,
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M9 21V12h6v9",
+    stroke: c,
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M5 10.5V21h14V10.5",
+    stroke: c,
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }));
+}
+function IconInterventions({
+  active
+}) {
+  const c = active ? "#6832BA" : "#8B96AA";
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "4",
+    y: "3",
+    width: "16",
+    height: "18",
+    rx: "3",
+    stroke: c,
+    strokeWidth: "1.8"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M8 8h8M8 12h8M8 16h5",
+    stroke: c,
+    strokeWidth: "1.8",
+    strokeLinecap: "round"
+  }));
+}
+function IconLeaderboard({
+  active
+}) {
+  const c = active ? "#6832BA" : "#8B96AA";
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "3",
+    y: "12",
+    width: "5",
+    height: "9",
+    rx: "1.5",
+    fill: active ? "#6832BA" : "none",
+    stroke: c,
+    strokeWidth: "1.8"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "9.5",
+    y: "7",
+    width: "5",
+    height: "14",
+    rx: "1.5",
+    fill: active ? "#6832BA" : "none",
+    stroke: c,
+    strokeWidth: "1.8"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "16",
+    y: "3",
+    width: "5",
+    height: "18",
+    rx: "1.5",
+    fill: active ? "#6832BA" : "none",
+    stroke: c,
+    strokeWidth: "1.8"
+  }));
+}
+function IconMenu({
+  active
+}) {
+  const c = active ? "#6832BA" : "#8B96AA";
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "8",
+    r: "3.5",
+    stroke: c,
+    strokeWidth: "1.8"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7",
+    stroke: c,
+    strokeWidth: "1.8",
+    strokeLinecap: "round"
+  }));
+}
+function IconChevronRight() {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M6 4l4 4-4 4",
+    stroke: "#B1B8C4",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }));
+}
+function IconBack({
+  onPress
+}) {
+  return /*#__PURE__*/React.createElement("button", {
+    onClick: onPress,
+    style: {
+      width: 36,
+      height: 36,
+      borderRadius: "50%",
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M10 4L6 8l4 4",
+    stroke: "#3C4458",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })));
+}
+function IconCalendar() {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 14 14",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "1.5",
+    y: "2.5",
+    width: "11",
+    height: "10",
+    rx: "2",
+    stroke: "#8B96AA",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M1.5 6h11M4.5 1v3M9.5 1v3",
+    stroke: "#8B96AA",
+    strokeWidth: "1.2",
+    strokeLinecap: "round"
+  }));
+}
+function IconPeople() {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 14 14",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: "5",
+    cy: "4.5",
+    r: "2",
+    stroke: "#8B96AA",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M1 11c0-2.21 1.79-4 4-4s4 1.79 4 4",
+    stroke: "#8B96AA",
+    strokeWidth: "1.2",
+    strokeLinecap: "round"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M9.5 2.5a2 2 0 010 4M13 11c0-2.21-1.34-4-3-4",
+    stroke: "#8B96AA",
+    strokeWidth: "1.2",
+    strokeLinecap: "round"
+  }));
+}
+
+// ─── BOTTOM NAV ───────────────────────────────────────────────────────────────
+
 function BottomNav({
   active,
   onNavigate
 }) {
   const tabs = [{
     id: "home",
-    label: "Home"
+    label: "Home",
+    Icon: IconHome
   }, {
     id: "interventions",
-    label: "Interventions"
+    label: "Interventions",
+    Icon: IconInterventions
   }, {
     id: "leaderboard",
-    label: "Leaderboard"
+    label: "Leaderboard",
+    Icon: IconLeaderboard
   }, {
     id: "menu",
-    label: "Menu"
+    label: "Menu",
+    Icon: IconMenu
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1275,12 +1622,16 @@ function BottomNav({
       borderTop: "1px solid #EDEFF2",
       display: "flex",
       justifyContent: "space-around",
-      padding: "10px 0 20px",
+      padding: "10px 0 24px",
       flexShrink: 0
     }
-  }, tabs.map(t => /*#__PURE__*/React.createElement("button", {
-    key: t.id,
-    onClick: () => onNavigate(t.id),
+  }, tabs.map(({
+    id,
+    label,
+    Icon
+  }) => /*#__PURE__*/React.createElement("button", {
+    key: id,
+    onClick: () => onNavigate(id),
     style: {
       display: "flex",
       flexDirection: "column",
@@ -1292,20 +1643,15 @@ function BottomNav({
       minWidth: 56,
       padding: "4px 0"
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 22,
-      height: 22,
-      borderRadius: 6,
-      background: active === t.id ? "#6832BA" : "#E2E4E8"
-    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    active: active === id
   }), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 10,
       fontWeight: 600,
-      color: active === t.id ? "#6832BA" : "#8B96AA"
+      color: active === id ? "#6832BA" : "#8B96AA"
     }
-  }, t.label), active === t.id && /*#__PURE__*/React.createElement("div", {
+  }, label), active === id && /*#__PURE__*/React.createElement("div", {
     style: {
       width: 4,
       height: 4,
@@ -1314,6 +1660,9 @@ function BottomNav({
     }
   }))));
 }
+
+// ─── MISSION DETAIL SHEET ────────────────────────────────────────────────────
+
 function MissionSheet({
   mission,
   onClose,
@@ -1321,7 +1670,7 @@ function MissionSheet({
   completed
 }) {
   if (!mission) return null;
-  const pillar = PILLARS.find(p => p.id === mission.pillarId);
+  const pillar = getPillar(mission.pillarId);
   const isDone = completed.includes(mission.id);
   return /*#__PURE__*/React.createElement("div", {
     onClick: onClose,
@@ -1331,14 +1680,14 @@ function MissionSheet({
       zIndex: 200,
       background: "rgba(0,0,0,0.5)",
       display: "flex",
-      alignItems: "flex-end"
+      alignItems: "flex-end",
+      justifyContent: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     onClick: e => e.stopPropagation(),
     style: {
       width: "100%",
-      maxWidth: 390,
-      margin: "0 auto",
+      maxWidth: 480,
       background: "#fff",
       borderRadius: "20px 20px 0 0",
       maxHeight: "88vh",
@@ -1575,6 +1924,9 @@ function MissionSheet({
     }
   }, "Mark as Complete \u2014 +", mission.points, " pts"))));
 }
+
+// ─── COMPETENCY SHEET ────────────────────────────────────────────────────────
+
 function CompetencySheet({
   competency,
   pillar,
@@ -1589,14 +1941,14 @@ function CompetencySheet({
       zIndex: 200,
       background: "rgba(0,0,0,0.5)",
       display: "flex",
-      alignItems: "flex-end"
+      alignItems: "flex-end",
+      justifyContent: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     onClick: e => e.stopPropagation(),
     style: {
       width: "100%",
-      maxWidth: 390,
-      margin: "0 auto",
+      maxWidth: 480,
       background: "#fff",
       borderRadius: "20px 20px 0 0",
       maxHeight: "80vh",
@@ -1673,6 +2025,490 @@ function CompetencySheet({
     color: pillar.color
   }))))));
 }
+
+// ─── FEEDBACK SHEET ──────────────────────────────────────────────────────────
+
+function FeedbackSheet({
+  intervention,
+  onClose,
+  onSubmit
+}) {
+  const [rating, setRating] = useState(0);
+  const [text, setText] = useState("");
+  const isMandatory = rating > 0 && rating <= 3;
+  const canSubmit = rating > 0 && (rating > 3 || text.trim().length > 0);
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: onClose,
+    style: {
+      position: "fixed",
+      inset: 0,
+      zIndex: 200,
+      background: "rgba(0,0,0,0.5)",
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: e => e.stopPropagation(),
+    style: {
+      width: "100%",
+      maxWidth: 480,
+      background: "#fff",
+      borderRadius: "20px 20px 0 0",
+      maxHeight: "88vh",
+      overflowY: "auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      padding: "12px 0 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 36,
+      height: 4,
+      borderRadius: 2,
+      background: "#E2E4E8"
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 16px",
+      borderBottom: "1px solid #EDEFF2"
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 17,
+      fontWeight: 700,
+      color: "#2E3751",
+      margin: "0 0 4px"
+    }
+  }, "Rate this Intervention"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "#8B96AA",
+      margin: 0
+    }
+  }, intervention.title)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "24px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#3C4458",
+      marginBottom: 14,
+      textTransform: "uppercase",
+      letterSpacing: "0.08em"
+    }
+  }, "How would you rate this intervention?"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 10,
+      justifyContent: "center",
+      marginBottom: 16
+    }
+  }, [1, 2, 3, 4, 5].map(n => /*#__PURE__*/React.createElement("button", {
+    key: n,
+    onClick: () => setRating(n),
+    style: {
+      width: 52,
+      height: 52,
+      borderRadius: 12,
+      border: `2px solid ${rating === n ? "#6832BA" : "#E2E4E8"}`,
+      background: rating === n ? "#6832BA" : "#F5F6F7",
+      fontSize: 20,
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      transition: "all 0.15s"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 22
+    }
+  }, ["😞", "😕", "😐", "😊", "🤩"][n - 1])))), rating > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "center",
+      fontSize: 12,
+      color: rating <= 3 ? "#F97066" : "#12B76A",
+      fontWeight: 600,
+      marginBottom: 4
+    }
+  }, ["Poor", "Below average", "Average", "Good", "Excellent"][rating - 1])), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#3C4458",
+      marginBottom: 8,
+      textTransform: "uppercase",
+      letterSpacing: "0.08em"
+    }
+  }, "Your feedback ", isMandatory ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#F97066"
+    }
+  }, "\u2014 required for this rating") : "(optional)"), /*#__PURE__*/React.createElement("textarea", {
+    value: text,
+    onChange: e => setText(e.target.value),
+    placeholder: isMandatory ? "Please share what could be improved..." : "Share your thoughts about this intervention...",
+    rows: 4,
+    style: {
+      width: "100%",
+      border: `1.5px solid ${isMandatory && text.trim().length === 0 ? "#FECDCA" : "#E2E4E8"}`,
+      borderRadius: 12,
+      padding: "12px 14px",
+      fontSize: 13,
+      color: "#3C4458",
+      resize: "none",
+      outline: "none",
+      fontFamily: "inherit",
+      boxSizing: "border-box",
+      background: isMandatory && text.trim().length === 0 ? "#FFF8F8" : "#fff"
+    }
+  }), isMandatory && text.trim().length === 0 && /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 11,
+      color: "#F97066",
+      margin: "6px 0 0"
+    }
+  }, "Feedback is required when rating 3 or below.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "24px 20px 32px"
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => canSubmit && onSubmit(intervention.id, rating, text),
+    style: {
+      width: "100%",
+      padding: 16,
+      background: canSubmit ? "#6832BA" : "#E2E4E8",
+      border: "none",
+      borderRadius: 14,
+      fontSize: 15,
+      fontWeight: 700,
+      color: canSubmit ? "#fff" : "#8B96AA",
+      cursor: canSubmit ? "pointer" : "not-allowed",
+      transition: "background 0.2s"
+    }
+  }, "Submit Feedback"))));
+}
+
+// ─── INTERVENTION DETAIL SHEET ───────────────────────────────────────────────
+
+function InterventionDetailSheet({
+  intervention,
+  isCompleted,
+  onClose,
+  onFeedback,
+  feedbackGiven
+}) {
+  if (!intervention) return null;
+  const canFeedback = isCompleted && intervention.attended && !feedbackGiven;
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: onClose,
+    style: {
+      position: "fixed",
+      inset: 0,
+      zIndex: 200,
+      background: "rgba(0,0,0,0.5)",
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: e => e.stopPropagation(),
+    style: {
+      width: "100%",
+      maxWidth: 480,
+      background: "#fff",
+      borderRadius: "20px 20px 0 0",
+      maxHeight: "90vh",
+      overflowY: "auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      padding: "12px 0 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 36,
+      height: 4,
+      borderRadius: 2,
+      background: "#E2E4E8"
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 16px",
+      borderBottom: "1px solid #EDEFF2"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      marginBottom: 10,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: intervention.status === "Active" ? "#12B76A" : intervention.status === "Completed" ? "#6832BA" : "#F59E0B",
+      background: intervention.status === "Active" ? "#ECFDF3" : intervention.status === "Completed" ? "#F5F0FC" : "#FFFBEB",
+      border: `1px solid ${intervention.status === "Active" ? "#A9EFC5" : intervention.status === "Completed" ? "#DDCEF2" : "#FDE68A"}`,
+      borderRadius: 20,
+      padding: "3px 10px"
+    }
+  }, intervention.status), isCompleted && intervention.attended && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#12B76A",
+      background: "#ECFDF3",
+      border: "1px solid #A9EFC5",
+      borderRadius: 20,
+      padding: "3px 10px"
+    }
+  }, "\u2713 Attended"), isCompleted && !intervention.attended && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#F97066",
+      background: "#FFF1F0",
+      border: "1px solid #FECDCA",
+      borderRadius: 20,
+      padding: "3px 10px"
+    }
+  }, "Not Attended")), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 18,
+      fontWeight: 700,
+      color: "#2E3751",
+      margin: "0 0 10px"
+    }
+  }, intervention.title), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement(IconCalendar, null), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: "#667085"
+    }
+  }, intervention.dateRange)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement(IconPeople, null), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: "#667085"
+    }
+  }, intervention.enrolled, " / ", intervention.capacity, " students enrolled")))), isCompleted && intervention.attended && intervention.score !== null && /*#__PURE__*/React.createElement("div", {
+    style: {
+      margin: "16px 20px 0",
+      background: "#F5F0FC",
+      border: "1px solid #DDCEF2",
+      borderRadius: 14,
+      padding: "14px 16px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "#8B96AA",
+      marginBottom: 4
+    }
+  }, "Your Score"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 24,
+      fontWeight: 800,
+      color: "#6832BA"
+    }
+  }, intervention.score, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 14,
+      color: "#8B96AA",
+      fontWeight: 400
+    }
+  }, "/", intervention.maxScore))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "right"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "#8B96AA",
+      marginBottom: 4
+    }
+  }, "PEP Points Earned"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 5,
+      justifyContent: "flex-end"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 7,
+      height: 7,
+      borderRadius: "50%",
+      background: "#F59E0B"
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      fontWeight: 700,
+      color: "#D97706"
+    }
+  }, "+", intervention.pepPointsEarned)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      marginBottom: 8
+    }
+  }, "Objective"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      borderRadius: 12,
+      padding: "14px 16px"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#3C4458",
+      lineHeight: 1.6,
+      margin: 0
+    }
+  }, intervention.objective))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "#8B96AA",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      marginBottom: 8
+    }
+  }, "Micro-Competencies Addressed"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "#8B96AA",
+      margin: "0 0 10px"
+    }
+  }, "Completing this intervention helps improve these areas"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, intervention.micros.map((m, i) => {
+    const p = getPillar(m.pillarId);
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "#fff",
+        border: "1px solid #E2E4E8",
+        borderRadius: 12,
+        padding: "12px 14px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 13,
+        fontWeight: 500,
+        color: "#3C4458"
+      }
+    }, m.name), /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: p.lightBg,
+        border: `1px solid ${p.borderColor}`,
+        borderRadius: 20,
+        padding: "3px 10px",
+        fontSize: 11,
+        fontWeight: 700,
+        color: p.color,
+        flexShrink: 0
+      }
+    }, p.name));
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "24px 20px 32px"
+    }
+  }, canFeedback && /*#__PURE__*/React.createElement("button", {
+    onClick: () => onFeedback(intervention),
+    style: {
+      width: "100%",
+      padding: 16,
+      background: "#6832BA",
+      border: "none",
+      borderRadius: 14,
+      fontSize: 15,
+      fontWeight: 700,
+      color: "#fff",
+      cursor: "pointer"
+    }
+  }, "Give Feedback"), isCompleted && intervention.attended && feedbackGiven && /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "100%",
+      padding: 16,
+      background: "#ECFDF3",
+      border: "1px solid #A9EFC5",
+      borderRadius: 14,
+      textAlign: "center",
+      fontSize: 14,
+      fontWeight: 700,
+      color: "#12B76A"
+    }
+  }, "\u2713 Feedback submitted"), isCompleted && !intervention.attended && /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "100%",
+      padding: 16,
+      background: "#F5F6F7",
+      border: "1px solid #E2E4E8",
+      borderRadius: 14,
+      textAlign: "center",
+      fontSize: 13,
+      color: "#8B96AA"
+    }
+  }, "Feedback available after attendance is marked"))));
+}
+
+// ─── SCREEN: HOME ─────────────────────────────────────────────────────────────
+
 function HomeScreen({
   studentName,
   onViewScore,
@@ -1710,7 +2546,8 @@ function HomeScreen({
     style: {
       display: "flex",
       alignItems: "center",
-      gap: 6
+      gap: 6,
+      flexWrap: "wrap"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1930,9 +2767,24 @@ function HomeScreen({
       fontSize: 14,
       fontWeight: 700,
       color: "#fff",
-      cursor: "pointer"
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6
     }
-  }, "View Pillar Scores \u2192"))), /*#__PURE__*/React.createElement("div", {
+  }, "View Pillar Scores", /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M4 8h8M9 5l3 3-3 3",
+    stroke: "#fff",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }))))), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "20px 16px 24px"
     }
@@ -1956,14 +2808,40 @@ function HomeScreen({
       color: "#6832BA",
       fontWeight: 600
     }
-  }, MISSIONS.filter(m => !completedMissions.includes(m.id)).length, " active")), /*#__PURE__*/React.createElement("div", {
+  }, MISSIONS.filter(m => !completedMissions.includes(m.id)).length, " active")), MISSIONS.length === 0 || MISSIONS.every(m => completedMissions.includes(m.id)) ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: 14,
+      border: "1px solid #E2E4E8",
+      padding: "32px 20px",
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 32,
+      marginBottom: 8
+    }
+  }, "\uD83C\uDF89"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: "#2E3751",
+      marginBottom: 4
+    }
+  }, "All missions complete!"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "#8B96AA",
+      margin: 0
+    }
+  }, "Check back soon for new missions from your teachers.")) : /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
       gap: 10
     }
   }, MISSIONS.map(m => {
-    const pillar = PILLARS.find(p => p.id === m.pillarId);
+    const pillar = getPillar(m.pillarId);
     const done = completedMissions.includes(m.id);
     return /*#__PURE__*/React.createElement("div", {
       key: m.id,
@@ -2060,15 +2938,29 @@ function HomeScreen({
         color: "#fff",
         cursor: "pointer"
       }
-    }, "Start Mission \u2192")));
+    }, "Start Mission", /*#__PURE__*/React.createElement("svg", {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M2 7h10M8 4l3 3-3 3",
+      stroke: "#fff",
+      strokeWidth: "1.5",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    })))));
   }))));
 }
+
+// ─── SCREEN: PILLAR SCORES ────────────────────────────────────────────────────
+
 function PillarScoresScreen({
   onBack,
   onOpenCompetency
 }) {
   const [activeTab, setActiveTab] = useState("persona");
-  const pillar = PILLARS.find(p => p.id === activeTab);
+  const pillar = getPillar(activeTab);
   return /*#__PURE__*/React.createElement("div", {
     style: {
       flex: 1,
@@ -2091,21 +2983,9 @@ function PillarScoresScreen({
       gap: 12,
       marginBottom: 16
     }
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: onBack,
-    style: {
-      width: 36,
-      height: 36,
-      borderRadius: "50%",
-      background: "#F5F6F7",
-      border: "1px solid #E2E4E8",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      cursor: "pointer",
-      fontSize: 16
-    }
-  }, "\u2190"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
+  }, /*#__PURE__*/React.createElement(IconBack, {
+    onPress: onBack
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
     style: {
       fontSize: 18,
       fontWeight: 700,
@@ -2134,7 +3014,8 @@ function PillarScoresScreen({
       borderBottom: activeTab === p.id ? `2px solid ${p.color}` : "2px solid transparent",
       fontSize: 11,
       fontWeight: activeTab === p.id ? 700 : 500,
-      color: activeTab === p.id ? p.color : "#8B96AA"
+      color: activeTab === p.id ? p.color : "#8B96AA",
+      transition: "all 0.15s"
     }
   }, p.name)))), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2354,14 +3235,923 @@ function PillarScoresScreen({
       fontWeight: 700,
       color: "#2E3751"
     }
-  }, c.score, "/", c.max), /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "#B1B8C4"
-    }
-  }, "\u203A")))))));
+  }, c.score, "/", c.max), /*#__PURE__*/React.createElement(IconChevronRight, null)))))));
 }
+
+// ─── SCREEN: INTERVENTIONS ────────────────────────────────────────────────────
+
+function InterventionsScreen({
+  onBack,
+  feedbackGiven,
+  onFeedbackGiven
+}) {
+  const [activeTab, setActiveTab] = useState("upcoming");
+  const [activeIntervention, setActiveIntervention] = useState(null);
+  const [feedbackIntervention, setFeedbackIntervention] = useState(null);
+  const isCompleted = activeTab === "completed";
+  const list = isCompleted ? INTERVENTIONS_COMPLETED : INTERVENTIONS_UPCOMING;
+  function handleFeedbackSubmit(id, rating, text) {
+    onFeedbackGiven(id);
+    setFeedbackIntervention(null);
+    setActiveIntervention(null);
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      background: "#F5F6F7",
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      borderBottom: "1px solid #EDEFF2",
+      padding: "16px 20px 0",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement(IconBack, {
+    onPress: onBack
+  }), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 18,
+      fontWeight: 700,
+      color: "#2E3751",
+      margin: 0
+    }
+  }, "Interventions")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex"
+    }
+  }, ["upcoming", "completed"].map(tab => /*#__PURE__*/React.createElement("button", {
+    key: tab,
+    onClick: () => setActiveTab(tab),
+    style: {
+      flex: 1,
+      padding: "10px 0",
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      borderBottom: activeTab === tab ? "2px solid #6832BA" : "2px solid transparent",
+      fontSize: 13,
+      fontWeight: activeTab === tab ? 700 : 500,
+      color: activeTab === tab ? "#6832BA" : "#8B96AA",
+      textTransform: "capitalize",
+      transition: "all 0.15s"
+    }
+  }, tab.charAt(0).toUpperCase() + tab.slice(1))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      overflowY: "auto",
+      padding: 16,
+      display: "flex",
+      flexDirection: "column",
+      gap: 12
+    }
+  }, list.map(item => {
+    const hasFeedback = feedbackGiven.includes(item.id);
+    return /*#__PURE__*/React.createElement("div", {
+      key: item.id,
+      onClick: () => setActiveIntervention(item),
+      style: {
+        background: "#fff",
+        borderRadius: 14,
+        border: "1px solid #EDEFF2",
+        padding: "16px",
+        cursor: "pointer",
+        boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+        transition: "box-shadow 0.15s"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: 8
+      }
+    }, /*#__PURE__*/React.createElement("h3", {
+      style: {
+        fontSize: 15,
+        fontWeight: 700,
+        color: "#2E3751",
+        margin: 0,
+        flex: 1,
+        paddingRight: 8
+      }
+    }, item.title), /*#__PURE__*/React.createElement(IconChevronRight, null)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6,
+        flexWrap: "wrap",
+        marginBottom: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: item.status === "Active" ? "#12B76A" : item.status === "Completed" ? "#6832BA" : "#F59E0B",
+        background: item.status === "Active" ? "#ECFDF3" : item.status === "Completed" ? "#F5F0FC" : "#FFFBEB",
+        border: `1px solid ${item.status === "Active" ? "#A9EFC5" : item.status === "Completed" ? "#DDCEF2" : "#FDE68A"}`,
+        borderRadius: 20,
+        padding: "3px 10px"
+      }
+    }, item.status), isCompleted && item.attended && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: "#12B76A",
+        background: "#ECFDF3",
+        border: "1px solid #A9EFC5",
+        borderRadius: 20,
+        padding: "3px 10px"
+      }
+    }, "\u2713 Attended"), isCompleted && !item.attended && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: "#F97066",
+        background: "#FFF1F0",
+        border: "1px solid #FECDCA",
+        borderRadius: 20,
+        padding: "3px 10px"
+      }
+    }, "Not Attended")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 5,
+        marginBottom: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement(IconCalendar, null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 12,
+        color: "#667085"
+      }
+    }, item.dateRange)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement(IconPeople, null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 12,
+        color: "#667085"
+      }
+    }, item.enrolled, " / ", item.capacity, " students"))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6,
+        flexWrap: "wrap",
+        marginBottom: isCompleted && item.attended ? 12 : 0
+      }
+    }, [...new Set(item.micros.map(m => m.pillarId))].map(pid => {
+      const p = getPillar(pid);
+      return /*#__PURE__*/React.createElement("div", {
+        key: pid,
+        style: {
+          fontSize: 10,
+          fontWeight: 700,
+          color: p.color,
+          background: p.lightBg,
+          border: `1px solid ${p.borderColor}`,
+          borderRadius: 20,
+          padding: "2px 8px"
+        }
+      }, p.name);
+    })), isCompleted && item.attended && item.score !== null && /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingTop: 10,
+        borderTop: "1px solid #F5F6F7"
+      }
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: "#8B96AA"
+      }
+    }, "Score: "), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 14,
+        fontWeight: 700,
+        color: "#6832BA"
+      }
+    }, item.score, "/", item.maxScore)), !hasFeedback ? /*#__PURE__*/React.createElement("button", {
+      onClick: e => {
+        e.stopPropagation();
+        setFeedbackIntervention(item);
+      },
+      style: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 5,
+        background: "#6832BA",
+        border: "none",
+        borderRadius: 10,
+        padding: "7px 14px",
+        fontSize: 12,
+        fontWeight: 700,
+        color: "#fff",
+        cursor: "pointer"
+      }
+    }, "Give Feedback") : /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: "#12B76A"
+      }
+    }, "\u2713 Feedback given")), !isCompleted && item.scoringStatus === "Scoring Open" && /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        paddingTop: 10,
+        borderTop: "1px solid #F5F6F7"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: "#12B76A",
+        background: "#ECFDF3",
+        border: "1px solid #A9EFC5",
+        borderRadius: 20,
+        padding: "3px 10px"
+      }
+    }, "Scoring Open"), item.scoringDue && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: "#8B96AA"
+      }
+    }, "Due: ", item.scoringDue)));
+  }), list.length === 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 40,
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 40,
+      marginBottom: 12
+    }
+  }, "\uD83D\uDCCB"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: "#2E3751",
+      marginBottom: 4
+    }
+  }, isCompleted ? "No completed interventions yet" : "No upcoming interventions"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "#8B96AA",
+      margin: 0
+    }
+  }, isCompleted ? "Interventions you complete will appear here." : "New sessions will be announced by your faculty."))), activeIntervention && !feedbackIntervention && /*#__PURE__*/React.createElement(InterventionDetailSheet, {
+    intervention: activeIntervention,
+    isCompleted: isCompleted,
+    onClose: () => setActiveIntervention(null),
+    onFeedback: setFeedbackIntervention,
+    feedbackGiven: feedbackGiven.includes(activeIntervention.id)
+  }), feedbackIntervention && /*#__PURE__*/React.createElement(FeedbackSheet, {
+    intervention: feedbackIntervention,
+    onClose: () => setFeedbackIntervention(null),
+    onSubmit: handleFeedbackSubmit
+  }));
+}
+
+// ─── PLACEHOLDER SCREENS ─────────────────────────────────────────────────────
+
+
+// ─── LEADERBOARD DATA ────────────────────────────────────────────────────────
+
+const LB_TABS = ["Overall", "Persona", "Behaviour", "Wellness", "Discipline"];
+
+const LB_PILLAR_BADGES = {
+  Persona:    { label: "Persona Star",      color: "#6832BA" },
+  Behaviour:  { label: "Conduct Champion",  color: "#12B76A" },
+  Wellness:   { label: "Wellness Leader",   color: "#FCBC28" },
+  Discipline: { label: "Iron Discipline",   color: "#0073FF" },
+};
+
+const LB_STUDENTS = {
+  Overall: [
+    { id:1, name:"You",               score:5075, rank:1, delta:2,  level:8, isMe:true },
+    { id:2, name:"Derrick L. Thoman", score:4985, rank:2, delta:-1, level:9 },
+    { id:3, name:"Kelsey T. Donovan", score:4642, rank:3, delta:1,  level:8 },
+    { id:4, name:"Jack L. Gregory",   score:3874, rank:4, delta:0,  level:7 },
+    { id:5, name:"Mary R. Mercado",   score:3567, rank:5, delta:-2, level:7 },
+    { id:6, name:"Theresa N. Maki",   score:3478, rank:6, delta:3,  level:6 },
+    { id:7, name:"James A. Wright",   score:3387, rank:7, delta:0,  level:6 },
+    { id:8, name:"Priya S. Nair",     score:3210, rank:8, delta:1,  level:5 },
+    { id:9, name:"Rohan K. Mehta",    score:3050, rank:9, delta:-1, level:5 },
+  ],
+  Persona: [
+    { id:1, name:"You",               score:1280, rank:1, delta:1,  level:8, isMe:true },
+    { id:2, name:"Kelsey T. Donovan", score:1240, rank:2, delta:0,  level:8 },
+    { id:3, name:"Derrick L. Thoman", score:1190, rank:3, delta:-1, level:9 },
+    { id:4, name:"Theresa N. Maki",   score:1050, rank:4, delta:2,  level:6 },
+    { id:5, name:"Mary R. Mercado",   score:980,  rank:5, delta:-1, level:7 },
+    { id:6, name:"Jack L. Gregory",   score:910,  rank:6, delta:0,  level:7 },
+  ],
+  Behaviour: [
+    { id:1, name:"Derrick L. Thoman", score:1320, rank:1, delta:0,  level:9 },
+    { id:2, name:"You",               score:1280, rank:2, delta:3,  level:8, isMe:true },
+    { id:3, name:"Jack L. Gregory",   score:1100, rank:3, delta:-1, level:7 },
+    { id:4, name:"Priya S. Nair",     score:980,  rank:4, delta:2,  level:5 },
+    { id:5, name:"Mary R. Mercado",   score:920,  rank:5, delta:-1, level:7 },
+    { id:6, name:"Kelsey T. Donovan", score:870,  rank:6, delta:0,  level:8 },
+  ],
+  Wellness: [
+    { id:1, name:"Mary R. Mercado",   score:1450, rank:1, delta:1,  level:7 },
+    { id:2, name:"Theresa N. Maki",   score:1320, rank:2, delta:0,  level:6 },
+    { id:3, name:"You",               score:1200, rank:3, delta:-1, level:8, isMe:true },
+    { id:4, name:"Derrick L. Thoman", score:1080, rank:4, delta:2,  level:9 },
+    { id:5, name:"Rohan K. Mehta",    score:950,  rank:5, delta:0,  level:5 },
+    { id:6, name:"James A. Wright",   score:880,  rank:6, delta:-2, level:6 },
+  ],
+  Discipline: [
+    { id:1, name:"You",               score:1315, rank:1, delta:2,  level:8, isMe:true },
+    { id:2, name:"Jack L. Gregory",   score:1290, rank:2, delta:0,  level:7 },
+    { id:3, name:"Derrick L. Thoman", score:1195, rank:3, delta:-1, level:9 },
+    { id:4, name:"Kelsey T. Donovan", score:1032, rank:4, delta:1,  level:8 },
+    { id:5, name:"James A. Wright",   score:960,  rank:5, delta:-1, level:6 },
+    { id:6, name:"Priya S. Nair",     score:880,  rank:6, delta:0,  level:5 },
+  ],
+};
+
+const LB_AVATAR_COLORS = ["#6832BA","#12B76A","#0073FF","#FCBC28","#F97066","#AF8AE5","#0263EB","#FAAB22"];
+
+function LBAvatar({ name, level, size, isMe }) {
+  size = size || 40;
+  var initials = name === "You" ? "Me" : name.split(" ").map(function(n){ return n[0]; }).slice(0,2).join("");
+  var ci = name.charCodeAt(0) % LB_AVATAR_COLORS.length;
+  var bg = isMe ? "#6832BA" : LB_AVATAR_COLORS[ci];
+  return React.createElement("div", { style:{ position:"relative", width:size, height:size, flexShrink:0 } },
+    React.createElement("div", {
+      style:{ width:size, height:size, borderRadius:"50%", background:bg, display:"flex", alignItems:"center",
+              justifyContent:"center", color:"#fff", fontWeight:600, fontSize:size*0.32 }
+    }, initials),
+    React.createElement("div", {
+      style:{ position:"absolute", bottom:-2, right:-2, width:17, height:17, borderRadius:"50%",
+              background:"#0073FF", border:"2px solid #fff", display:"flex", alignItems:"center",
+              justifyContent:"center", color:"#fff", fontWeight:700, fontSize:8 }
+    }, level)
+  );
+}
+
+function LBTrophy({ rank }) {
+  var gold   = { cup:"#FCBC28", stem:"#F79009" };
+  var silver = { cup:"#B1B8C4", stem:"#8B96AA" };
+  var bronze = { cup:"#E8A87C", stem:"#C8763A" };
+  var c = rank===1 ? gold : rank===2 ? silver : bronze;
+  return React.createElement("svg", { width:26, height:26, viewBox:"0 0 28 28", fill:"none" },
+    React.createElement("path", { d:"M8 4h12v10a6 6 0 01-12 0V4z", fill:c.cup, stroke:c.stem, strokeWidth:"1.5" }),
+    React.createElement("path", { d:"M4 6h4v6a2 2 0 01-4 0V6z", fill:c.cup, opacity:"0.7" }),
+    React.createElement("path", { d:"M20 6h4v6a2 2 0 01-4 0V6z", fill:c.cup, opacity:"0.7" }),
+    React.createElement("rect", { x:"11", y:"18", width:"6", height:"4", fill:c.stem }),
+    React.createElement("rect", { x:"8", y:"22", width:"12", height:"3", rx:"1.5", fill:c.cup }),
+    rank===1 && React.createElement("circle", { cx:"14", cy:"9", r:"2", fill:"#fff", opacity:"0.6" })
+  );
+}
+
+function LBDelta({ delta }) {
+  if (delta===0) return React.createElement("span", { style:{ fontSize:10, color:"#B1B8C4" } }, "—");
+  var up = delta > 0;
+  return React.createElement("span", {
+    style:{ fontSize:10, fontWeight:700, color: up ? "#12B76A" : "#F97066", display:"flex", alignItems:"center", gap:1 }
+  }, (up ? "▲" : "▼") + " " + Math.abs(delta));
+}
+
+function LBNudge({ myRank, students }) {
+  var me = students.find(function(s){ return s.isMe; });
+  if (myRank <= 1) return React.createElement("div", {
+    style:{ margin:"0 16px 10px", padding:"8px 12px", borderRadius:12, background:"#F5F0FC",
+            border:"1px solid #DDCEF2", display:"flex", alignItems:"center", gap:8 }
+  }, React.createElement("span", { style:{ fontSize:15 } }, "👑"),
+     React.createElement("span", { style:{ fontSize:11, fontWeight:600, color:"#6832BA" } }, "You're #1 — defend your crown this week!"));
+  var above = students.find(function(s){ return s.rank === myRank-1; });
+  if (!above || !me) return null;
+  var gap = above.score - me.score;
+  return React.createElement("div", {
+    style:{ margin:"0 16px 10px", padding:"8px 12px", borderRadius:12, background:"#F5F0FC",
+            border:"1px solid #DDCEF2", display:"flex", alignItems:"center", gap:8 }
+  }, React.createElement("span", { style:{ fontSize:15 } }, "🎯"),
+     React.createElement("span", { style:{ fontSize:11, fontWeight:600, color:"#6832BA" } },
+       "Just ", React.createElement("b", null, gap + " pts"), " from #" + (myRank-1) + " · " + above.name.split(" ")[0]
+     ));
+}
+
+function LeaderboardScreen({ onBack }) {
+  var _s = React.useState("Overall");
+  var activeTab = _s[0], setActiveTab = _s[1];
+
+  var students = LB_STUDENTS[activeTab];
+  var me = students.find(function(s){ return s.isMe; });
+  var myRank = me ? me.rank : 1;
+  var total = 240;
+  var pct = Math.round((1 - (myRank-1)/total)*100);
+  var topPct = 100 - pct + 1;
+
+  return React.createElement("div", {
+    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
+  },
+
+  // ── Header
+  React.createElement("div", {
+    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px",
+            display:"flex", alignItems:"center", gap:12, flexShrink:0 }
+  },
+    React.createElement("h2", {
+      style:{ fontSize:22, fontWeight:800, color:"#2E3751", margin:0, flex:1, letterSpacing:"-0.3px" }
+    }, "Leaderboard"),
+    React.createElement("div", {
+      style:{ display:"inline-flex", alignItems:"center", gap:5, background:"#F5F0FC",
+              border:"1px solid #DDCEF2", borderRadius:20, padding:"4px 10px" }
+    },
+      React.createElement("div", { style:{ width:6, height:6, borderRadius:"50%", background:"#6832BA" } }),
+      React.createElement("span", { style:{ fontSize:11, fontWeight:700, color:"#6832BA" } }, "Top " + topPct + "%")
+    )
+  ),
+
+  // ── My Rank Hero Card
+  React.createElement("div", { style:{ padding:"12px 16px 0", flexShrink:0 } },
+    React.createElement("div", {
+      style:{ background:"linear-gradient(135deg,#6832BA 0%,#AF8AE5 100%)",
+              borderRadius:16, padding:"14px 16px", display:"flex", alignItems:"center",
+              justifyContent:"space-between", boxShadow:"0 4px 20px rgba(104,50,186,0.25)" }
+    },
+      React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:12 } },
+        myRank <= 3
+          ? React.createElement(LBTrophy, { rank:myRank })
+          : React.createElement("div", {
+              style:{ width:32, height:32, borderRadius:"50%", background:"rgba(255,255,255,0.25)",
+                      display:"flex", alignItems:"center", justifyContent:"center",
+                      color:"#fff", fontWeight:700, fontSize:14 }
+            }, myRank),
+        React.createElement(LBAvatar, { name:"You", level: me ? me.level : 8, size:42, isMe:true }),
+        React.createElement("div", null,
+          React.createElement("p", { style:{ color:"#fff", fontWeight:700, fontSize:14, margin:"0 0 4px" } }, "You"),
+          React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:8 } },
+            React.createElement(LBDelta, { delta: me ? me.delta : 0 }),
+            React.createElement("span", { style:{ fontSize:10, color:"rgba(255,255,255,0.75)" } },
+              "Rank #" + myRank + " of " + total)
+          )
+        )
+      ),
+      React.createElement("span", { style:{ color:"#fff", fontWeight:800, fontSize:20 } },
+        (me ? me.score : 0).toLocaleString())
+    )
+  ),
+
+  // ── Nudge
+  React.createElement("div", { style:{ padding:"10px 0 0", flexShrink:0 } },
+    React.createElement(LBNudge, { myRank:myRank, students:students })
+  ),
+
+  // ── Pillar Tabs
+  React.createElement("div", { style:{ padding:"0 16px 10px", flexShrink:0 } },
+    React.createElement("div", {
+      style:{ display:"flex", gap:4, background:"#fff", borderRadius:12,
+              padding:4, boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }
+    },
+      LB_TABS.map(function(tab) {
+        var active = activeTab === tab;
+        return React.createElement("button", {
+          key: tab,
+          onClick: function(){ setActiveTab(tab); },
+          style:{ flex:1, padding:"6px 2px", borderRadius:8, border:"none", cursor:"pointer",
+                  fontSize:10, fontWeight:700, transition:"all 0.2s",
+                  background: active ? "#6832BA" : "transparent",
+                  color: active ? "#fff" : "#8B96AA" }
+        }, tab);
+      })
+    )
+  ),
+
+  // ── Pillar Champion Badge (non-Overall tabs)
+  activeTab !== "Overall" && React.createElement("div", { style:{ padding:"0 16px 8px", flexShrink:0 } },
+    React.createElement("div", {
+      style:{ display:"flex", alignItems:"center", gap:8, background:"#fff", borderRadius:10,
+              padding:"8px 12px", border:"1px solid " + LB_PILLAR_BADGES[activeTab].color + "33" }
+    },
+      React.createElement("div", {
+        style:{ width:8, height:8, borderRadius:"50%", background:LB_PILLAR_BADGES[activeTab].color }
+      }),
+      React.createElement("span", {
+        style:{ fontSize:11, fontWeight:700, color:LB_PILLAR_BADGES[activeTab].color }
+      }, LB_PILLAR_BADGES[activeTab].label),
+      React.createElement("span", {
+        style:{ fontSize:11, color:"#8B96AA", marginLeft:"auto" }
+      }, students[0] && students[0].isMe ? "You hold this!" : "Held by " + (students[0] ? students[0].name.split(" ")[0] : ""))
+    )
+  ),
+
+  // ── Student List
+  React.createElement("div", { style:{ flex:1, overflowY:"auto", padding:"0 16px 16px" } },
+    students.map(function(s, i) {
+      return React.createElement("div", {
+        key: s.id + activeTab,
+        style:{
+          display:"flex", alignItems:"center", gap:12, marginBottom:8,
+          padding:"10px 14px", borderRadius:16, cursor:"default",
+          background: s.isMe ? "linear-gradient(135deg,#ECE3FA,#FAF9FC)" : "#fff",
+          border: s.isMe ? "1.5px solid #AF8AE5" : "1.5px solid transparent",
+          boxShadow: s.isMe ? "0 2px 12px rgba(104,50,186,0.1)" : "0 1px 4px rgba(0,0,0,0.04)"
+        }
+      },
+        // Rank
+        React.createElement("div", { style:{ width:28, flexShrink:0, display:"flex", justifyContent:"center" } },
+          s.rank <= 3
+            ? React.createElement(LBTrophy, { rank:s.rank })
+            : React.createElement("div", {
+                style:{ width:26, height:26, borderRadius:"50%", display:"flex", alignItems:"center",
+                        justifyContent:"center", fontSize:11, fontWeight:700,
+                        background: s.isMe ? "#6832BA" : "#F5F6F7",
+                        color: s.isMe ? "#fff" : "#3C4458" }
+              }, s.rank)
+        ),
+        // Avatar
+        React.createElement(LBAvatar, { name:s.name, level:s.level, size:36, isMe:s.isMe }),
+        // Name + delta
+        React.createElement("div", { style:{ flex:1, minWidth:0 } },
+          React.createElement("p", {
+            style:{ fontSize:13, fontWeight:700, color: s.isMe ? "#6832BA" : "#2E3751",
+                    margin:"0 0 2px", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }
+          }, s.name),
+          React.createElement(LBDelta, { delta:s.delta })
+        ),
+        // Score
+        React.createElement("span", {
+          style:{ fontSize:14, fontWeight:800, color: s.isMe ? "#6832BA" : "#3C4458", flexShrink:0 }
+        }, s.score.toLocaleString())
+      );
+    })
+  ));
+}
+
+
+
+// ─── MENU SCREEN ─────────────────────────────────────────────────────────────
+
+function MenuScreen({ onNavigate, onBack }) {
+  var menuItems = [
+    { id:"home",         icon:"🏠", label:"Dashboard",       sub:"Your HPS overview" },
+    { id:"interventions",icon:"📋", label:"Interventions",   sub:"Tasks & activities" },
+    { id:"leaderboard",  icon:"🏆", label:"Leaderboard",     sub:"Batch rankings" },
+    { id:"eligibility",  icon:"🛡️", label:"Eligibility",     sub:"Grading & criteria" },
+    { id:"settings",     icon:"⚙️", label:"Settings",        sub:"Account & preferences" },
+  ];
+
+  var termInfo = { level:"Level 2 — Growth", dates:"01/05/2026 – 04/04/2026" };
+
+  return React.createElement("div", {
+    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F0FC", overflow:"hidden" }
+  },
+
+  // Header
+  React.createElement("div", {
+    style:{ background:"linear-gradient(135deg,#6832BA 0%,#4A1FA8 100%)",
+            padding:"20px 20px 24px", flexShrink:0 }
+  },
+    React.createElement("div", {
+      style:{ display:"flex", alignItems:"center", gap:10, marginBottom:16 }
+    },
+      React.createElement("div", {
+        style:{ width:36, height:36, borderRadius:"50%", background:"rgba(255,255,255,0.2)",
+                display:"flex", alignItems:"center", justifyContent:"center", fontSize:16 }
+      }, "👤"),
+      React.createElement("div", null,
+        React.createElement("p", { style:{ color:"#fff", fontWeight:800, fontSize:15, margin:0 } }, "Student User"),
+        React.createElement("p", { style:{ color:"rgba(255,255,255,0.7)", fontSize:11, margin:0 } }, "Batch 2024 · PGDM JAGSoM")
+      )
+    ),
+    React.createElement("div", {
+      style:{ background:"rgba(255,255,255,0.15)", borderRadius:10, padding:"8px 12px",
+              display:"flex", alignItems:"center", justifyContent:"space-between" }
+    },
+      React.createElement("div", null,
+        React.createElement("p", { style:{ color:"rgba(255,255,255,0.7)", fontSize:10, margin:"0 0 2px", fontWeight:600, textTransform:"uppercase", letterSpacing:"0.5px" } }, "Academic Term"),
+        React.createElement("p", { style:{ color:"#fff", fontWeight:700, fontSize:13, margin:0 } }, termInfo.level),
+        React.createElement("p", { style:{ color:"rgba(255,255,255,0.65)", fontSize:10, margin:0 } }, termInfo.dates)
+      ),
+      React.createElement("span", { style:{ color:"rgba(255,255,255,0.5)", fontSize:16 } }, "▾")
+    )
+  ),
+
+  // Nav Items
+  React.createElement("div", {
+    style:{ flex:1, overflowY:"auto", padding:"12px 16px" }
+  },
+    React.createElement("p", {
+      style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase",
+              letterSpacing:"0.8px", margin:"0 0 8px 4px" }
+    }, "Navigation"),
+
+    menuItems.map(function(item) {
+      return React.createElement("button", {
+        key: item.id,
+        onClick: function(){ onNavigate(item.id); },
+        style:{ width:"100%", display:"flex", alignItems:"center", gap:12, padding:"12px 14px",
+                marginBottom:6, borderRadius:14, border:"none", cursor:"pointer", textAlign:"left",
+                background:"#fff", boxShadow:"0 1px 4px rgba(104,50,186,0.08)",
+                transition:"all 0.15s" }
+      },
+        React.createElement("div", {
+          style:{ width:36, height:36, borderRadius:10, background:"#F5F0FC",
+                  display:"flex", alignItems:"center", justifyContent:"center", fontSize:18, flexShrink:0 }
+        }, item.icon),
+        React.createElement("div", { style:{ flex:1 } },
+          React.createElement("p", { style:{ fontSize:13, fontWeight:700, color:"#2E3751", margin:0 } }, item.label),
+          React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, item.sub)
+        ),
+        React.createElement("span", { style:{ color:"#DDCEF2", fontSize:16 } }, "›")
+      );
+    }),
+
+    // Logout
+    React.createElement("div", { style:{ height:16 } }),
+    React.createElement("button", {
+      onClick: function(){ alert("Logged out"); },
+      style:{ width:"100%", display:"flex", alignItems:"center", justifyContent:"center", gap:8,
+              padding:"13px", borderRadius:14, border:"1.5px solid #DDCEF2", cursor:"pointer",
+              background:"#fff", color:"#F04438", fontWeight:700, fontSize:13 }
+    }, React.createElement("span", null, "→"), React.createElement("span", null, "Logout"))
+  ));
+}
+
+// ─── ELIGIBILITY SCREEN ──────────────────────────────────────────────────────
+
+function EligibilityScreen({ onBack }) {
+  var quadrants = [
+    { name:"Persona",    weight:50, color:"#6832BA", bg:"#F5F0FC", border:"#DDCEF2",
+      req:"Completion of all SHL competency assessments and Professional Readiness components" },
+    { name:"Wellness",   weight:30, color:"#12B76A", bg:"#ECFDF3", border:"#A9EFC5",
+      req:"Participation in all fitness tests and wellness activities" },
+    { name:"Behaviour",  weight:10, color:"#0073FF", bg:"#EFF6FF", border:"#BFDBFE",
+      req:"Minimum score of 2 in each behaviour component" },
+    { name:"Discipline", weight:10, color:"#FCBC28", bg:"#FFFBEB", border:"#FDE68A",
+      req:"No disciplinary actions or violations of code of conduct" },
+  ];
+
+  var grades = [
+    { grade:"A+", range:"90–100", desc:"Outstanding performance",   color:"#12B76A" },
+    { grade:"A",  range:"80–89",  desc:"Excellent performance",     color:"#1ACC73" },
+    { grade:"B",  range:"70–79",  desc:"Good performance",          color:"#0073FF" },
+    { grade:"C",  range:"60–69",  desc:"Satisfactory performance",  color:"#FCBC28" },
+    { grade:"D",  range:"50–59",  desc:"Needs improvement",         color:"#F97066" },
+    { grade:"E",  range:"40–49",  desc:"Poor performance",          color:"#F04438" },
+    { grade:"IC", range:"< 40",   desc:"Incomplete — not eligible", color:"#8B96AA" },
+  ];
+
+  return React.createElement("div", {
+    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
+  },
+
+  // Header
+  React.createElement("div", {
+    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px", flexShrink:0 }
+  },
+    React.createElement("h2", { style:{ fontSize:20, fontWeight:800, color:"#2E3751", margin:"0 0 2px", letterSpacing:"-0.3px" } },
+      "Eligibility"),
+    React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } },
+      "Grading rules & attendance requirements")
+  ),
+
+  // Content
+  React.createElement("div", { style:{ flex:1, overflowY:"auto", padding:"16px" } },
+
+    // Eligibility Rules
+    React.createElement("p", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase", letterSpacing:"0.8px", margin:"0 0 10px" } }, "Eligibility Rules"),
+    quadrants.map(function(q) {
+      return React.createElement("div", {
+        key:q.name,
+        style:{ background:"#fff", borderRadius:14, padding:"12px 14px", marginBottom:8,
+                border:"1px solid " + q.border, boxShadow:"0 1px 4px rgba(0,0,0,0.04)" }
+      },
+        React.createElement("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:6 } },
+          React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:8 } },
+            React.createElement("div", { style:{ width:8, height:8, borderRadius:"50%", background:q.color } }),
+            React.createElement("span", { style:{ fontSize:13, fontWeight:700, color:"#2E3751" } }, q.name)
+          ),
+          React.createElement("div", { style:{ display:"flex", gap:6 } },
+            React.createElement("span", { style:{ fontSize:10, fontWeight:700, color:q.color, background:q.bg, borderRadius:20, padding:"2px 8px" } },
+              q.weight + "% weight"),
+            React.createElement("span", { style:{ fontSize:10, fontWeight:700, color:"#F97066", background:"#FEF2F2", borderRadius:20, padding:"2px 8px" } },
+              "80% attendance")
+          )
+        ),
+        React.createElement("p", { style:{ fontSize:11, color:"#667085", margin:0, lineHeight:1.5 } }, q.req)
+      );
+    }),
+
+    // Grading Scale
+    React.createElement("p", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase", letterSpacing:"0.8px", margin:"16px 0 10px" } }, "Grading Scale"),
+    React.createElement("div", { style:{ background:"#fff", borderRadius:14, overflow:"hidden", border:"1px solid #EDEFF2" } },
+      // Table header
+      React.createElement("div", {
+        style:{ display:"grid", gridTemplateColumns:"40px 80px 1fr", gap:0,
+                background:"#F5F6F7", padding:"8px 14px", borderBottom:"1px solid #EDEFF2" }
+      },
+        React.createElement("span", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA" } }, "Grade"),
+        React.createElement("span", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA" } }, "Range"),
+        React.createElement("span", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA" } }, "Description")
+      ),
+      grades.map(function(g, i) {
+        return React.createElement("div", {
+          key:g.grade,
+          style:{ display:"grid", gridTemplateColumns:"40px 80px 1fr", gap:0,
+                  padding:"9px 14px", borderBottom: i < grades.length-1 ? "1px solid #F5F6F7" : "none",
+                  alignItems:"center" }
+        },
+          React.createElement("span", {
+            style:{ fontSize:13, fontWeight:800, color:g.color }
+          }, g.grade),
+          React.createElement("span", { style:{ fontSize:11, fontWeight:600, color:"#3C4458" } }, g.range),
+          React.createElement("span", { style:{ fontSize:11, color:"#667085" } }, g.desc)
+        );
+      })
+    ),
+
+    // Attendance Policy
+    React.createElement("p", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase", letterSpacing:"0.8px", margin:"16px 0 10px" } }, "Attendance Policy"),
+    [
+      { icon:"📌", title:"Minimum Requirement", text:"80% attendance is mandatory for each quadrant to remain eligible." },
+      { icon:"⚠️", title:"Attendance Shortage", text:"Students below 80% in any quadrant will be marked Not Eligible for that quadrant." },
+      { icon:"🏃", title:"Wellness Attendance", text:"Wellness activity attendance is tracked separately with special weight." },
+      { icon:"🔄", title:"Make-up Sessions",    text:"Limited make-up sessions may be available for students with valid absence reasons." },
+    ].map(function(p) {
+      return React.createElement("div", {
+        key:p.title,
+        style:{ background:"#fff", borderRadius:14, padding:"12px 14px", marginBottom:8,
+                border:"1px solid #EDEFF2", display:"flex", gap:10, alignItems:"flex-start" }
+      },
+        React.createElement("span", { style:{ fontSize:18, flexShrink:0 } }, p.icon),
+        React.createElement("div", null,
+          React.createElement("p", { style:{ fontSize:12, fontWeight:700, color:"#2E3751", margin:"0 0 2px" } }, p.title),
+          React.createElement("p", { style:{ fontSize:11, color:"#667085", margin:0, lineHeight:1.5 } }, p.text)
+        )
+      );
+    }),
+
+    React.createElement("div", { style:{ height:16 } })
+  ));
+}
+
+// ─── SETTINGS SCREEN ─────────────────────────────────────────────────────────
+
+function SettingsScreen({ onBack, studentName }) {
+  var _n  = React.useState(studentName || "Aaditya");   var name = _n[0], setName = _n[1];
+  var _sc = React.useState(true);  var scoreUpdates = _sc[0], setScoreUpdates = _sc[1];
+  var _sn = React.useState(true);  var sysNotif = _sn[0], setSysNotif = _sn[1];
+  var _dm = React.useState(false); var darkMode = _dm[0], setDarkMode = _dm[1];
+  var _saved = React.useState(false); var saved = _saved[0], setSaved = _saved[1];
+
+  function Toggle(props) {
+    return React.createElement("div", {
+      onClick: props.onChange,
+      style:{ width:44, height:24, borderRadius:12, background: props.value ? "#6832BA" : "#E2E4E8",
+              position:"relative", cursor:"pointer", transition:"background 0.2s", flexShrink:0 }
+    },
+      React.createElement("div", {
+        style:{ position:"absolute", top:2, left: props.value ? 22 : 2, width:20, height:20,
+                borderRadius:"50%", background:"#fff", boxShadow:"0 1px 4px rgba(0,0,0,0.2)",
+                transition:"left 0.2s" }
+      })
+    );
+  }
+
+  function Section(props) {
+    return React.createElement("div", {
+      style:{ background:"#fff", borderRadius:16, marginBottom:12,
+              border:"1px solid #EDEFF2", overflow:"hidden" }
+    },
+      React.createElement("div", {
+        style:{ padding:"12px 16px", borderBottom:"1px solid #F5F6F7" }
+      },
+        React.createElement("h3", { style:{ fontSize:14, fontWeight:800, color:"#2E3751", margin:0 } }, props.title)
+      ),
+      React.createElement("div", { style:{ padding:"12px 16px" } }, props.children)
+    );
+  }
+
+  function Field(props) {
+    return React.createElement("div", { style:{ marginBottom:12 } },
+      React.createElement("label", { style:{ fontSize:11, fontWeight:700, color:"#667085", display:"block", marginBottom:4 } }, props.label),
+      React.createElement("div", {
+        style:{ padding:"10px 12px", borderRadius:10, border:"1px solid #E2E4E8",
+                background:"#F5F6F7", fontSize:13, color: props.editable ? "#2E3751" : "#8B96AA",
+                fontWeight: props.editable ? 500 : 400 }
+      }, props.value)
+    );
+  }
+
+  function Row(props) {
+    return React.createElement("div", {
+      style:{ display:"flex", alignItems:"center", justifyContent:"space-between",
+              padding:"10px 0", borderBottom: props.last ? "none" : "1px solid #F5F6F7" }
+    },
+      React.createElement("span", { style:{ fontSize:13, fontWeight:600, color:"#2E3751" } }, props.label),
+      props.children
+    );
+  }
+
+  return React.createElement("div", {
+    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
+  },
+
+  // Header
+  React.createElement("div", {
+    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px", flexShrink:0,
+            display:"flex", alignItems:"center", justifyContent:"space-between" }
+  },
+    React.createElement("div", null,
+      React.createElement("h2", { style:{ fontSize:20, fontWeight:800, color:"#2E3751", margin:"0 0 2px", letterSpacing:"-0.3px" } }, "Settings"),
+      React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, "Manage your account & preferences")
+    ),
+    React.createElement("span", { style:{ fontSize:18 } }, "🔔")
+  ),
+
+  // Scrollable Content
+  React.createElement("div", { style:{ flex:1, overflowY:"auto", padding:"16px" } },
+
+    // Profile
+    React.createElement(Section, { title:"Profile Information" },
+      React.createElement("div", { style:{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:0 } },
+        React.createElement(Field, { label:"Name", value:"Harsh", editable:true }),
+        React.createElement(Field, { label:"Registration No.", value:"2025JULJPGG0008", editable:false })
+      ),
+      React.createElement("div", { style:{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 } },
+        React.createElement(Field, { label:"Batch", value:"PGDM 2025", editable:false }),
+        React.createElement(Field, { label:"Course", value:"PGDM JAGSoM", editable:false })
+      ),
+      React.createElement(Field, { label:"Email Address", value:"2025JULJPGG0008@jagsom.edu.in", editable:false }),
+      React.createElement(Field, { label:"Phone Number", value:"7814281698", editable:true }),
+      saved
+        ? React.createElement("div", {
+            style:{ background:"#ECFDF3", border:"1px solid #A9EFC5", borderRadius:10,
+                    padding:"10px 14px", fontSize:12, fontWeight:700, color:"#12B76A", textAlign:"center" }
+          }, "✓ Profile updated successfully")
+        : React.createElement("button", {
+            onClick: function(){ setSaved(true); setTimeout(function(){ setSaved(false); }, 2500); },
+            style:{ width:"100%", background:"#6832BA", color:"#fff", border:"none", borderRadius:10,
+                    padding:"11px", fontSize:13, fontWeight:700, cursor:"pointer", marginTop:4 }
+          }, "Update Profile")
+    ),
+
+    // Notifications
+    React.createElement(Section, { title:"Notification Settings" },
+      React.createElement(Row, { label:"Score Updates" },
+        React.createElement(Toggle, { value:scoreUpdates, onChange:function(){ setScoreUpdates(!scoreUpdates); } })
+      ),
+      React.createElement(Row, { label:"System Notifications", last:true },
+        React.createElement(Toggle, { value:sysNotif, onChange:function(){ setSysNotif(!sysNotif); } })
+      )
+    ),
+
+    // Password
+    React.createElement(Section, { title:"Password" },
+      React.createElement("button", {
+        style:{ width:"100%", background:"#F5F6F7", border:"1.5px solid #E2E4E8", borderRadius:10,
+                padding:"11px", fontSize:13, fontWeight:700, color:"#3C4458", cursor:"pointer" }
+      }, "Change Password")
+    ),
+
+    // App Preferences
+    React.createElement(Section, { title:"App Preferences" },
+      React.createElement(Row, { label:"Dark Mode", last:true },
+        React.createElement(Toggle, { value:darkMode, onChange:function(){ setDarkMode(!darkMode); } })
+      )
+    ),
+
+    React.createElement("div", { style:{ height:16 } })
+  ));
+}
+
+
 function PlaceholderScreen({
   title,
+  icon,
   onBack
 }) {
   return /*#__PURE__*/React.createElement("div", {
@@ -2380,18 +4170,9 @@ function PlaceholderScreen({
       alignItems: "center",
       gap: 12
     }
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: onBack,
-    style: {
-      width: 36,
-      height: 36,
-      borderRadius: "50%",
-      background: "#F5F6F7",
-      border: "1px solid #E2E4E8",
-      cursor: "pointer",
-      fontSize: 16
-    }
-  }, "\u2190"), /*#__PURE__*/React.createElement("h2", {
+  }, /*#__PURE__*/React.createElement(IconBack, {
+    onPress: onBack
+  }), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontSize: 18,
       fontWeight: 700,
@@ -2407,14 +4188,23 @@ function PlaceholderScreen({
       justifyContent: "center",
       gap: 12
     }
-  }, /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 40
+    }
+  }, icon), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 14,
       color: "#8B96AA",
-      textAlign: "center"
+      textAlign: "center",
+      maxWidth: 200,
+      lineHeight: 1.5
     }
   }, "Coming in the next sprint.")));
 }
+
+// ─── APP ─────────────────────────────────────────────────────────────────────
+
 function PEPApp() {
   const [screen, setScreen] = useState("home");
   const [activeTab, setActiveTab] = useState("home");
@@ -2422,6 +4212,7 @@ function PEPApp() {
   const [activeCompetency, setActiveCompetency] = useState(null);
   const [activePillar, setActivePillar] = useState(null);
   const [completed, setCompleted] = useState([]);
+  const [feedbackGiven, setFeedbackGiven] = useState([]);
   const [pepPoints, setPepPoints] = useState(850);
   const studentName = window.__pepStudentName && window.__pepStudentName !== "there" ? window.__pepStudentName : "Aaditya";
   function handleNavigate(tab) {
@@ -2434,6 +4225,9 @@ function PEPApp() {
     setPepPoints(p => p + m.points);
     setActiveMissionId(null);
   }
+  function handleFeedbackGiven(id) {
+    setFeedbackGiven(p => [...p, id]);
+  }
   const activeMission = MISSIONS.find(m => m.id === activeMissionId);
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2442,21 +4236,23 @@ function PEPApp() {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "center",
-      padding: "24px 0",
       fontFamily: "'Plus Jakarta Sans', sans-serif"
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("style", null, `
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        button { font-family: inherit; }
+        textarea { font-family: inherit; }
+        ::-webkit-scrollbar { width: 0; }
+      `), /*#__PURE__*/React.createElement("div", {
     style: {
       width: "100%",
-      maxWidth: 390,
+      maxWidth: 480,
+      minHeight: "100vh",
       background: "#fff",
-      borderRadius: 40,
-      border: "1.5px solid #E2E4E8",
-      overflow: "hidden",
-      boxShadow: "0 32px 80px rgba(0,0,0,0.15)",
       display: "flex",
       flexDirection: "column",
-      height: 780
+      boxShadow: "0 0 40px rgba(0,0,0,0.1)"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2487,15 +4283,20 @@ function PEPApp() {
       setActiveCompetency(c);
       setActivePillar(p);
     }
-  }), screen === "interventions" && /*#__PURE__*/React.createElement(PlaceholderScreen, {
-    title: "Interventions",
+  }), screen === "interventions" && /*#__PURE__*/React.createElement(InterventionsScreen, {
+    onBack: () => handleNavigate("home"),
+    feedbackGiven: feedbackGiven,
+    onFeedbackGiven: handleFeedbackGiven
+  }), screen === "leaderboard" && /*#__PURE__*/React.createElement(LeaderboardScreen, {
     onBack: () => handleNavigate("home")
-  }), screen === "leaderboard" && /*#__PURE__*/React.createElement(PlaceholderScreen, {
-    title: "Leaderboard",
+  }), screen === "menu" && /*#__PURE__*/React.createElement(MenuScreen, {
+    onNavigate: handleNavigate,
     onBack: () => handleNavigate("home")
-  }), screen === "menu" && /*#__PURE__*/React.createElement(PlaceholderScreen, {
-    title: "Menu",
-    onBack: () => handleNavigate("home")
+  }), screen === "eligibility" && /*#__PURE__*/React.createElement(EligibilityScreen, {
+    onBack: () => handleNavigate("menu")
+  }), screen === "settings" && /*#__PURE__*/React.createElement(SettingsScreen, {
+    onBack: () => handleNavigate("menu"),
+    studentName: studentName
   })), /*#__PURE__*/React.createElement(BottomNav, {
     active: activeTab,
     onNavigate: handleNavigate
@@ -2518,6 +4319,7 @@ window.__mountDashboard = function () {
 };
 
 
+});
 </script>
 
 </body>
