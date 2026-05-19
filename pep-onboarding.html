@@ -1547,6 +1547,23 @@ function IconBack({
     strokeLinejoin: "round"
   })));
 }
+function IconClose({ onPress }) {
+  return /*#__PURE__*/React.createElement("button", {
+    onClick: onPress,
+    "aria-label": "Close",
+    style: {
+      width: 36, height: 36, borderRadius: "50%",
+      background: "#F5F6F7", border: "1px solid #E2E4E8",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      cursor: "pointer", flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "14", height: "14", viewBox: "0 0 14 14", fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M2 2l10 10M12 2L2 12",
+    stroke: "#3C4458", strokeWidth: "1.8", strokeLinecap: "round"
+  })));
+}
 function IconCalendar() {
   return /*#__PURE__*/React.createElement("svg", {
     width: "14",
@@ -1597,7 +1614,8 @@ function IconPeople() {
 
 function BottomNav({
   active,
-  onNavigate
+  onNavigate,
+  darkMode
 }) {
   const tabs = [{
     id: "home",
@@ -1618,12 +1636,13 @@ function BottomNav({
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff",
-      borderTop: "1px solid #EDEFF2",
+      background: darkMode ? "#161920" : "#fff",
+      borderTop: darkMode ? "1px solid #2A2D35" : "1px solid #EDEFF2",
       display: "flex",
       justifyContent: "space-around",
       padding: "10px 0 24px",
-      flexShrink: 0
+      flexShrink: 0,
+      transition: "background 0.3s"
     }
   }, tabs.map(({
     id,
@@ -1632,6 +1651,8 @@ function BottomNav({
   }) => /*#__PURE__*/React.createElement("button", {
     key: id,
     onClick: () => onNavigate(id),
+    "aria-label": label,
+    "aria-current": active === id ? "page" : undefined,
     style: {
       display: "flex",
       flexDirection: "column",
@@ -1675,7 +1696,7 @@ function MissionSheet({
   return /*#__PURE__*/React.createElement("div", {
     onClick: onClose,
     style: {
-      position: "fixed",
+      position: "absolute",
       inset: 0,
       zIndex: 200,
       background: "rgba(0,0,0,0.5)",
@@ -1687,7 +1708,6 @@ function MissionSheet({
     onClick: e => e.stopPropagation(),
     style: {
       width: "100%",
-      maxWidth: 480,
       background: "#fff",
       borderRadius: "20px 20px 0 0",
       maxHeight: "88vh",
@@ -1696,8 +1716,15 @@ function MissionSheet({
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      justifyContent: "center",
-      padding: "12px 0 0"
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "12px 16px 4px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      justifyContent: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1706,7 +1733,7 @@ function MissionSheet({
       borderRadius: 2,
       background: "#E2E4E8"
     }
-  })), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement(IconClose, { onPress: onClose })), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "20px 20px 16px",
       borderBottom: "1px solid #EDEFF2"
@@ -1907,10 +1934,16 @@ function MissionSheet({
       textAlign: "center",
       fontSize: 14,
       fontWeight: 700,
-      color: "#12B76A"
+      color: "#12B76A",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8
     }
-  }, "\u2713 Completed") : /*#__PURE__*/React.createElement("button", {
-    onClick: () => onComplete(mission.id),
+  }, /*#__PURE__*/React.createElement("span", { className:"ms", style:{ fontSize:18, color:"#12B76A" } }, "check_circle"),
+     "Completed — sheet closes automatically"
+  ) : /*#__PURE__*/React.createElement("button", {
+    onClick: () => { onComplete(mission.id); setTimeout(onClose, 1200); },
     style: {
       width: "100%",
       padding: 16,
@@ -1936,7 +1969,7 @@ function CompetencySheet({
   return /*#__PURE__*/React.createElement("div", {
     onClick: onClose,
     style: {
-      position: "fixed",
+      position: "absolute",
       inset: 0,
       zIndex: 200,
       background: "rgba(0,0,0,0.5)",
@@ -1948,7 +1981,6 @@ function CompetencySheet({
     onClick: e => e.stopPropagation(),
     style: {
       width: "100%",
-      maxWidth: 480,
       background: "#fff",
       borderRadius: "20px 20px 0 0",
       maxHeight: "80vh",
@@ -1957,8 +1989,15 @@ function CompetencySheet({
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      justifyContent: "center",
-      padding: "12px 0 0"
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "12px 16px 4px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      justifyContent: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1967,7 +2006,7 @@ function CompetencySheet({
       borderRadius: 2,
       background: "#E2E4E8"
     }
-  })), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement(IconClose, { onPress: onClose })), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "20px 20px 16px",
       borderBottom: "1px solid #EDEFF2"
@@ -2040,7 +2079,7 @@ function FeedbackSheet({
   return /*#__PURE__*/React.createElement("div", {
     onClick: onClose,
     style: {
-      position: "fixed",
+      position: "absolute",
       inset: 0,
       zIndex: 200,
       background: "rgba(0,0,0,0.5)",
@@ -2052,7 +2091,6 @@ function FeedbackSheet({
     onClick: e => e.stopPropagation(),
     style: {
       width: "100%",
-      maxWidth: 480,
       background: "#fff",
       borderRadius: "20px 20px 0 0",
       maxHeight: "88vh",
@@ -2061,8 +2099,15 @@ function FeedbackSheet({
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      justifyContent: "center",
-      padding: "12px 0 0"
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "12px 16px 4px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      justifyContent: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2071,7 +2116,7 @@ function FeedbackSheet({
       borderRadius: 2,
       background: "#E2E4E8"
     }
-  })), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement(IconClose, { onPress: onClose })), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "20px 20px 16px",
       borderBottom: "1px solid #EDEFF2"
@@ -2127,9 +2172,11 @@ function FeedbackSheet({
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      fontSize: 22
+      fontSize: 18,
+      fontWeight: 700,
+      color: rating === n ? "#fff" : "#3C4458"
     }
-  }, ["😞", "😕", "😐", "😊", "🤩"][n - 1])))), rating > 0 && /*#__PURE__*/React.createElement("div", {
+  }, n)))), rating > 0 && /*#__PURE__*/React.createElement("div", {
     style: {
       textAlign: "center",
       fontSize: 12,
@@ -2213,7 +2260,7 @@ function InterventionDetailSheet({
   return /*#__PURE__*/React.createElement("div", {
     onClick: onClose,
     style: {
-      position: "fixed",
+      position: "absolute",
       inset: 0,
       zIndex: 200,
       background: "rgba(0,0,0,0.5)",
@@ -2225,7 +2272,6 @@ function InterventionDetailSheet({
     onClick: e => e.stopPropagation(),
     style: {
       width: "100%",
-      maxWidth: 480,
       background: "#fff",
       borderRadius: "20px 20px 0 0",
       maxHeight: "90vh",
@@ -2234,8 +2280,15 @@ function InterventionDetailSheet({
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      justifyContent: "center",
-      padding: "12px 0 0"
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "12px 16px 4px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      justifyContent: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2244,7 +2297,7 @@ function InterventionDetailSheet({
       borderRadius: 2,
       background: "#E2E4E8"
     }
-  })), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement(IconClose, { onPress: onClose })), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "20px 20px 16px",
       borderBottom: "1px solid #EDEFF2"
@@ -2514,19 +2567,23 @@ function HomeScreen({
   onViewScore,
   onStartMission,
   completedMissions,
-  pepPoints
+  pepPoints,
+  darkMode
 }) {
+  const dm = darkMode;
   return /*#__PURE__*/React.createElement("div", {
     style: {
       flex: 1,
       overflowY: "auto",
-      background: "#F5F6F7"
+      background: dm ? "#111318" : "#F5F6F7",
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff",
+      background: dm ? "#1C1F26" : "#fff",
       padding: "16px 20px 16px",
-      borderBottom: "1px solid #EDEFF2"
+      borderBottom: dm ? "1px solid #2A2D35" : "1px solid #EDEFF2",
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2538,7 +2595,7 @@ function HomeScreen({
     style: {
       fontSize: 24,
       fontWeight: 800,
-      color: "#2E3751",
+      color: dm ? "#F0F2F5" : "#2E3751",
       margin: "0 0 8px",
       letterSpacing: "-0.3px"
     }
@@ -2596,41 +2653,43 @@ function HomeScreen({
       color: "#3C4458"
     }
   }, "#12 Rank")))), /*#__PURE__*/React.createElement("div", {
+    style: { display:"flex", alignItems:"center", gap:8, flexShrink:0 }
+  },
+  /*#__PURE__*/React.createElement("button", {
+    "aria-label": "Notifications",
     style: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-end",
-      background: "#FFFBEB",
-      border: "1px solid #FDE68A",
-      borderRadius: 12,
-      padding: "8px 12px",
-      flexShrink: 0
+      width:36, height:36, borderRadius:"50%",
+      background: dm ? "#1C1F26" : "#F5F6F7",
+      border: dm ? "1px solid #2A2D35" : "1px solid #E2E4E8",
+      display:"flex", alignItems:"center", justifyContent:"center",
+      cursor:"pointer", flexShrink:0
     }
   }, /*#__PURE__*/React.createElement("span", {
+    className:"ms",
+    style:{ fontSize:20, color: dm ? "#9CA3AF" : "#3C4458", fontVariationSettings:"'FILL' 0" }
+  }, "notifications")),
+  /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 20,
-      fontWeight: 800,
-      color: "#D97706",
-      lineHeight: 1
+      display: "flex", flexDirection: "column", alignItems: "flex-end",
+      background: "#FFFBEB", border: "1px solid #FDE68A",
+      borderRadius: 12, padding: "8px 12px", flexShrink: 0
     }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: { fontSize: 20, fontWeight: 800, color: "#D97706", lineHeight: 1 }
   }, pepPoints), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 10,
-      color: "#92400E",
-      fontWeight: 600,
-      marginTop: 2
-    }
+    style: { fontSize: 10, color: "#92400E", fontWeight: 600, marginTop: 2 }
   }, "PEP Points")))), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "16px 16px 0"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff",
+      background: dm ? "#1C1F26" : "#fff",
       borderRadius: 16,
-      border: "1px solid #EDEFF2",
+      border: dm ? "1px solid #2A2D35" : "1px solid #EDEFF2",
       padding: 20,
-      boxShadow: "0 2px 12px rgba(0,0,0,0.06)"
+      boxShadow: dm ? "0 2px 12px rgba(0,0,0,0.3)" : "0 2px 12px rgba(0,0,0,0.06)",
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -2700,62 +2759,16 @@ function HomeScreen({
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 26,
+      fontSize: 28,
       fontWeight: 800,
-      color: "#2E3751",
+      color: dm ? "#F0F2F5" : "#2E3751",
       lineHeight: 1
     }
-  }, "74"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      color: "#8B96AA"
-    }
-  }, "/100"))), /*#__PURE__*/React.createElement("div", {
+  }, "74"))), /*#__PURE__*/React.createElement("div", {
     style: {
       flex: 1
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12,
-      color: "#8B96AA",
-      marginBottom: 8
-    }
-  }, "73.88 / 100"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 5,
-      background: "#ECFDF3",
-      border: "1px solid #A9EFC5",
-      borderRadius: 20,
-      padding: "4px 10px",
-      marginBottom: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 5,
-      height: 5,
-      borderRadius: "50%",
-      background: "#12B76A"
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 11,
-      fontWeight: 600,
-      color: "#12B76A"
-    }
-  }, "Good")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      color: "#8B96AA"
-    }
-  }, "HPS Rating"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 20,
-      fontWeight: 800,
-      color: "#6832BA"
-    }
-  }, "4 / 5")))), /*#__PURE__*/React.createElement("button", {
+  })), /*#__PURE__*/React.createElement("button", {
     onClick: onViewScore,
     style: {
       width: "100%",
@@ -2950,15 +2963,17 @@ function HomeScreen({
       strokeLinecap: "round",
       strokeLinejoin: "round"
     })))));
-  }))));
+  })))));
 }
 
 // ─── SCREEN: PILLAR SCORES ────────────────────────────────────────────────────
 
 function PillarScoresScreen({
   onBack,
-  onOpenCompetency
+  onOpenCompetency,
+  darkMode
 }) {
+  const pdm = darkMode;
   const [activeTab, setActiveTab] = useState("persona");
   const pillar = getPillar(activeTab);
   return /*#__PURE__*/React.createElement("div", {
@@ -2966,15 +2981,17 @@ function PillarScoresScreen({
       flex: 1,
       display: "flex",
       flexDirection: "column",
-      background: "#F5F6F7",
-      overflow: "hidden"
+      background: pdm ? "#111318" : "#F5F6F7",
+      overflow: "hidden",
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff",
-      borderBottom: "1px solid #EDEFF2",
+      background: pdm ? "#1C1F26" : "#fff",
+      borderBottom: pdm ? "1px solid #2A2D35" : "1px solid #EDEFF2",
       padding: "16px 20px 0",
-      flexShrink: 0
+      flexShrink: 0,
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2998,7 +3015,7 @@ function PillarScoresScreen({
       color: "#8B96AA",
       margin: 0
     }
-  }, "73.88 / 100 HPS"))), /*#__PURE__*/React.createElement("div", {
+  }, "4.8 / 5 HPS"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex"
     }
@@ -3243,8 +3260,10 @@ function PillarScoresScreen({
 function InterventionsScreen({
   onBack,
   feedbackGiven,
-  onFeedbackGiven
+  onFeedbackGiven,
+  darkMode
 }) {
+  const idm = darkMode;
   const [activeTab, setActiveTab] = useState("upcoming");
   const [activeIntervention, setActiveIntervention] = useState(null);
   const [feedbackIntervention, setFeedbackIntervention] = useState(null);
@@ -3260,15 +3279,17 @@ function InterventionsScreen({
       flex: 1,
       display: "flex",
       flexDirection: "column",
-      background: "#F5F6F7",
-      overflow: "hidden"
+      background: idm ? "#111318" : "#F5F6F7",
+      overflow: "hidden",
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff",
-      borderBottom: "1px solid #EDEFF2",
+      background: idm ? "#1C1F26" : "#fff",
+      borderBottom: idm ? "1px solid #2A2D35" : "1px solid #EDEFF2",
       padding: "16px 20px 0",
-      flexShrink: 0
+      flexShrink: 0,
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3607,7 +3628,8 @@ function LBToggle({ value, onChange }) {
   );
 }
 
-function LeaderboardScreen({ onBack }) {
+function LeaderboardScreen({ onBack, darkMode }) {
+  var dm = darkMode;
   var _s = React.useState("Overall");
   var activeTab = _s[0], setActiveTab = _s[1];
   var _h = React.useState(false);
@@ -3621,12 +3643,12 @@ function LeaderboardScreen({ onBack }) {
   var LB_TAB_LABELS = ["Overall", "Persona", "Behaviour", "Wellness", "Discipline"];
 
   return React.createElement("div", {
-    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
+    style:{ flex:1, display:"flex", flexDirection:"column", background: dm ? "#111318" : "#F5F6F7", overflow:"hidden", transition:"background 0.3s" }
   },
 
   // Header
   React.createElement("div", {
-    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px 0", flexShrink:0 }
+    style:{ background: dm ? "#1C1F26" : "#fff", borderBottom: dm ? "1px solid #2A2D35" : "1px solid #EDEFF2", padding:"16px 20px 0", flexShrink:0, transition:"background 0.3s" }
   },
     // Title row with back button
     React.createElement("div", {
@@ -3634,7 +3656,7 @@ function LeaderboardScreen({ onBack }) {
     },
       React.createElement(IconBack, { onPress: onBack }),
       React.createElement("h2", {
-        style:{ fontSize:18, fontWeight:700, color:"#2E3751", margin:0, flex:1 }
+        style:{ fontSize:18, fontWeight:700, color: dm ? "#F0F2F5" : "#2E3751", margin:0, flex:1 }
       }, "Leaderboard"),
       // Hide name toggle
       React.createElement("div", {
@@ -3675,8 +3697,8 @@ function LeaderboardScreen({ onBack }) {
         key: s.id + activeTab,
         style:{
           display:"flex", alignItems:"center", gap:12, padding:"12px 14px", borderRadius:14,
-          background: s.isMe ? "#F5F0FC" : "#fff",
-          border: s.isMe ? "1.5px solid #DDCEF2" : "1px solid #EDEFF2",
+          background: s.isMe ? (dm ? "#2A1F40" : "#F5F0FC") : (dm ? "#1C1F26" : "#fff"),
+          border: s.isMe ? (dm ? "1.5px solid #5B3D99" : "1.5px solid #DDCEF2") : (dm ? "1px solid #2A2D35" : "1px solid #EDEFF2"),
           boxShadow:"0 1px 4px rgba(0,0,0,0.04)"
         }
       },
@@ -3698,12 +3720,12 @@ function LeaderboardScreen({ onBack }) {
         // Name
         React.createElement("span", {
           style:{ flex:1, fontSize:13, fontWeight: s.isMe ? 700 : 500,
-                  color: s.isMe ? "#6832BA" : "#2E3751",
+                  color: s.isMe ? "#AF8AE5" : (dm ? "#E5E7EB" : "#2E3751"),
                   whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }
         }, s.name),
         // Score
         React.createElement("span", {
-          style:{ fontSize:14, fontWeight:800, color: s.isMe ? "#6832BA" : "#3C4458", flexShrink:0 }
+          style:{ fontSize:14, fontWeight:800, color: s.isMe ? "#AF8AE5" : (dm ? "#D1D5DB" : "#3C4458"), flexShrink:0 }
         }, s.score.toFixed(1))
       );
     }),
@@ -3713,7 +3735,41 @@ function LeaderboardScreen({ onBack }) {
 
 // ─── MENU SCREEN ─────────────────────────────────────────────────────────────
 
-function MenuScreen({ onNavigate, onBack }) {
+function LogoutButton() {
+  var _c = React.useState(false); var confirm = _c[0], setConfirm = _c[1];
+  if (confirm) {
+    return React.createElement("div", {
+      style:{ borderRadius:12, border:"1px solid #FECDCA", background:"#FEF2F2", padding:"14px 16px" }
+    },
+      React.createElement("p", { style:{ fontSize:13, fontWeight:600, color:"#F04438", margin:"0 0 12px", textAlign:"center" } },
+        "Are you sure you want to log out?"),
+      React.createElement("div", { style:{ display:"flex", gap:8 } },
+        React.createElement("button", {
+          onClick: function(){ setConfirm(false); },
+          style:{ flex:1, padding:"10px", borderRadius:10, border:"1px solid #E2E4E8",
+                  background:"#fff", color:"#3C4458", fontWeight:600, fontSize:13, cursor:"pointer" }
+        }, "Cancel"),
+        React.createElement("button", {
+          onClick: function(){ setConfirm(false); },
+          style:{ flex:1, padding:"10px", borderRadius:10, border:"none",
+                  background:"#F04438", color:"#fff", fontWeight:600, fontSize:13, cursor:"pointer" }
+        }, "Log out")
+      )
+    );
+  }
+  return React.createElement("button", {
+    onClick: function(){ setConfirm(true); },
+    style:{ width:"100%", display:"flex", alignItems:"center", justifyContent:"center", gap:8,
+            padding:"12px", borderRadius:12, border:"1.5px solid #DDCEF2", cursor:"pointer",
+            background:"#fff", color:"#F04438", fontWeight:600, fontSize:13 }
+  },
+    React.createElement("span", { className:"ms", style:{ fontSize:18, color:"#F04438", fontVariationSettings:"'FILL' 0" } }, "logout"),
+    React.createElement("span", null, "Logout")
+  );
+}
+
+function MenuScreen({ onNavigate, onBack, darkMode }) {
+  var dm = darkMode;
   var menuItems = [
     { id:"home",         ms:"home",        label:"Dashboard",     sub:"Your HPS overview" },
     { id:"interventions",ms:"assignment",  label:"Interventions", sub:"Tasks & activities" },
@@ -3725,7 +3781,7 @@ function MenuScreen({ onNavigate, onBack }) {
   var termInfo = { level:"Level 2 — Growth", dates:"01/05/2026 – 04/04/2026" };
 
   return React.createElement("div", {
-    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
+    style:{ flex:1, display:"flex", flexDirection:"column", background: dm ? "#111318" : "#F5F6F7", overflow:"hidden", transition:"background 0.3s" }
   },
 
   // Header
@@ -3773,8 +3829,8 @@ function MenuScreen({ onNavigate, onBack }) {
         key: item.id,
         onClick: function(){ onNavigate(item.id); },
         style:{ width:"100%", display:"flex", alignItems:"center", gap:12, padding:"12px 14px",
-                marginBottom:6, borderRadius:12, border:"1px solid #EDEFF2", cursor:"pointer", textAlign:"left",
-                background:"#fff", boxShadow:"0 1px 3px rgba(0,0,0,0.04)", transition:"all 0.15s" }
+                marginBottom:6, borderRadius:12, border: dm ? "1px solid #2A2D35" : "1px solid #EDEFF2", cursor:"pointer", textAlign:"left",
+                background: dm ? "#1C1F26" : "#fff", boxShadow:"0 1px 3px rgba(0,0,0,0.04)", transition:"all 0.15s" }
       },
         React.createElement("div", {
           style:{ width:36, height:36, borderRadius:10, background:"#F5F0FC",
@@ -3786,7 +3842,7 @@ function MenuScreen({ onNavigate, onBack }) {
           }, item.ms)
         ),
         React.createElement("div", { style:{ flex:1 } },
-          React.createElement("p", { style:{ fontSize:13, fontWeight:600, color:"#2E3751", margin:0 } }, item.label),
+          React.createElement("p", { style:{ fontSize:13, fontWeight:600, color: dm ? "#E5E7EB" : "#2E3751", margin:0 } }, item.label),
           React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, item.sub)
         ),
         React.createElement("span", {
@@ -3798,24 +3854,14 @@ function MenuScreen({ onNavigate, onBack }) {
 
     // Logout
     React.createElement("div", { style:{ height:16 } }),
-    React.createElement("button", {
-      onClick: function(){ alert("Logged out"); },
-      style:{ width:"100%", display:"flex", alignItems:"center", justifyContent:"center", gap:8,
-              padding:"12px", borderRadius:12, border:"1.5px solid #DDCEF2", cursor:"pointer",
-              background:"#fff", color:"#F04438", fontWeight:600, fontSize:13 }
-    },
-      React.createElement("span", {
-        className:"ms",
-        style:{ fontSize:18, color:"#F04438", fontVariationSettings:"'FILL' 0" }
-      }, "logout"),
-      React.createElement("span", null, "Logout")
-    )
+    React.createElement(LogoutButton, null)
   ));
 }
 
 // ─── ELIGIBILITY SCREEN ──────────────────────────────────────────────────────
 
-function EligibilityScreen({ onBack }) {
+function EligibilityScreen({ onBack, darkMode }) {
+  var dm = darkMode;
   var quadrants = [
     { name:"Persona",    weight:50, color:"#6832BA", bg:"#F5F0FC", border:"#DDCEF2",
       req:"Completion of all SHL competency assessments and Professional Readiness components" },
@@ -3838,17 +3884,20 @@ function EligibilityScreen({ onBack }) {
   ];
 
   return React.createElement("div", {
-    style:{ flex:1, display:"flex", flexDirection:"column", background:"#F5F6F7", overflow:"hidden" }
+    style:{ flex:1, display:"flex", flexDirection:"column", background: dm ? "#111318" : "#F5F6F7", overflow:"hidden", transition:"background 0.3s" }
   },
 
   // Header
   React.createElement("div", {
-    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px", flexShrink:0 }
+    style:{ background: dm ? "#1C1F26" : "#fff", borderBottom: dm ? "1px solid #2A2D35" : "1px solid #EDEFF2", padding:"16px 20px 16px", flexShrink:0, transition:"background 0.3s" }
   },
-    React.createElement("h2", { style:{ fontSize:20, fontWeight:800, color:"#2E3751", margin:"0 0 2px", letterSpacing:"-0.3px" } },
-      "Eligibility"),
-    React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } },
-      "Grading rules & attendance requirements")
+    React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:12, marginBottom:8 } },
+      React.createElement(IconBack, { onPress: onBack }),
+      React.createElement("div", null,
+        React.createElement("h2", { style:{ fontSize:18, fontWeight:700, color: dm ? "#F0F2F5" : "#2E3751", margin:0, letterSpacing:"-0.3px" } }, "Eligibility"),
+        React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, "Grading rules & attendance requirements")
+      )
+    )
   ),
 
   // Content
@@ -3859,13 +3908,13 @@ function EligibilityScreen({ onBack }) {
     quadrants.map(function(q) {
       return React.createElement("div", {
         key:q.name,
-        style:{ background:"#fff", borderRadius:14, padding:"12px 14px", marginBottom:8,
-                border:"1px solid " + q.border, boxShadow:"0 1px 4px rgba(0,0,0,0.04)" }
+        style:{ background: dm ? "#1C1F26" : "#fff", borderRadius:14, padding:"12px 14px", marginBottom:8,
+                border:"1px solid " + (dm ? "#2A2D35" : q.border), boxShadow:"0 1px 4px rgba(0,0,0,0.04)" }
       },
         React.createElement("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:6 } },
           React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:8 } },
             React.createElement("div", { style:{ width:8, height:8, borderRadius:"50%", background:q.color } }),
-            React.createElement("span", { style:{ fontSize:13, fontWeight:700, color:"#2E3751" } }, q.name)
+            React.createElement("span", { style:{ fontSize:13, fontWeight:700, color: dm ? "#F0F2F5" : "#2E3751" } }, q.name)
           ),
           React.createElement("div", { style:{ display:"flex", gap:6 } },
             React.createElement("span", { style:{ fontSize:10, fontWeight:700, color:q.color, background:q.bg, borderRadius:20, padding:"2px 8px" } },
@@ -3909,17 +3958,22 @@ function EligibilityScreen({ onBack }) {
     // Attendance Policy
     React.createElement("p", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase", letterSpacing:"0.8px", margin:"16px 0 10px" } }, "Attendance Policy"),
     [
-      { icon:"📌", title:"Minimum Requirement", text:"80% attendance is mandatory for each quadrant to remain eligible." },
-      { icon:"⚠️", title:"Attendance Shortage", text:"Students below 80% in any quadrant will be marked Not Eligible for that quadrant." },
-      { icon:"🏃", title:"Wellness Attendance", text:"Wellness activity attendance is tracked separately with special weight." },
-      { icon:"🔄", title:"Make-up Sessions",    text:"Limited make-up sessions may be available for students with valid absence reasons." },
+      { ms:"push_pin",        title:"Minimum Requirement", text:"80% attendance is mandatory for each quadrant to remain eligible." },
+      { ms:"warning",         title:"Attendance Shortage", text:"Students below 80% in any quadrant will be marked Not Eligible for that quadrant." },
+      { ms:"directions_run",  title:"Wellness Attendance", text:"Wellness activity attendance is tracked separately with special weight." },
+      { ms:"event_repeat",    title:"Make-up Sessions",    text:"Limited make-up sessions may be available for students with valid absence reasons." },
     ].map(function(p) {
       return React.createElement("div", {
         key:p.title,
         style:{ background:"#fff", borderRadius:14, padding:"12px 14px", marginBottom:8,
                 border:"1px solid #EDEFF2", display:"flex", gap:10, alignItems:"flex-start" }
       },
-        React.createElement("span", { style:{ fontSize:18, flexShrink:0 } }, p.icon),
+        React.createElement("div", {
+          style:{ width:32, height:32, borderRadius:8, background:"#F5F0FC",
+                  display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }
+        },
+          React.createElement("span", { className:"ms", style:{ fontSize:18, color:"#6832BA", fontVariationSettings:"'FILL' 0" } }, p.ms)
+        ),
         React.createElement("div", null,
           React.createElement("p", { style:{ fontSize:12, fontWeight:700, color:"#2E3751", margin:"0 0 2px" } }, p.title),
           React.createElement("p", { style:{ fontSize:11, color:"#667085", margin:0, lineHeight:1.5 } }, p.text)
@@ -3933,11 +3987,12 @@ function EligibilityScreen({ onBack }) {
 
 // ─── SETTINGS SCREEN ─────────────────────────────────────────────────────────
 
-function SettingsScreen({ onBack, studentName }) {
+function SettingsScreen({ onBack, studentName, darkModeValue, onDarkModeChange }) {
   var _n  = React.useState(studentName || "Aaditya");   var name = _n[0], setName = _n[1];
   var _sc = React.useState(true);  var scoreUpdates = _sc[0], setScoreUpdates = _sc[1];
   var _sn = React.useState(true);  var sysNotif = _sn[0], setSysNotif = _sn[1];
-  var _dm = React.useState(false); var darkMode = _dm[0], setDarkMode = _dm[1];
+  var darkMode = darkModeValue !== undefined ? darkModeValue : false;
+  var setDarkMode = onDarkModeChange || function(){};
   var _saved = React.useState(false); var saved = _saved[0], setSaved = _saved[1];
 
   function Toggle(props) {
@@ -3995,14 +4050,15 @@ function SettingsScreen({ onBack, studentName }) {
 
   // Header
   React.createElement("div", {
-    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px", flexShrink:0,
-            display:"flex", alignItems:"center", justifyContent:"space-between" }
+    style:{ background:"#fff", borderBottom:"1px solid #EDEFF2", padding:"16px 20px 16px", flexShrink:0 }
   },
-    React.createElement("div", null,
-      React.createElement("h2", { style:{ fontSize:20, fontWeight:800, color:"#2E3751", margin:"0 0 2px", letterSpacing:"-0.3px" } }, "Settings"),
-      React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, "Manage your account & preferences")
-    ),
-    React.createElement("span", { className:"ms", style:{ fontSize:22, color:"#8B96AA", fontVariationSettings:"'FILL' 0" } }, "notifications")
+    React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:12 } },
+      React.createElement(IconBack, { onPress: onBack }),
+      React.createElement("div", null,
+        React.createElement("h2", { style:{ fontSize:18, fontWeight:700, color:"#2E3751", margin:0, letterSpacing:"-0.3px" } }, "Settings"),
+        React.createElement("p", { style:{ fontSize:11, color:"#8B96AA", margin:0 } }, "Manage your account & preferences")
+      )
+    )
   ),
 
   // Scrollable Content
@@ -4053,7 +4109,7 @@ function SettingsScreen({ onBack, studentName }) {
     // App Preferences
     React.createElement(Section, { title:"App Preferences" },
       React.createElement(Row, { label:"Dark Mode", last:true },
-        React.createElement(Toggle, { value:darkMode, onChange:function(){ setDarkMode(!darkMode); } })
+        React.createElement(Toggle, { value:darkMode, onChange:function(){ setDarkMode(); } })
       )
     ),
 
@@ -4127,7 +4183,16 @@ function PEPApp() {
   const [completed, setCompleted] = useState([]);
   const [feedbackGiven, setFeedbackGiven] = useState([]);
   const [pepPoints, setPepPoints] = useState(850);
+  const [darkMode, setDarkMode] = useState(false);
   const studentName = window.__pepStudentName && window.__pepStudentName !== "there" ? window.__pepStudentName : "Aaditya";
+  // Dark mode CSS variables injected into shell
+  const dm = darkMode;
+  const dmBg       = dm ? "#111318" : "#F5F6F7";
+  const dmSurface  = dm ? "#1C1F26" : "#ffffff";
+  const dmBorder   = dm ? "#2A2D35" : "#EDEFF2";
+  const dmText1    = dm ? "#F0F2F5" : "#2E3751";
+  const dmText2    = dm ? "#9CA3AF" : "#8B96AA";
+  const dmNavBg    = dm ? "#161920" : "#ffffff";
   function handleNavigate(tab) {
     setActiveTab(tab);
     setScreen(tab);
@@ -4145,11 +4210,12 @@ function PEPApp() {
   return /*#__PURE__*/React.createElement("div", {
     style: {
       minHeight: "100vh",
-      background: "#E5E7EB",
+      background: dm ? "#0D0F12" : "#E5E7EB",
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "center",
-      fontFamily: "'Plus Jakarta Sans', sans-serif"
+      fontFamily: "'Plus Jakarta Sans', sans-serif",
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("style", null, `
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -4160,22 +4226,27 @@ function PEPApp() {
       `), /*#__PURE__*/React.createElement("div", {
     style: {
       width: "100%",
-      maxWidth: 480,
-      minHeight: "100vh",
-      background: "#fff",
+      maxWidth: 430,
+      height: "100vh",
+      maxHeight: 926,
+      background: dm ? "#1C1F26" : "#fff",
       display: "flex",
       flexDirection: "column",
-      boxShadow: "0 0 40px rgba(0,0,0,0.1)"
+      boxShadow: "0 0 60px rgba(0,0,0,0.2)",
+      overflow: "hidden",
+      position: "relative",
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff",
+      background: dm ? "#1C1F26" : "#fff",
       display: "flex",
       justifyContent: "space-between",
       padding: "14px 24px 0",
       fontSize: 12,
-      color: "#8B96AA",
-      flexShrink: 0
+      color: dm ? "#6B7280" : "#8B96AA",
+      flexShrink: 0,
+      transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("span", null, "9:41"), /*#__PURE__*/React.createElement("span", null, "\u25CF\u25CF\u25CF\u25CF")), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4189,31 +4260,40 @@ function PEPApp() {
     onViewScore: () => setScreen("pillarScores"),
     onStartMission: id => setActiveMissionId(id),
     completedMissions: completed,
-    pepPoints: pepPoints
+    pepPoints: pepPoints,
+    darkMode: dm
   }), screen === "pillarScores" && /*#__PURE__*/React.createElement(PillarScoresScreen, {
     onBack: () => setScreen("home"),
+    darkMode: dm,
     onOpenCompetency: (c, p) => {
       setActiveCompetency(c);
       setActivePillar(p);
     }
   }), screen === "interventions" && /*#__PURE__*/React.createElement(InterventionsScreen, {
     onBack: () => handleNavigate("home"),
+    darkMode: dm,
     feedbackGiven: feedbackGiven,
     onFeedbackGiven: handleFeedbackGiven
   }), screen === "leaderboard" && /*#__PURE__*/React.createElement(LeaderboardScreen, {
-    onBack: () => handleNavigate("home")
+    onBack: () => handleNavigate("home"),
+    darkMode: dm
   }), screen === "menu" && /*#__PURE__*/React.createElement(MenuScreen, {
     onNavigate: handleNavigate,
-    onBack: () => handleNavigate("home")
+    onBack: () => handleNavigate("home"),
+    darkMode: dm
   }), screen === "eligibility" && /*#__PURE__*/React.createElement(EligibilityScreen, {
-    onBack: () => handleNavigate("menu")
+    onBack: () => handleNavigate("menu"),
+    darkMode: dm
   }), screen === "settings" && /*#__PURE__*/React.createElement(SettingsScreen, {
     onBack: () => handleNavigate("menu"),
-    studentName: studentName
-  })), /*#__PURE__*/React.createElement(BottomNav, {
+    studentName: studentName,
+    darkModeValue: darkMode,
+    onDarkModeChange: function(){ setDarkMode(function(p){ return !p; }); }
+  }), /*#__PURE__*/React.createElement(BottomNav, {
     active: activeTab,
-    onNavigate: handleNavigate
-  })), activeMission && /*#__PURE__*/React.createElement(MissionSheet, {
+    onNavigate: handleNavigate,
+    darkMode: dm
+  }), activeMission && /*#__PURE__*/React.createElement(MissionSheet, {
     mission: activeMission,
     onClose: () => setActiveMissionId(null),
     onComplete: handleComplete,
@@ -4225,7 +4305,7 @@ function PEPApp() {
       setActiveCompetency(null);
       setActivePillar(null);
     }
-  }));
+  }))))
 }
 window.__mountDashboard = function () {
   ReactDOM.createRoot(document.getElementById('dashboard-root')).render(React.createElement(PEPApp, null));
